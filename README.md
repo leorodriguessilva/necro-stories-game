@@ -1,4 +1,4 @@
-# necro-stories-game
+# Necro Stories Game
 This is the source code of the game Necro Stories
 
 # Dependencies
@@ -7,4 +7,4 @@ This is the source code of the game Necro Stories
  - Phaser 3
 
 # Running
- - To run simple use the command "node server.js" on the root folder of this project (aka: this folder)
+ - To run simple use the command "npm install" and them "node server.js" on the root folder of this project (aka: this folder)

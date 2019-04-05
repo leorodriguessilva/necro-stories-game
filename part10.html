@@ -1,0 +1,199 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Making your first Phaser 3 Game - Part 10</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+
+var player;
+var platforms;
+var cursors;
+var gameOver = false;
+var skeletons = [];
+var nextExecution = new Date();
+var lastMovement = 'left';
+var currentSkeletonIndex = 0;
+
+const summonCooldown = 5;
+const maxQtdSkeletons = 12;
+
+var game = new Phaser.Game(config);
+
+function preload ()
+{
+    this.load.image('sky', 'assets/sky.png');
+    this.load.image('ground', 'assets/platform.png');
+    this.load.spritesheet('necromancer', 'assets/necromancer.png', { frameWidth: 46, frameHeight: 45 });
+    this.load.spritesheet('skeleton', 'assets/skeleton.png', { frameWidth: 42, frameHeight: 45 });
+}
+
+function create ()
+{
+    //  A simple background for our game
+    this.add.image(400, 300, 'sky');
+
+    //  The platforms group contains the ground and the 2 ledges we can jump on
+    platforms = this.physics.add.staticGroup();
+
+    //  Here we create the ground.
+    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+
+    //  Now let's create some ledges
+    platforms.create(600, 400, 'ground');
+    platforms.create(50, 250, 'ground');
+    platforms.create(750, 220, 'ground');
+
+    // The player and its settings
+    player = this.physics.add.sprite(100, 450, 'necromancer');
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.setBounce(0.2);
+    player.setCollideWorldBounds(true);
+
+    //  Our player animations, turning, walking left and walking right.
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('necromancer', { start: 6, end: 11 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('necromancer', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    //  Our player animations, turning, walking left and walking right.
+    this.anims.create({
+        key: 'left-skeleton',
+        frames: this.anims.generateFrameNumbers('skeleton', { start: 4, end: 7 }),
+        frameRate: 5,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'right-skeleton',
+        frames: this.anims.generateFrameNumbers('skeleton', { start: 0, end: 3 }),
+        frameRate: 5,
+        repeat: -1
+    });
+
+    //  Input Events
+    cursors = this.input.keyboard.createCursorKeys();
+
+    skeletons = this.physics.add.group();
+
+    this.physics.add.collider(player, platforms);
+    this.physics.add.collider(skeletons, platforms);
+}
+
+function summon(location) {
+
+    if (skeletons.getLength() >= maxQtdSkeletons) {
+
+        if (currentSkeletonIndex >= skeletons.getLength()) {
+            currentSkeletonIndex = 0;
+        }
+
+        var skeletonsArr = skeletons.getChildren();
+        var oldSkeleton = skeletonsArr[currentSkeletonIndex];
+        oldSkeleton.setX(location.x);
+        oldSkeleton.setY(location.y);
+        currentSkeletonIndex++;
+        return;
+    }
+
+    // The player and its settings
+    var skeleton = skeletons.create(location.x, location.y, 'skeleton');
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    skeleton.setBounce(0.2);
+    skeleton.setCollideWorldBounds(true);
+
+    var maxVelocityX = 50;
+    var minVelocityX = 10;
+
+    var velocityFactor = 1;
+    if (lastMovement === 'left') {
+        velocityFactor = -1;
+    }
+
+    skeleton.setVelocityX(Phaser.Math.FloatBetween(minVelocityX * velocityFactor, maxVelocityX * velocityFactor));
+    skeleton.anims.play(lastMovement + '-skeleton', true);
+}
+
+function update ()
+{
+
+    if (gameOver)
+    {
+        return;
+    }
+
+    if (cursors.left.isDown)
+    {
+        player.setVelocityX(-160);
+        lastMovement = 'left';
+        player.anims.play(lastMovement, true);
+    }
+    else if (cursors.right.isDown)
+    {
+        player.setVelocityX(160);
+        lastMovement = 'right';
+        player.anims.play(lastMovement, true);
+    }
+    else
+    {
+        player.setVelocityX(0);
+
+        player.anims.play(lastMovement);
+    }
+
+    var now = new Date();
+
+    if (cursors.up.isDown && nextExecution < now)
+    {
+        nextExecution = now;
+        nextExecution.setSeconds(now.getSeconds() + summonCooldown);
+        var location = {
+            x: player.x,
+            y: player.y
+        };
+        summon(location);
+    }
+}
+
+</script>
+
+</body>
+</html>

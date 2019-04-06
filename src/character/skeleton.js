@@ -1,4 +1,4 @@
-class Skeleton extends Character {
+export default class Skeleton extends Character {
 
     static #SKELETON_SPRITE_NAME = 'skeleton';
 

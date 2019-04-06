@@ -28,6 +28,11 @@ export default class Character {
         inputHandler.handle();
     }
 
+    changeInputHandler (input, inputHandler) {
+        delete inputHandlers[input];
+        inputHandlers[input] = inputHandler;
+    }
+
     handleCollision (collider) {
         let collisionHandler = this.collisionHandlers[collider];
         collisionHandler.handle();

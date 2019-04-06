@@ -1,3 +1,5 @@
+import Character from './character.js';
+
 export default class Skeleton extends Character {
 
     static #SKELETON_SPRITE_NAME = 'skeleton';
@@ -16,14 +18,14 @@ export default class Skeleton extends Character {
 
     #configureAnimation (anims) {
         anims.create({
-            key: 'left',
+            key: this.getName + '-left',
             frames: anims.generateFrameNumbers(this.getName, { start: 4, end: 7 }),
             frameRate: 5,
             repeat: -1
         });
     
         anims.create({
-            key: 'right',
+            key: this.getName + '-right',
             frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 3 }),
             frameRate: 5,
             repeat: -1
@@ -31,6 +33,6 @@ export default class Skeleton extends Character {
     }
 
     get getName() {
-        return #SKELETON_SPRITE_NAME
+        return #SKELETON_SPRITE_NAME;
     }
 }

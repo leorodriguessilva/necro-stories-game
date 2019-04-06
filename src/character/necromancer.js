@@ -1,3 +1,5 @@
+import Character from './character.js';
+
 export default class Necromancer extends Character {
     
     static #NECROMANCER_SPRITE_NAME = 'necromancer';
@@ -16,14 +18,14 @@ export default class Necromancer extends Character {
 
     #configureAnimation (anims) {
         anims.create({
-            key: 'left',
+            key: this.getName + '-left',
             frames: anims.generateFrameNumbers(this.getName, { start: 6, end: 11 }),
             frameRate: 10,
             repeat: -1
         });
     
         anims.create({
-            key: 'right',
+            key: this.getName + '-right',
             frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 5 }),
             frameRate: 10,
             repeat: -1

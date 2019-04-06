@@ -1,10 +1,10 @@
-export default class Necromancer extends Character {
-    
-    static #NECROMANCER_SPRITE_NAME = 'necromancer';
+class Skeleton extends Character {
+
+    static #SKELETON_SPRITE_NAME = 'skeleton';
 
     preload (loader) {
         super.preload(loader);
-        loader.spritesheet(this.getName, 'assets/necromancer.png', { frameWidth: 46, frameHeight: 45 });
+        loader.spritesheet(this.getName, 'assets/skeleton.png', { frameWidth: 42, frameHeight: 45 });
     }
 
     create (physics, anims, colliders) {
@@ -17,20 +17,20 @@ export default class Necromancer extends Character {
     #configureAnimation (anims) {
         anims.create({
             key: 'left',
-            frames: anims.generateFrameNumbers(this.getName, { start: 6, end: 11 }),
-            frameRate: 10,
+            frames: anims.generateFrameNumbers(this.getName, { start: 4, end: 7 }),
+            frameRate: 5,
             repeat: -1
         });
     
         anims.create({
             key: 'right',
-            frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 5 }),
-            frameRate: 10,
+            frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 3 }),
+            frameRate: 5,
             repeat: -1
         });
     }
 
     get getName() {
-        return #NECROMANCER_SPRITE_NAME
+        return #SKELETON_SPRITE_NAME
     }
 }

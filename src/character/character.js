@@ -1,10 +1,11 @@
-class Character {
+export default class Character {
 
     static #GENERIC_NAME = 'generic'; 
 
-    constructor(locationX, locationY, inputHandlers, collisionHandlers) {
+    constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
         this.locationX = locationX;
         this.locationY = locationY;
+        this.stats = statsReader.generateStats(this.getName);
         this.inputHandlers = inputHandlers;
         this.collisionHandlers = collisionHandlers;
     }
@@ -16,6 +17,10 @@ class Character {
     create (physics, anims, colliders) {
         console.log('Creating ' + this.getName + ' in the game context');
         this.sprite = physics.add.sprite(locationX, locationY, getName);
+
+        for (collider in colliders) {
+            physics.add.collider(this.sprite, collider);
+        }
     }
     
     handleInput (input) {

@@ -1,5 +1,5 @@
-import getJSONStats from '../config/stats-config-json';
-import Stats from './Stats';
+import getJSONStats from '../config/stats-config-json.js';
+import Stats from './stats.js';
 
 export default class StatsReader {
 

@@ -1,4 +1,5 @@
-import getStats from '../config/StatsConfig';
+import getJSONStats from '../config/stats-config-json';
+import Stats from './Stats';
 
 export default class StatsReader {
 
@@ -16,7 +17,8 @@ export default class StatsReader {
             }
             return this.stats
         } else if (this.mode === StatsReaderMode.DEBUG_MODE) {
-            this.stats = JSON.parse(getStats());
+            let jsonStats = getJSONStats();
+            this.stats = new Stats(jsonStats[characterName]);
             return this.stats;
         }
 

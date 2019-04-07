@@ -1,8 +1,4 @@
-import ColliderWrapper from '../collider/collider-wrapper.js';
-
-export default class Character {
-
-    static #GENERIC_NAME = 'generic'; 
+class Character {
 
     constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
         this.locationX = locationX;
@@ -18,7 +14,7 @@ export default class Character {
 
     create (physics, anims, colliderWrappers) {
         console.log('Creating ' + this.getName + ' in the game context');
-        this.sprite = physics.add.sprite(locationX, locationY, getName);
+        this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
 
         for (colliderWrapper in colliderWrappers) {
             physics.add.collider(
@@ -53,6 +49,6 @@ export default class Character {
     }
 
     get getName() {
-        return #GENERIC_NAME;
+        return 'generic';
     }
 }

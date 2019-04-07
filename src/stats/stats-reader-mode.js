@@ -1,4 +1,4 @@
-export default class StatsReaderMode {
+class StatsReaderMode {
     
     static LIVE_MODE = 'live-mode';
 

@@ -1,4 +1,4 @@
-export default class Stats {
+class Stats {
     
     constructor (statsDTO) {
         this.healthFactor = statsDTO.healthFactor;

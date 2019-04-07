@@ -1,4 +1,4 @@
-export default function getJSONStats () {
+function getJSONStats () {
     return {
         'necromancer': {
             healthFactor: 7,

@@ -1,8 +1,4 @@
-import Character from './character.js';
-
-export default class Skeleton extends Character {
-
-    static #SKELETON_SPRITE_NAME = 'skeleton';
+class Skeleton extends Character {
 
     preload (loader) {
         super.preload(loader);
@@ -13,10 +9,10 @@ export default class Skeleton extends Character {
         super.create(physics, anims, colliders);
         this.sprite.setCollideWorldBounds(true);
 
-        #configureAnimation(anims);
+        this.configureAnimation(anims);
     } 
 
-    #configureAnimation (anims) {
+    configureAnimation (anims) {
         anims.create({
             key: this.getName + '-left',
             frames: anims.generateFrameNumbers(this.getName, { start: 4, end: 7 }),
@@ -33,6 +29,6 @@ export default class Skeleton extends Character {
     }
 
     get getName() {
-        return #SKELETON_SPRITE_NAME;
+        return 'skeleton';
     }
 }

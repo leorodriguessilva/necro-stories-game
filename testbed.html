@@ -2,8 +2,10 @@
 <html lang="en"> 
 <head> 
     <meta charset="UTF-8" />
-    <title>Making your first Phaser 3 Game - Part 10</title>
+    <title>Necro Stories</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <script src="./src/importer.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -11,54 +13,6 @@
     </style>
 </head>
 <body>
-
-<script type="text/javascript">
-
-import Necromancer from './src/character/necromancer.js';
-import StatsReader from './src/stats/stats-reader.js';
-import WalkLeftInputHandler from './src/character/input/walk-left-input-handler.js';
-import WalkRightInputHandler from './src/character/input/walk-right-input-handler.js';
-
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 300 },
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-var game = new Phaser.Game(config);
-
-let statsReader = new StatsReader(StatsReaderMode.DEBUG_MODE);
-
-let necromancer = new Necromancer(100, 400, statsReader, [], []);
-
-function preload ()
-{
-    necromancer.preload(this.load);
-}
-
-function create ()
-{
-    necromancer.create(this.physics, this.anims, []);
-}
-
-function update ()
-{
-
-}
-
-</script>
 
 </body>
 </html>

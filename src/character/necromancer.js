@@ -1,8 +1,4 @@
-import Character from './character.js';
-
-export default class Necromancer extends Character {
-    
-    static #NECROMANCER_SPRITE_NAME = 'necromancer';
+class Necromancer extends Character {
 
     preload (loader) {
         super.preload(loader);
@@ -13,10 +9,10 @@ export default class Necromancer extends Character {
         super.create(physics, anims, colliders);
         this.sprite.setCollideWorldBounds(true);
 
-        #configureAnimation(anims);
+        this.configureAnimation(anims);
     } 
 
-    #configureAnimation (anims) {
+    configureAnimation (anims) {
         anims.create({
             key: this.getName + '-left',
             frames: anims.generateFrameNumbers(this.getName, { start: 6, end: 11 }),
@@ -33,6 +29,6 @@ export default class Necromancer extends Character {
     }
 
     get getName() {
-        return #NECROMANCER_SPRITE_NAME
+        return 'necromancer';
     }
 }

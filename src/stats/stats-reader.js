@@ -1,7 +1,4 @@
-import getJSONStats from '../config/stats-config-json.js';
-import Stats from './stats.js';
-
-export default class StatsReader {
+class StatsReader {
 
     static stats;
 

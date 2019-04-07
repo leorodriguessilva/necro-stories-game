@@ -1,4 +1,4 @@
-export default class ColliderWrapper {
+class ColliderWrapper {
 
     constructor (colliderType, collider) {
         this.colliderType = colliderType;

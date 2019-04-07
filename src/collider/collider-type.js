@@ -1,4 +1,4 @@
-export default class ColliderType {
+class ColliderType {
     
     /**
      * A basic type collider, meaning walls, ground and bodies.

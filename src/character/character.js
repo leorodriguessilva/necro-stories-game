@@ -36,7 +36,9 @@ export default class Character {
     }
 
     changeInputHandler (input, inputHandler) {
-        delete inputHandlers[input];
+        if (inputHandlers[input]) {
+            delete inputHandlers[input];
+        }
         inputHandlers[input] = inputHandler;
     }
 

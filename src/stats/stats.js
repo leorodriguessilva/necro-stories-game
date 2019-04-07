@@ -1,27 +1,36 @@
 export default class Stats {
     
     constructor (statsDTO) {
-        this.health = statsDTO.health;
-        this.mana = statsDTO.mana;
+        this.healthFactor = statsDTO.healthFactor;
+        this.manaFactor = statsDTO.manaFactor;
+        this.moveSpeedFactor = statsDTO.moveSpeedFactor;
         this.strength = statsDTO.strength;
         this.inteligence = statsDTO.inteligence;
         this.agility = statsDTO.agility;
     }
 
     get getHealth () {
-        return this.health;
+        return this.healthFactor * this.strength;
     }
 
-    set setHealth (health) {
-        this.health = health;
+    set setHealthFactor (healthFactor) {
+        this.healthFactor = healthFactor;
     }
     
     get getMana () {
-        return this.mana;
+        return this.manaFactor * this.inteligence;
     }
 
-    set setMana (mana) {
-        this.mana = mana;
+    set setManaFactor (manaFactor) {
+        this.manaFactor = manaFactor;
+    }
+
+    get getMoveSpeed () {
+        return this.moveSpeedFactor * this.agility;
+    }
+
+    set setMoveSpeedFactor (moveSpeedFactor) {
+        this.moveSpeedFactor = moveSpeedFactor;
     }
     
     get getStrength () {

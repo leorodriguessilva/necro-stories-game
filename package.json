@@ -1,0 +1,26 @@
+{
+  "name": "necro-stories-game",
+  "version": "1.0.0",
+  "description": "This is the source code of the game Necro Stories",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "reload": "^2.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leorodriguessilva/necro-stories-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leorodriguessilva/necro-stories-game/issues"
+  },
+  "homepage": "https://github.com/leorodriguessilva/necro-stories-game#readme"
+}

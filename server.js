@@ -1,10 +1,29 @@
-//Example usage in the command prompt
-//node Server.js
-// Parameters
-const port = 880; //Specify a port for our web server
-const express = require('express'); //load express with the use of requireJs
-const app = express(); //Create an instance of the express library
-app.use(express.static(__dirname + '/'));//Serving static files
-app.listen(port, function() { //Listener for specified port
-    console.log("Server running at: http://localhost:" + port)
-});
+var express = require('express')
+var http = require('http')
+var path = require('path')
+var reload = require('reload')
+var bodyParser = require('body-parser')
+var logger = require('morgan')
+ 
+var app = express()
+ 
+var publicDir = path.join(__dirname, 'public')
+ 
+app.set('port', process.env.PORT || 3000)
+app.use(logger('dev'))
+app.use(bodyParser.json())
+ 
+app.use(express.static(__dirname + '/'))
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(publicDir, 'index.html'))
+})
+ 
+var server = http.createServer(app)
+ 
+// Reload code here
+reload(app);
+ 
+server.listen(app.get('port'), function () {
+  console.log('Web server listening on port ' + app.get('port'))
+})

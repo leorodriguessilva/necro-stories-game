@@ -19,7 +19,22 @@ var dependencyScripts = [
     './src/testbed-game.js',
 ]
 
+let existScript = function(src) {
+    var scripts = document.getElementsByTagName("script")
+    src = src.replace('.', '');
+    for (var i = 0; i < scripts.length; i++) {
+        if (scripts[i].src.indexOf(src) !== -1) {
+            return true;
+        }
+    }
+    return false;
+}
+
 dependencyScripts.forEach(function(src) {
+    if(existScript(src)){
+        return;
+    }
+
     var script = document.createElement('script');
     script.src = src;
     script.async = false;

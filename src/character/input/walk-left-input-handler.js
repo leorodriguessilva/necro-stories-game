@@ -1,15 +1,17 @@
-import InputHandler from './input-handler.js';
-
-export default class WalkLeftInputHandler extends InputHandler {
+class WalkLeftInputHandler extends MovementInputHandler {
     
-    constructor (sprite, animAlias, moveSpeed) {
-        this.sprite = sprite;
-        this.animAlias = animAlias;
-        this.moveSpeed = moveSpeed;
+    constructor (key, character, animAlias) {
+        super(key, character, animAlias);
     }
 
     handle () {
-        this.sprite.setVelocityX(this.moveSpeed * -1);
-        this.sprite.anims.play(animAlias, true);
+        var sprite = this.character.getSprite;
+        var stats = this.character.getStats;
+        sprite.setVelocityX(stats.getMoveSpeed * -1);
+        sprite.anims.play(this.animAlias, true);
+    }
+
+    get getAnimAlias () {
+        return this.animAlias;
     }
 }

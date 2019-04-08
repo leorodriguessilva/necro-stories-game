@@ -1,9 +1,7 @@
-import InputHandler from './input-handler.js';
-
-export default class CastSkillInputHandler extends InputHandler {
+class CastSkillInputHandler extends InputHandler {
     
-    constructor (sprite, animAlias, skill) {
-        this.sprite = sprite;
+    constructor (key, character, animAlias, skill) {
+        super(key, character);
         this.animAlias = animAlias;
         this.skill = skill;
     }

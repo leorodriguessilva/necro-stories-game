@@ -25,17 +25,39 @@ class Character {
                 this);
         }
     }
-    
-    handleInput (input) {
-        let inputHandler = this.inputHandlers[input];
-        inputHandler.handle();
+
+    update () {
+        this.isNoInputHandled = true;
+
+        this.inputHandlers.forEach(inputHandler => {
+            var key = inputHandler.getKey;
+            this.handleInput(key, inputHandler);
+        });
+
+        if (this.isNoInputHandled)
+        {
+            this.beIdle();
+        }
     }
 
-    changeInputHandler (input, inputHandler) {
-        if (inputHandlers[input]) {
-            delete inputHandlers[input];
+    handleInput(key, inputHandler) {
+        if (key.isDown) {
+            this.isNoInputHandled = false;
+            if (inputHandler instanceof MovementInputHandler) {
+                this.lastInputHandled = inputHandler;
+            }
+            inputHandler.handle();
         }
-        inputHandlers[input] = inputHandler;
+    }
+
+    beIdle () { }
+
+    addInputHandler (inputHandler) {
+        var key = inputHandler.getKey; 
+        if (this.inputHandlers[key.keyCode]) {
+            delete this.inputHandlers[key.keyCode];
+        }
+        this.inputHandlers[key.keyCode] = inputHandler;
     }
 
     handleCollision (colliderWrapper) {
@@ -48,7 +70,19 @@ class Character {
         this.sprite.destroy();
     }
 
-    get getName() {
+    get getName () {
         return 'generic';
+    }
+
+    get getSprite () {
+        return this.sprite;
+    }
+
+    get getStats () {
+        return this.stats;
+    } 
+
+    get getLastInputHandled () {
+        return this.lastInputHandled;
     }
 }

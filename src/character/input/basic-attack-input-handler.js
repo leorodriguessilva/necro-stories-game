@@ -1,13 +1,12 @@
-import InputHandler from './input-handler.js';
-
-export default class BasicAttackInputHandler extends InputHandler {
+class BasicAttackInputHandler extends InputHandler {
     
-    constructor (sprite, animAlias) {
-        this.sprite = sprite;
+    constructor (key, character, animAlias) {
+        super(key, character);
         this.animAlias = animAlias;
     }
 
     handle () {
-        this.sprite.anims.play(animAlias, true);
+        var sprite = this.character.getSprite();
+        sprite.anims.play(animAlias, true);
     }
 }

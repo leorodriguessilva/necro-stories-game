@@ -1,0 +1,3 @@
+class SupportColisionHandler extends ColisionHandler {
+
+}

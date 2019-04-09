@@ -5,6 +5,10 @@ class MovementInputHandler extends InputHandler {
         this.animAlias = animAlias;
     }
 
+    handle () {
+        this.character.setLastMovementAnimAlias = this.getAnimAlias;
+    }
+
     get getAnimAlias () {
         return '';
     }

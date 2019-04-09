@@ -27,30 +27,23 @@ class Character {
     }
 
     update () {
-        this.isNoInputHandled = true;
-
         this.inputHandlers.forEach(inputHandler => {
             var key = inputHandler.getKey;
-            this.handleInput(key, inputHandler);
-        });
-
-        if (this.isNoInputHandled)
-        {
-            this.beIdle();
-        }
-    }
-
-    handleInput(key, inputHandler) {
-        if (key.isDown) {
-            this.isNoInputHandled = false;
-            if (inputHandler instanceof MovementInputHandler) {
-                this.lastInputHandled = inputHandler;
+            if (this.handleInput(key, inputHandler)) {
+                return;
             }
-            inputHandler.handle();
-        }
+        });
     }
 
-    beIdle () { }
+    handleInput (key, inputHandler) {
+        if (key.isDown) {
+            inputHandler.handle();
+            return true;
+        }
+        this.sprite.setVelocityX(0);
+        this.sprite.anims.play(this.lastMovementAnimAlias);
+        return false;
+    }
 
     addInputHandler (inputHandler) {
         var key = inputHandler.getKey; 
@@ -82,7 +75,7 @@ class Character {
         return this.stats;
     } 
 
-    get getLastInputHandled () {
-        return this.lastInputHandled;
+    set setLastMovementAnimAlias (lastMovementAnimAlias) {
+        return this.lastMovementAnimAlias = lastMovementAnimAlias;
     }
 }

@@ -5,6 +5,7 @@ class WalkRightInputHandler extends MovementInputHandler {
     }
 
     handle () {
+        super.handle();
         var sprite = this.character.getSprite;
         var stats = this.character.getStats;
         sprite.setVelocityX(stats.getMoveSpeed);

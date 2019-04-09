@@ -1,5 +1,10 @@
 class Skeleton extends Character {
 
+    constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
+        super(locationX, locationY, statsReader, inputHandlers, collisionHandlers);
+        this.lastMovementAnimAlias = this.getName + '-right';
+    }
+    
     preload (loader) {
         super.preload(loader);
         loader.spritesheet(this.getName, 'assets/skeleton.png', { frameWidth: 42, frameHeight: 45 });

@@ -1,5 +1,10 @@
 class Necromancer extends Character {
 
+    constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
+        super(locationX, locationY, statsReader, inputHandlers, collisionHandlers);
+        this.lastMovementAnimAlias = this.getName + '-right';
+    }
+
     preload (loader) {
         super.preload(loader);
         loader.spritesheet(this.getName, 'assets/necromancer.png', { frameWidth: 46, frameHeight: 45 });
@@ -11,14 +16,6 @@ class Necromancer extends Character {
 
         this.configureAnimation(anims);
     } 
-
-    beIdle () {
-        if (this.getLastInputHandled instanceof MovementInputHandler) {
-            var lastMovementAnimation = this.getLastInputHandled.getAnimAlias; 
-            this.sprite.setVelocityX(0);
-            this.sprite.anims.play(lastMovementAnimation);
-        }
-    }
 
     configureAnimation (anims) {
         anims.create({

@@ -1,5 +1,11 @@
 class ColisionHandler {
 
-    handle () { }
+    constructor (character) {
+        this.character = character;
+    }
+
+    handle () { 
+        console.log('Handling colision');
+    }
 
 }

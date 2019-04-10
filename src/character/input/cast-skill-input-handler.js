@@ -1,12 +1,12 @@
 class CastSkillInputHandler extends InputHandler {
-    
-    constructor (key, character, animAlias, skill) {
+
+    constructor (key, character, skill) {
         super(key, character);
-        this.animAlias = animAlias;
         this.skill = skill;
     }
 
     handle () {
+        super.handle ();
         this.skill.cast();
     }
 }

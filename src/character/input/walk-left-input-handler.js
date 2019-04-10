@@ -1,18 +1,14 @@
 class WalkLeftInputHandler extends MovementInputHandler {
     
-    constructor (key, character, animAlias) {
-        super(key, character, animAlias);
+    constructor (key, character) {
+        super(key, character);
     }
 
-    handle () {
-        super.handle();
-        var sprite = this.character.getSprite;
-        var stats = this.character.getStats;
-        sprite.setVelocityX(stats.getMoveSpeed * -1);
-        sprite.anims.play(this.animAlias, true);
+    flipSprite (sprite) {
+        sprite.setFlipX(true);
     }
 
-    get getAnimAlias () {
-        return this.animAlias;
+    get getTurnMoveFactor () {
+        return -1;
     }
 }

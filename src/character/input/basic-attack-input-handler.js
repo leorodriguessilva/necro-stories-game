@@ -1,11 +1,11 @@
 class BasicAttackInputHandler extends InputHandler {
     
-    constructor (key, character, animAlias) {
+    constructor (key, character) {
         super(key, character);
-        this.animAlias = animAlias;
     }
 
     handle () {
+        super.handle ();
         var sprite = this.character.getSprite();
         sprite.anims.play(animAlias, true);
     }

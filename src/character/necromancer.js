@@ -2,7 +2,6 @@ class Necromancer extends Character {
 
     constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
         super(locationX, locationY, statsReader, inputHandlers, collisionHandlers);
-        this.lastMovementAnimAlias = this.getName + '-right';
     }
 
     preload (loader) {
@@ -19,16 +18,16 @@ class Necromancer extends Character {
 
     configureAnimation (anims) {
         anims.create({
-            key: this.getName + '-left',
-            frames: anims.generateFrameNumbers(this.getName, { start: 6, end: 11 }),
+            key: this.getName + '-walk',
+            frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 5 }),
             frameRate: 8,
             repeat: -1
         });
     
         anims.create({
-            key: this.getName + '-right',
+            key: this.getName + '-idle',
             frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 5 }),
-            frameRate: 8,
+            frameRate: 5,
             repeat: -1
         });
     }

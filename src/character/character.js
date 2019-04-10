@@ -27,30 +27,39 @@ class Character {
     }
 
     update () {
+        this.isIdle = true;
         this.inputHandlers.forEach(inputHandler => {
-            var key = inputHandler.getKey;
-            if (this.handleInput(key, inputHandler)) {
+            if (this.handleInput(inputHandler)) {
+                this.isIdle = false;
                 return;
             }
         });
+
+        if (this.isIdle)
+        {
+            this.beIdle();
+        }
     }
 
-    handleInput (key, inputHandler) {
-        if (key.isDown) {
+    beIdle () {
+        this.sprite.setVelocityX(0);
+        this.sprite.anims.play(this.getName + '-idle', true);
+    }
+
+    handleInput (inputHandler) {
+        if (inputHandler.isKeyDown) {
             inputHandler.handle();
             return true;
         }
-        this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.lastMovementAnimAlias);
         return false;
     }
 
     addInputHandler (inputHandler) {
-        var key = inputHandler.getKey; 
-        if (this.inputHandlers[key.keyCode]) {
-            delete this.inputHandlers[key.keyCode];
+        var keyCode = inputHandler.getKeyCode; 
+        if (this.inputHandlers[keyCode]) {
+            delete this.inputHandlers[keyCode];
         }
-        this.inputHandlers[key.keyCode] = inputHandler;
+        this.inputHandlers[keyCode] = inputHandler;
     }
 
     handleCollision (colliderWrapper) {
@@ -74,8 +83,4 @@ class Character {
     get getStats () {
         return this.stats;
     } 
-
-    set setLastMovementAnimAlias (lastMovementAnimAlias) {
-        return this.lastMovementAnimAlias = lastMovementAnimAlias;
-    }
 }

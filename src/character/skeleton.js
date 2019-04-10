@@ -2,7 +2,6 @@ class Skeleton extends Character {
 
     constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
         super(locationX, locationY, statsReader, inputHandlers, collisionHandlers);
-        this.lastMovementAnimAlias = this.getName + '-right';
     }
     
     preload (loader) {
@@ -19,16 +18,16 @@ class Skeleton extends Character {
 
     configureAnimation (anims) {
         anims.create({
-            key: this.getName + '-left',
-            frames: anims.generateFrameNumbers(this.getName, { start: 4, end: 7 }),
+            key: this.getName + '-walk',
+            frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 3 }),
             frameRate: 5,
             repeat: -1
         });
     
         anims.create({
-            key: this.getName + '-right',
-            frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 3 }),
-            frameRate: 5,
+            key: this.getName + '-idle',
+            frames: anims.generateFrameNumbers(this.getName, { start: 0, end: 1 }),
+            frameRate: 3,
             repeat: -1
         });
     }

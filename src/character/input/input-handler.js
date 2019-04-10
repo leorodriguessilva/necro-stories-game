@@ -9,7 +9,11 @@ class InputHandler {
         console.log('Some input has not been configured.');
     }
 
-    get getKey () {
-        return this.key;
+    get isKeyDown () {
+        return this.key.isDown;
+    }
+
+    get getKeyCode() {
+        return this.key.keyCode;
     }
 }

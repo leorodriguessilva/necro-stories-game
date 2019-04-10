@@ -25,7 +25,7 @@ class ColliderType {
      * @type {ColliderType.MAGICAL_HARM}
      * @since 0.0.0
      */
-    static MAGICAL_HARM = 1;
+    static MAGICAL_HARM = 2;
 
     /**
      * A collider used to inflict heal, good stats or both.
@@ -34,5 +34,5 @@ class ColliderType {
      * @type {ColliderType.SUPPORT}
      * @since 0.0.0
      */
-    static SUPPORT = 2;
+    static SUPPORT = 3;
 }

@@ -1,4 +1,5 @@
 var dependencyScripts = [
+    './src/common/exception/not-implementd-exception.js',
     './src/character/character.js',
     './src/character/necromancer.js',
     './src/character/skeleton.js',

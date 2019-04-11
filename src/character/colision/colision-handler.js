@@ -8,4 +8,8 @@ class ColisionHandler {
         console.log('Handling colision');
     }
 
+    addColliderToHandle (physics, colliderWrapper) {
+        throw new NotImplementedException();
+    } 
+
 }

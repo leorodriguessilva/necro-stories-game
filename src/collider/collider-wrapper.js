@@ -1,7 +1,6 @@
 class ColliderWrapper {
 
-    constructor (colliderType, collider) {
-        this.colliderType = colliderType;
+    constructor (collider) {
         this.collider = collider;
     }
 
@@ -11,5 +10,9 @@ class ColliderWrapper {
 
     update () {
         this.collider.update();
+    }
+
+    get getCollider () {
+        return this.collider;
     }
 }

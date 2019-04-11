@@ -12,12 +12,4 @@ class ColliderWrapper {
     update () {
         this.collider.update();
     }
-
-    get getColliderType () {
-        return this.colliderType;
-    }
-
-    set setName (name) {
-        this.collider.setName(name);
-    }
 }

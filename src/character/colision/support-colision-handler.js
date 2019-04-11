@@ -1,6 +1,5 @@
 class SupportColisionHandler extends ColisionHandler {
 
-    handle () {
-
-    }
+    handle () { }
+    
 }

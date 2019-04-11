@@ -17,6 +17,7 @@ class Character {
         this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
 
         for (colliderWrapper in colliderWrappers) {
+            if (colliderWrapper.getColliderType)
             physics.add.collider(
                 this.sprite, 
                 objCollider, 

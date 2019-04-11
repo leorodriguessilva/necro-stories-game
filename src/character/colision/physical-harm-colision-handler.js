@@ -1,6 +1,5 @@
-class PhysicalHarmColisionHandler extends ColisionHandler {
+class PhysicalHarmColisionHandler extends BasicColisionHandler {
     
-    handle () {
-        
-    }
+    handle () { }
+    
 }

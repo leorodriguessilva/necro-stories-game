@@ -9,7 +9,7 @@ class ColisionHandler {
         console.log('Handling colision');
     }
 
-    addColliderToHandle (physics, character) {
+    addColliderToHandle (character) {
         throw new NotImplementedException();
     } 
 

@@ -18,6 +18,8 @@ var config = {
 
 let game = new Phaser.Game(config);
 
+let platforms;
+
 let statsReader = new StatsReader(StatsReaderMode.DEBUG_MODE);
 
 let skeleton = new Skeleton(100, 400, statsReader, [], []);
@@ -28,13 +30,26 @@ function preload ()
 {
     skeleton.preload(this.load);
     necromancer.preload(this.load);
+    this.load.image('ground', 'assets/platform.png');
 }
 
 function create ()
 {
-    skeleton.create(this.physics, this.anims, []);
+    platforms = this.physics.add.staticGroup();
 
-    necromancer.create(this.physics, this.anims, []);
+    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+
+    platforms.create(600, 400, 'ground');
+    platforms.create(50, 250, 'ground');
+    platforms.create(750, 220, 'ground');
+
+    var platformsColliderWrapper = new ColliderWrapper(platforms); 
+
+    var basicColisionHandler = new BasicColisionHandler(this.physics, platformsColliderWrapper);
+
+    skeleton.create(this.physics, this.anims, [ basicColisionHandler ]);
+
+    necromancer.create(this.physics, this.anims, [ basicColisionHandler ]);
 
     var leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT, true, true);
     var rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT, true, true);

@@ -1,5 +1,5 @@
 var dependencyScripts = [
-    './src/common/exception/not-implementd-exception.js',
+    './src/common/exception/not-implemented-exception.js',
     './src/character/character.js',
     './src/character/necromancer.js',
     './src/character/skeleton.js',
@@ -17,7 +17,6 @@ var dependencyScripts = [
     './src/character/input/movement-input-handler.js',
     './src/character/input/walk-left-input-handler.js',
     './src/character/input/walk-right-input-handler.js',
-    './src/collider/collider-type.js',
     './src/collider/collider-wrapper.js',
     './src/config/stats-config-json.js',
     './src/stats/stats-reader-mode.js',

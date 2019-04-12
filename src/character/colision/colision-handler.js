@@ -1,14 +1,15 @@
 class ColisionHandler {
 
-    constructor (character) {
-        this.character = character;
+    constructor (physics, colliderWrapper) {
+        this.physics = physics;
+        this.colliderWrapper = colliderWrapper;
     }
 
     handle () { 
         console.log('Handling colision');
     }
 
-    addColliderToHandle (physics, colliderWrapper) {
+    addColliderToHandle (physics, character) {
         throw new NotImplementedException();
     } 
 

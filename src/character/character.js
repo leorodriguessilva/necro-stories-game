@@ -15,16 +15,10 @@ class Character {
     create (physics, anims, colliderWrappers) {
         console.log('Creating ' + this.getName + ' in the game context');
         this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
-
-        for (colliderWrapper in colliderWrappers) {
-            if (colliderWrapper.getColliderType)
-            physics.add.collider(
-                this.sprite, 
-                objCollider, 
-                this.handleCollision(colliderWrapper), 
-                null, 
-                this);
-        }
+        
+        colliderWrappers.forEach(colliderWrapper => {
+            colliderWrapper.addColliderToHandle(this);
+        });
     }
 
     update () {
@@ -61,11 +55,6 @@ class Character {
             delete this.inputHandlers[keyCode];
         }
         this.inputHandlers[keyCode] = inputHandler;
-    }
-
-    handleCollision (colliderWrapper) {
-        let collisionHandler = this.collisionHandlers[colliderWrapper.getColliderType];
-        collisionHandler.handle();
     }
 
     destroy () {

@@ -9,8 +9,8 @@ class Necromancer extends Character {
         loader.spritesheet(this.getName, 'assets/necromancer.png', { frameWidth: 46, frameHeight: 45 });
     }
 
-    create (physics, anims, colliders) {
-        super.create(physics, anims, colliders);
+    create (physics, anims, colliderWrappers) {
+        super.create(physics, anims, colliderWrappers);
         this.sprite.setCollideWorldBounds(true);
 
         this.configureAnimation(anims);

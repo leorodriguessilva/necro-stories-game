@@ -2,8 +2,8 @@ class BasicColisionHandler extends ColisionHandler {
     
     handle () { }
 
-    addColliderToHandle (physics, colliderWrapper) {
-        physics.add.collider(this.character, colliderWrapper.getCollider);
+    addColliderToHandle (character) {
+        this.physics.add.collider(character.getSprite, this.colliderWrapper.getCollider);
     } 
 
 }

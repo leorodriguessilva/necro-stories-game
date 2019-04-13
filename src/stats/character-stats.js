@@ -1,4 +1,4 @@
-class Stats {
+class CharacterStats {
     
     constructor (statsDTO) {
         this.healthFactor = statsDTO.healthFactor;

@@ -1,5 +1,7 @@
 class GhostMagicalColisionHandler extends GhostColisionHandler {
     
-    handle () { }
+    handle () {
+        super.handle();
+    }
 
 }

@@ -18,10 +18,16 @@ var dependencyScripts = [
     './src/character/input/walk-left-input-handler.js',
     './src/character/input/walk-right-input-handler.js',
     './src/collider/collider-wrapper.js',
-    './src/config/stats-config-json.js',
+    './src/config/obstacle-stats-config-json.js',
+    './src/config/character-stats-config-json.js',
+    './src/stats/stats-type.js',
+    './src/stats/stats-factory.js',
     './src/stats/stats-reader-mode.js',
-    './src/stats/stats.js',
     './src/stats/stats-reader.js',
+    './src/stats/obstacle-stats.js',
+    './src/stats/obstacle-stats-reader.js',
+    './src/stats/stats.js',
+    './src/stats/character-stats-reader.js',
     './src/testbed-game.js',
 ]
 

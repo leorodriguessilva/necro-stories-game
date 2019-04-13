@@ -1,9 +1,9 @@
-class Character {
+class Character extends CollidedObjectData {
 
-    constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
+    constructor(locationX, locationY, characterStatsReader, inputHandlers, collisionHandlers) {
         this.locationX = locationX;
         this.locationY = locationY;
-        this.stats = statsReader.generateStats(this.getName);
+        this.stats = characterStatsReader.generateStats(this.getName);
         this.inputHandlers = inputHandlers;
         this.collisionHandlers = collisionHandlers;
     }

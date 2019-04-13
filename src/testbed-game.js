@@ -22,11 +22,11 @@ let platforms;
 
 let stars;
 
-let statsReader = new StatsReader(StatsReaderMode.DEBUG_MODE);
+let characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
 
-let skeleton = new Skeleton(100, 400, statsReader, [], []);
+let skeleton = new Skeleton(100, 400, characterStatsReader, [], []);
 
-let necromancer = new Necromancer(300, 400, statsReader, [], []);
+let necromancer = new Necromancer(300, 400, characterStatsReader, [], []);
 
 function preload ()
 {
@@ -59,11 +59,11 @@ function create ()
 
     });
 
-    var starsColliderWrapper = new ColliderWrapper(stars); 
+    var starsColliderWrapper = new ColliderWrapper(stars, function (collidedObjectData) {
+        collidedObjectData.getStats.setMoveSpeedFactor = 12;
+    }); 
 
-    var ghostColisionHandler = new GhostColisionHandler(this.physics, starsColliderWrapper, function (stats) {
-        stats.setMoveSpeedFactor = 12;
-    });
+    var ghostColisionHandler = new GhostColisionHandler(this.physics, starsColliderWrapper);
 
     var platformsColliderWrapper = new ColliderWrapper(platforms); 
 
@@ -81,7 +81,6 @@ function create ()
 
     necromancer.addInputHandler(new WalkLeftInputHandler(leftKey, necromancer));
     necromancer.addInputHandler(new WalkRightInputHandler(rightKey, necromancer));
-
 
     this.physics.add.collider(stars, platforms);
 }

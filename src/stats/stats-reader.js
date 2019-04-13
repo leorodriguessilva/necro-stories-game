@@ -1,9 +1,11 @@
 class StatsReader {
 
     static stats;
+    static statsFactory;
 
     constructor (mode) {
         this.mode = mode;
+        this.statsFactory = new StatsFactory();
         this.stats = undefined;
     }
 
@@ -13,11 +15,18 @@ class StatsReader {
                 this.stats = {};
             }
             return this.stats
-        } else if (this.mode === StatsReaderMode.DEBUG_MODE) {
-            let jsonStats = getJSONStats();
-            this.stats = new Stats(jsonStats[characterName]);
-            return this.stats;
-        }
+        } 
+        var jsonStats = getStatsConfig();
+        var statsDTO = jsonStats[characterName];
+        this.stats = statsFactory.create(getStatsType(), statsDTO);
+        return this.stats;
+    }
 
+    getStatsConfig () {
+        throw new NotImplementedException();
+    }
+
+    getStatsType () {
+        throw new NotImplementedException();    
     }
 }

@@ -1,7 +1,8 @@
 class ColliderWrapper {
 
-    constructor (collider) {
+    constructor (collider, callback) {
         this.collider = collider;
+        this.callback = callback;
     }
 
     destroy () {
@@ -10,6 +11,10 @@ class ColliderWrapper {
 
     update () {
         this.collider.update();
+    }
+
+    colisionCallback (character) {
+        this.callback(character);
     }
 
     get getCollider () {

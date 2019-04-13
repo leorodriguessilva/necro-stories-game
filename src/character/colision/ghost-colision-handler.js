@@ -1,14 +1,12 @@
 class GhostColisionHandler extends ColisionHandler {
 
-    constructor (physics, colliderWrapper, statsHandlerCallback) {
+    constructor (physics, colliderWrapper) {
         super(physics, colliderWrapper);
-        this.statsHandlerCallback = statsHandlerCallback;
         this.isOn = true;
     }
 
     handle () { 
-        var stats = this.character.getStats;
-        this.statsHandlerCallback(stats);
+        this.colliderWrapper.colisionCallback(this.character);
     }
 
     addColliderToHandle (character) {

@@ -1,5 +1,7 @@
 class GhostPhysicalColisionHandler extends GhostColisionHandler {
 
-    handle () { }
+    handle () { 
+        super.handle();
+    }
 
 }

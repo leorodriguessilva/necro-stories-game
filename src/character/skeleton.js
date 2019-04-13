@@ -1,7 +1,7 @@
 class Skeleton extends Character {
 
-    constructor(locationX, locationY, statsReader, inputHandlers, collisionHandlers) {
-        super(locationX, locationY, statsReader, inputHandlers, collisionHandlers);
+    constructor(locationX, locationY, characterStatsReader, inputHandlers, collisionHandlers) {
+        super(locationX, locationY, characterStatsReader, inputHandlers, collisionHandlers);
     }
     
     preload (loader) {

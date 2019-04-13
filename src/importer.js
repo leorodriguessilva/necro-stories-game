@@ -1,5 +1,6 @@
 var dependencyScripts = [
     './src/common/exception/not-implemented-exception.js',
+    './src/collider/collided-object-data.js',
     './src/character/character.js',
     './src/character/necromancer.js',
     './src/character/skeleton.js',
@@ -26,7 +27,7 @@ var dependencyScripts = [
     './src/stats/stats-reader.js',
     './src/stats/obstacle-stats.js',
     './src/stats/obstacle-stats-reader.js',
-    './src/stats/stats.js',
+    './src/stats/character-stats.js',
     './src/stats/character-stats-reader.js',
     './src/testbed-game.js',
 ]

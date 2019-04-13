@@ -16,9 +16,9 @@ class StatsReader {
             }
             return this.stats
         } 
-        var jsonStats = getStatsConfig();
+        var jsonStats = this.getStatsConfig();
         var statsDTO = jsonStats[characterName];
-        this.stats = statsFactory.create(getStatsType(), statsDTO);
+        this.stats = this.statsFactory.create(this.getStatsType(), statsDTO);
         return this.stats;
     }
 

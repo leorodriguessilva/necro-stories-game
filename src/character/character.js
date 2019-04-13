@@ -10,15 +10,15 @@ class Character extends CollidedObjectData {
     }
 
     preload (loader) {
-        console.log('Loading ' + this.getName + ' resources to be used');
+        super.preload(loader);
     }
 
-    create (physics, anims, colliderWrappers) {
-        console.log('Creating ' + this.getName + ' in the game context');
+    create (physics, anims, collisionHandlers) {
+        super.create(physics, anims, collisionHandlers);     
         this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
-        
-        colliderWrappers.forEach(colliderWrapper => {
-            colliderWrapper.addColliderToHandle(this);
+
+        collisionHandlers.forEach(collisionHandler => {
+            collisionHandler.addColliderToHandle(this);
         });
     }
 

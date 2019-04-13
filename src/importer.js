@@ -1,6 +1,7 @@
 var dependencyScripts = [
     './src/common/exception/not-implemented-exception.js',
     './src/collider/collided-object-data.js',
+    './src/obstacle/basic-obstacle.js',
     './src/character/character.js',
     './src/character/necromancer.js',
     './src/character/skeleton.js',

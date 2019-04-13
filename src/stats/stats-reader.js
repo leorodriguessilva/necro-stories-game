@@ -9,7 +9,7 @@ class StatsReader {
         this.stats = undefined;
     }
 
-    generateStats (characterName) {
+    generateStats (spriteName) {
         if (this.mode === StatsReaderMode.LIVE_MODE) {
             if (this.stats === undefined) {
                 this.stats = {};
@@ -17,7 +17,7 @@ class StatsReader {
             return this.stats
         } 
         var jsonStats = this.getStatsConfig();
-        var statsDTO = jsonStats[characterName];
+        var statsDTO = jsonStats[spriteName];
         this.stats = this.statsFactory.create(this.getStatsType(), statsDTO);
         return this.stats;
     }

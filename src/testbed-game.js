@@ -24,15 +24,19 @@ let stars;
 
 let characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
 
+let obstacleStatsReader = new ObstacleStatsReader(StatsReaderMode.DEBUG_MODE);
+
 let skeleton = new Skeleton(100, 400, characterStatsReader, [], []);
 
 let necromancer = new Necromancer(300, 400, characterStatsReader, [], []);
+
+let starsObstacle = new BasicObstacle('star', obstacleStatsReader);
 
 function preload ()
 {
     skeleton.preload(this.load);
     necromancer.preload(this.load);
-    this.load.image('star', 'assets/star.png');
+    starsObstacle.preload(this.load);
     this.load.image('ground', 'assets/platform.png');
 }
 
@@ -46,26 +50,23 @@ function create ()
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
 
-    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
-    stars = this.physics.add.group({
-        key: 'star',
+    var obstacleCreationData = {
         repeat: 11,
         setXY: { x: 12, y: 0, stepX: 70 }
-    });
+    };
 
-    stars.children.iterate(function (child) {
-        //  Give each star a slightly different bounce
+    starsObstacle.create(this.physics, obstacleCreationData, function (child) {
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
     });
 
-    var starsColliderWrapper = new ColliderWrapper(stars, function (collidedObjectData) {
-        collidedObjectData.getStats.setMoveSpeedFactor = 12;
+    var starsColliderWrapper = new ColliderWrapper(starsObstacle, function (ownercollidedObjectData, triggerColliedObjectData) {
+        ownercollidedObjectData.getStats.setMoveSpeedFactor = 12;
+        triggerColliedObjectData.getSprite.disableBody(true, true);
     }); 
 
     var ghostColisionHandler = new GhostColisionHandler(this.physics, starsColliderWrapper);
 
-    var platformsColliderWrapper = new ColliderWrapper(platforms); 
+    var platformsColliderWrapper = new ColliderWrapper(platforms, function () { }); 
 
     var basicColisionHandler = new BasicColisionHandler(this.physics, platformsColliderWrapper);
 
@@ -82,7 +83,7 @@ function create ()
     necromancer.addInputHandler(new WalkLeftInputHandler(leftKey, necromancer));
     necromancer.addInputHandler(new WalkRightInputHandler(rightKey, necromancer));
 
-    this.physics.add.collider(stars, platforms);
+    this.physics.add.collider(starsObstacle.getSprite, platforms);
 }
 
 function update ()

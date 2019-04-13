@@ -1,11 +1,36 @@
 class BasicObstacle extends CollidedObjectData {
 
-    constructor(locationX, locationY, obstacleStatsReader) {
-        this.locationX = locationX;
-        this.locationY = locationY;
+    constructor(spriteName, obstacleStatsReader) {
+        super();
+        this.spriteName = spriteName;
         this.stats = obstacleStatsReader.generateStats(this.getName);
-        this.inputHandlers = inputHandlers;
-        this.collisionHandlers = collisionHandlers;
+    }
+
+    preload (loader) {
+        super.preload(loader);
+        loader.image(this.getName, 'assets/' + this.getName + '.png');
+    }
+
+    create (physics, obstacleCreationData, spriteBehaviourInitialization) {
+        super.create(physics, {}, []);
+
+        obstacleCreationData.key = this.getName;
+
+        this.groupSprite = physics.add.group(obstacleCreationData);
+    
+        this.groupSprite.children.iterate(spriteBehaviourInitialization);
+    }
+    
+    get getStats () {
+        this.stats;
+    }
+
+    get getSprite() {
+        return this.groupSprite;
+    }
+
+    get getName() {
+        return this.spriteName;
     }
 
 }

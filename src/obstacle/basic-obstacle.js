@@ -22,7 +22,7 @@ class BasicObstacle extends CollidedObjectData {
     }
     
     get getStats () {
-        this.stats;
+        return this.stats;
     }
 
     get getSprite() {

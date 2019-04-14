@@ -32,23 +32,25 @@ let necromancer = new Necromancer(300, 400, characterStatsReader, [], []);
 
 let starsObstacle = new BasicObstacle('star', obstacleStatsReader);
 
+let platformsObstacle = new StaticObstacle('platform');
+
 function preload ()
 {
     skeleton.preload(this.load);
     necromancer.preload(this.load);
     starsObstacle.preload(this.load);
-    this.load.image('ground', 'assets/platform.png');
+    platformsObstacle.preload(this.load);
 }
 
 function create ()
 {
-    platforms = this.physics.add.staticGroup();
+    platformsObstacle.create(this.physics, function (platforms) {
+        platforms.create(400, 568, 'platform').setScale(2).refreshBody();
 
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
+        platforms.create(600, 400, 'platform');
+        platforms.create(50, 250, 'platform');
+        platforms.create(750, 220, 'platform');
+    });
 
     var obstacleCreationData = {
         repeat: 11,
@@ -59,14 +61,14 @@ function create ()
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
-    var starsColliderWrapper = new ColliderWrapper(starsObstacle, function (ownercollidedObjectData, triggerColliedObjectData) {
-        ownercollidedObjectData.getStats.setMoveSpeedFactor = 12;
-        triggerColliedObjectData.getSprite.disableBody(true, true);
+    var starsColliderWrapper = new ColliderWrapper(starsObstacle, function (ownerCollidedObjectData, triggerCollidedObjectData, triggerCollidedGroup) {
+        ownerCollidedObjectData.getStats.setMoveSpeedFactor = 12;
+        triggerCollidedObjectData.disableBody(true, true);
     }); 
 
     var ghostColisionHandler = new GhostColisionHandler(this.physics, starsColliderWrapper);
 
-    var platformsColliderWrapper = new ColliderWrapper(platforms, function () { }); 
+    var platformsColliderWrapper = new ColliderWrapper(platformsObstacle, function () { }); 
 
     var basicColisionHandler = new BasicColisionHandler(this.physics, platformsColliderWrapper);
 
@@ -83,7 +85,7 @@ function create ()
     necromancer.addInputHandler(new WalkLeftInputHandler(leftKey, necromancer));
     necromancer.addInputHandler(new WalkRightInputHandler(rightKey, necromancer));
 
-    this.physics.add.collider(starsObstacle.getSprite, platforms);
+    this.physics.add.collider(starsObstacle.getSprite, platformsObstacle.getSprite);
 }
 
 function update ()

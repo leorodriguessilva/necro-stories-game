@@ -4,7 +4,7 @@ class MovementInputHandler extends InputHandler {
     
     constructor (key, character) {
         super(key, character);
-        this.animAlias = character.getName + MovementInputHandler.WALK_ANIM_ALIAS;
+        this.animAlias = character.getGameObjectName + MovementInputHandler.WALK_ANIM_ALIAS;
     }
 
     handle () { 

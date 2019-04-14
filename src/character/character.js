@@ -1,12 +1,13 @@
 class Character extends CollidedObjectData {
 
-    constructor(locationX, locationY, characterStatsReader, inputHandlers, collisionHandlers) {
-        super();
+    constructor(locationX, locationY, name, characterStatsReader, objectId) {
+        super(objectId);
         this.locationX = locationX;
         this.locationY = locationY;
+        this.name = name;
         this.stats = characterStatsReader.generateStats(this.getName);
-        this.inputHandlers = inputHandlers;
-        this.collisionHandlers = collisionHandlers;
+        this.inputHandlers = [];
+        this.collisionHandlers = [];
     }
 
     preload (loader) {
@@ -15,7 +16,7 @@ class Character extends CollidedObjectData {
 
     create (physics, anims, collisionHandlers) {
         super.create(physics, anims, collisionHandlers);     
-        this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
+        this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getGameObjectName);
 
         collisionHandlers.forEach(collisionHandler => {
             collisionHandler.addColliderToHandle(this);
@@ -37,9 +38,13 @@ class Character extends CollidedObjectData {
         }
     }
 
+    animatePhysicalHarm () {
+
+    }
+
     beIdle () {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.getName + '-idle', true);
+        this.sprite.anims.play(this.getGameObjectName + '-idle', true);
     }
 
     handleInput (inputHandler) {
@@ -59,12 +64,12 @@ class Character extends CollidedObjectData {
     }
 
     destroy () {
-        console.log('Destroying ' + this.getName + ' from the game context');
+        console.log('Destroying ' + this.getGameObjectName + ' from the game context');
         this.sprite.destroy();
     }
 
     get getName () {
-        return 'generic';
+        return this.name;
     }
 
     get getSprite () {

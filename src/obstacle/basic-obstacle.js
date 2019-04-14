@@ -11,7 +11,7 @@ class BasicObstacle extends CollidedObjectData {
         loader.image(this.getName, 'assets/' + this.getName + '.png');
     }
 
-    create (physics, obstacleCreationData, spriteBehaviourInitialization) {
+    create (physics, obstacleCreationData, spriteBehaviourInitialization, collisionHandlers) {
         super.create(physics, {}, []);
 
         obstacleCreationData.key = this.getName;
@@ -19,6 +19,10 @@ class BasicObstacle extends CollidedObjectData {
         this.groupSprite = physics.add.group(obstacleCreationData);
     
         this.groupSprite.children.iterate(spriteBehaviourInitialization);
+        
+        collisionHandlers.forEach(collisionHandler => {
+            collisionHandler.addColliderToHandle(this);
+        });
     }
     
     get getStats () {

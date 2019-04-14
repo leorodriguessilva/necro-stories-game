@@ -57,9 +57,13 @@ function create ()
         setXY: { x: 12, y: 0, stepX: 70 }
     };
 
+    var platformsColliderWrapper = new ColliderWrapper(platformsObstacle, function () { }); 
+
+    var basicColisionHandler = new BasicColisionHandler(this.physics, platformsColliderWrapper);
+
     starsObstacle.create(this.physics, obstacleCreationData, function (child) {
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });
+    }, [ basicColisionHandler ]);
 
     var starsColliderWrapper = new ColliderWrapper(starsObstacle, function (ownerCollidedObjectData, triggerCollidedObjectData, triggerCollidedGroup) {
         ownerCollidedObjectData.getStats.setMoveSpeedFactor = 12;
@@ -67,10 +71,6 @@ function create ()
     }); 
 
     var ghostColisionHandler = new GhostColisionHandler(this.physics, starsColliderWrapper);
-
-    var platformsColliderWrapper = new ColliderWrapper(platformsObstacle, function () { }); 
-
-    var basicColisionHandler = new BasicColisionHandler(this.physics, platformsColliderWrapper);
 
     skeleton.create(this.physics, this.anims, [ basicColisionHandler ]);
 
@@ -84,8 +84,6 @@ function create ()
 
     necromancer.addInputHandler(new WalkLeftInputHandler(leftKey, necromancer));
     necromancer.addInputHandler(new WalkRightInputHandler(rightKey, necromancer));
-
-    this.physics.add.collider(starsObstacle.getSprite, platformsObstacle.getSprite);
 }
 
 function update ()

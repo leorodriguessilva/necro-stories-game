@@ -5,8 +5,11 @@ class GhostColisionHandler extends ColisionHandler {
         this.isOn = true;
     }
 
-    handle () { 
-        //this.colliderWrapper.invokeColisionBetweenObjects(this.character);
+    handle (ownerCollidedObjectData, triggerCollidedObjectData) { 
+        this.colliderWrapper.invokeColisionBetweenObjects(
+            this.character, 
+            triggerCollidedObjectData,
+            this.colliderWrapper.getCollidedObjectData);
     }
 
     addColliderToHandle (character) {
@@ -14,7 +17,7 @@ class GhostColisionHandler extends ColisionHandler {
         this.physics.add.overlap(
             this.character.getSprite, 
             this.colliderWrapper.getCollider, 
-            this.colliderWrapper.invokeColisionBetweenObjects, 
+            this.handle, 
             null, 
             this);
     } 

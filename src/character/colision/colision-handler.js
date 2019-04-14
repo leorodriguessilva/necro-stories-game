@@ -5,8 +5,8 @@ class ColisionHandler {
         this.colliderWrapper = colliderWrapper;
     }
 
-    handle () { 
-        console.log('Handling colision');
+    handle (ownercollidedObjectData, triggerColliedObjectData) { 
+        throw new NotImplementedException();
     }
 
     addColliderToHandle (character) {

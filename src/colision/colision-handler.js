@@ -3,14 +3,30 @@ class ColisionHandler {
     constructor (physics, colliderWrapper) {
         this.physics = physics;
         this.colliderWrapper = colliderWrapper;
+        this.isOn = true;
     }
 
-    handle (ownercollidedObjectData, triggerColliedObjectData) { 
-        throw new NotImplementedException();
+    handle (ownerCollidedObjectData, triggerCollidedObjectData) { 
+        this.colliderWrapper.invokeColisionBetweenObjects(
+            this.character, 
+            triggerCollidedObjectData,
+            this.colliderWrapper.getCollidedObjectData);
     }
 
-    addColliderToHandle (character) {
+    addColliderToHandle (ownerCollidedObjectData) {
         throw new NotImplementedException();
     } 
+
+    isOn () {
+        return this.isOn;
+    }
+
+    turnOn() {
+        this.isOn = true;
+    }
+
+    turnOff() {
+        this.isOn = false;
+    }
 
 }

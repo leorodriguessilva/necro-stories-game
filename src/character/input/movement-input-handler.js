@@ -4,10 +4,11 @@ class MovementInputHandler extends InputHandler {
     
     constructor (key, character) {
         super(key, character);
-        this.animAlias = character.getGameObjectName + MovementInputHandler.WALK_ANIM_ALIAS;
+        this.animAlias = character.getName + MovementInputHandler.WALK_ANIM_ALIAS;
     }
 
     handle () { 
+        this.character.setState = CharacterState.MOVING;
         var sprite = this.character.getSprite;
         var stats = this.character.getStats;
         this.flipSprite(sprite);

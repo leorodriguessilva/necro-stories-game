@@ -1,9 +1,13 @@
 class BasicColisionHandler extends ColisionHandler {
     
-    handle (ownercollidedObjectData, triggerColliedObjectData) { }
-
     addColliderToHandle (character) {
-        this.physics.add.collider(character.getSprite, this.colliderWrapper.getCollider);
+        this.character = character;
+        this.physics.add.collider(
+            this.character.getSprite, 
+            this.colliderWrapper.getCollider, 
+            this.handle, 
+            null, 
+            this);
     } 
 
 }

@@ -16,35 +16,45 @@ class Character extends CollidedObjectData {
 
     create (physics, anims, collisionHandlers) {
         super.create(physics, anims, collisionHandlers);     
-        this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getGameObjectName);
+        this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
 
         collisionHandlers.forEach(collisionHandler => {
             collisionHandler.addColliderToHandle(this);
         });
     }
 
+    // [TODO] make this code better with some kind of state manager
     update () {
-        this.isIdle = true;
+        if (this.state === CharacterState.HARMED) {
+            this.animatePhysicalHarm();
+            return;
+        }
+
+        this.state = CharacterState.IDLE;
         this.inputHandlers.forEach(inputHandler => {
             if (this.handleInput(inputHandler)) {
-                this.isIdle = false;
                 return;
             }
         });
 
-        if (this.isIdle)
+        if (this.state === CharacterState.IDLE)
         {
             this.beIdle();
         }
     }
 
     animatePhysicalHarm () {
-
+        this.sprite.setVelocityX(0);
+        this.sprite.anims.play(this.getName + '-harm', true);
+        var animationProgress = this.sprite.anims.getProgress();
+        if (animationProgress === 1) {
+            this.state = CharacterState.IDLE;
+        }
     }
 
     beIdle () {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.getGameObjectName + '-idle', true);
+        this.sprite.anims.play(this.getName + '-idle', true);
     }
 
     handleInput (inputHandler) {
@@ -66,6 +76,14 @@ class Character extends CollidedObjectData {
     destroy () {
         console.log('Destroying ' + this.getGameObjectName + ' from the game context');
         this.sprite.destroy();
+    }
+
+    set setState (state) {
+        this.state = state;
+    }
+
+    get getState () {
+        return this.state;
     }
 
     get getName () {

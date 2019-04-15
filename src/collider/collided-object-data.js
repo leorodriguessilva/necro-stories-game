@@ -1,7 +1,12 @@
 class CollidedObjectData {
 
     constructor (objectId) {
-        this.objectId = objectId;
+        if (objectId)
+        {
+            this.objectId = objectId;
+            return;
+        }
+        this.objectId = Math.floor((Math.random() * 100) + 1);
     }
 
     preload (loader) {

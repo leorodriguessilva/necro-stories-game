@@ -12,7 +12,7 @@ var config = {
     scene: {
         preload: preload,
         create: create,
-        update: update
+        update: update,
     }
 };
 
@@ -26,9 +26,9 @@ let characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
 
 let obstacleStatsReader = new ObstacleStatsReader(StatsReaderMode.DEBUG_MODE);
 
-let skeleton = new Skeleton(100, 400, characterStatsReader, [], []);
+let skeleton = new Skeleton(100, 400, characterStatsReader, 1);
 
-let necromancer = new Necromancer(300, 400, characterStatsReader, [], []);
+let necromancer = new Necromancer(300, 400, characterStatsReader, 1);
 
 let starsObstacle = new BasicObstacle('star', obstacleStatsReader);
 
@@ -70,11 +70,18 @@ function create ()
         triggerCollidedObjectData.disableBody(true, true);
     }); 
 
-    var ghostColisionHandler = new GhostColisionHandler(this.physics, starsColliderWrapper);
+    var starsHarmColliderWrapper = new ColliderWrapper(starsObstacle, function (ownerCollidedObjectData, triggerCollidedObjectData, triggerCollidedGroup) {
+        ownerCollidedObjectData.getStats.setMoveSpeedFactor = 3;
+        triggerCollidedObjectData.disableBody(true, true);
+    }); 
+
+    var ghostColisionHandler = new GhostColisionHandler(this.physics, starsHarmColliderWrapper);
+
+    var physicalHarmColisionHandler = new PhysicalHarmColisionHandler(this.physics, starsHarmColliderWrapper);
 
     skeleton.create(this.physics, this.anims, [ basicColisionHandler ]);
 
-    necromancer.create(this.physics, this.anims, [ basicColisionHandler, ghostColisionHandler ]);
+    necromancer.create(this.physics, this.anims, [ basicColisionHandler, physicalHarmColisionHandler ]);
 
     var leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT, true, true);
     var rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT, true, true);

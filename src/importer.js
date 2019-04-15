@@ -3,6 +3,7 @@ var dependencyScripts = [
     './src/collider/collided-object-data.js',
     './src/obstacle/basic-obstacle.js',
     './src/obstacle/static-obstacle.js',
+    './src/character/character-state.js',
     './src/character/character.js',
     './src/character/necromancer.js',
     './src/character/skeleton.js',

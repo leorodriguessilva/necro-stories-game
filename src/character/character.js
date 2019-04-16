@@ -14,47 +14,25 @@ class Character extends CollidedObjectData {
         super.preload(loader);
     }
 
-    create (physics, anims, collisionHandlers) {
+    create (physics, anims, input, collisionHandlers) {
         super.create(physics, anims, collisionHandlers);     
         this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
+        
+        input.keyboard.on('keyup', this.inputEntered, this);
+
+        this.stateContext = new CharacterStateContext(this);
 
         collisionHandlers.forEach(collisionHandler => {
             collisionHandler.addColliderToHandle(this);
         });
     }
 
-    // [TODO] make this code better with some kind of state manager
+    inputEntered (event) {
+        this.stateContext.setCurrentState = this.stateContext.MOVING_STATE;
+    }
+
     update () {
-        if (this.state === CharacterState.HARMED) {
-            this.animatePhysicalHarm();
-            return;
-        }
-
-        this.state = CharacterState.IDLE;
-        this.inputHandlers.forEach(inputHandler => {
-            if (this.handleInput(inputHandler)) {
-                return;
-            }
-        });
-
-        if (this.state === CharacterState.IDLE)
-        {
-            this.beIdle();
-        }
-    }
-
-    animatePhysicalHarm () {
-        this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.getName + '-harm', true);
-        var animationProgress = this.sprite.anims.getProgress();
-        if (animationProgress === 1) {
-            this.state = CharacterState.IDLE;
-        }
-    }
-
-    beIdle () {
-        this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.getName + '-idle', true);
+        this.stateContext.handle();
     }
 
     handleInput (inputHandler) {

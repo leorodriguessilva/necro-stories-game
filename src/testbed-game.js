@@ -79,9 +79,9 @@ function create ()
 
     var physicalHarmColisionHandler = new PhysicalHarmColisionHandler(this.physics, starsHarmColliderWrapper);
 
-    skeleton.create(this.physics, this.anims, [ basicColisionHandler ]);
+    skeleton.create(this.physics, this.anims, this.input, [ basicColisionHandler ]);
 
-    necromancer.create(this.physics, this.anims, [ basicColisionHandler, physicalHarmColisionHandler ]);
+    necromancer.create(this.physics, this.anims, this.input, [ basicColisionHandler, physicalHarmColisionHandler ]);
 
     var leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT, true, true);
     var rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT, true, true);

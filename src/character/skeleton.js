@@ -9,8 +9,8 @@ class Skeleton extends Character {
         loader.spritesheet(this.getName, 'assets/skeleton.png', { frameWidth: 42, frameHeight: 45 });
     }
 
-    create (physics, anims, colliderWrappers) {
-        super.create(physics, anims, colliderWrappers);
+    create (physics, anims, input, colliderWrappers) {
+        super.create(physics, anims, input, colliderWrappers);
         this.sprite.setCollideWorldBounds(true);
 
         this.configureAnimation(anims);

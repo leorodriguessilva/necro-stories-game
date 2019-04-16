@@ -1,12 +1,34 @@
 class CharacterMovingState extends CharacterState {
 
-    handle () {
+    update () {
+        this.hasNoInput = true;
         this.movementInputHandlers.forEach(inputHandler => {
             if (this.handleInput(inputHandler)) {
+                this.hasNoInput = false;
                 return;
             }
         });
-        this.stateContext.setCurrentState = this.stateContext.IDLE_STATE;
+
+        if (this.hasNoInput)
+        {
+            this.stateContext.setCurrentState = this.stateContext.IDLE_STATE;
+        }
+    }
+
+    idle () { }
+
+    move () { }
+
+    harm () { 
+        this.stateContext.setCurrentState = this.stateContext.HARMED_STATE;
+    }
+
+    handleInput (inputHandler) {
+        if (inputHandler.isKeyDown) {
+            inputHandler.handle();
+            return true;
+        }
+        return false;
     }
 
     configureState () {

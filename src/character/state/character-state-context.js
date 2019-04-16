@@ -8,8 +8,20 @@ class CharacterStateContext {
         this.currentState = this.IDLE_STATE;
     }
 
-    handle () {
-        this.currentState.handle();
+    update () {
+        this.currentState.update();
+    }
+
+    idle () {
+        this.currentState.idle();
+    }
+
+    move () {
+        this.currentState.move();
+    }
+
+    harm () {
+        this.currentState.harm();
     }
 
     set setCurrentState (state) {

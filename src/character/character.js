@@ -18,29 +18,27 @@ class Character extends CollidedObjectData {
         super.create(physics, anims, collisionHandlers);     
         this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
         
-        input.keyboard.on('keyup', this.inputEntered, this);
-
-        this.stateContext = new CharacterStateContext(this);
+        input.keyboard.on('keydown', this.move, this);
 
         collisionHandlers.forEach(collisionHandler => {
             collisionHandler.addColliderToHandle(this);
         });
     }
 
-    inputEntered (event) {
-        this.stateContext.setCurrentState = this.stateContext.MOVING_STATE;
+    move (event) {
+        this.stateContext.move();
+    }
+
+    harm () {
+        this.stateContext.harm();
     }
 
     update () {
-        this.stateContext.handle();
-    }
-
-    handleInput (inputHandler) {
-        if (inputHandler.isKeyDown) {
-            inputHandler.handle();
-            return true;
+        if (!this.stateContext)
+        {
+            this.stateContext = new CharacterStateContext(this);
         }
-        return false;
+        this.stateContext.update();
     }
 
     addInputHandler (inputHandler) {
@@ -54,14 +52,6 @@ class Character extends CollidedObjectData {
     destroy () {
         console.log('Destroying ' + this.getGameObjectName + ' from the game context');
         this.sprite.destroy();
-    }
-
-    set setState (state) {
-        this.state = state;
-    }
-
-    get getState () {
-        return this.state;
     }
 
     get getName () {

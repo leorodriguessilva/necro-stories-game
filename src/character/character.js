@@ -25,7 +25,7 @@ class Character extends CollidedObjectData {
         });
     }
 
-    move (event) {
+    move () {
         this.stateContext.move();
     }
 

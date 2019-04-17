@@ -10,13 +10,15 @@ class CharacterHarmedState extends CharacterState {
         var animationProgress = this.sprite.anims.getProgress();
         
         if (animationProgress === 1) {
-            this.stateContext.setCurrentState = this.stateContext.IDLE_STATE;
+            this.move();
         }
     }
 
     idle () { }
 
-    move () { }
+    move () {    
+        this.stateContext.setCurrentState = this.stateContext.MOVING_STATE;
+    }
 
     harm () { }
 

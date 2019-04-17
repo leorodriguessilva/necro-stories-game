@@ -1,4 +1,4 @@
-# Necro Stories Game
+# What is this??
 This is the source code of the game Necro Stories
 
 # Dependencies

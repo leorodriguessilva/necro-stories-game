@@ -14,7 +14,7 @@ class StatsReader {
             if (this.stats === undefined) {
                 this.stats = {};
             }
-            return this.stats
+            return this.stats;
         } 
         var jsonStats = this.getStatsConfig();
         var statsDTO = jsonStats[spriteName];

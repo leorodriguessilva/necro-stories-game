@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 class ObstacleStats {
     
     constructor (statsDTO) {
@@ -13,6 +15,14 @@ class ObstacleStats {
 
     set setHealthFactor (healthFactor) {
         this.healthFactor = healthFactor;
+    }
+
+    set getHealthFactor () {
+        return this.healthFactor;
+    }
+
+    set setMoveSpeed (moveSpeed) {
+        return this.moveSpeed = moveSpeed;
     }
 
     get getMoveSpeed () {

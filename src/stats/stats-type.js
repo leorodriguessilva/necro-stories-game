@@ -1,7 +1,11 @@
+/*jshint esversion: 6 */
+
 class StatsType {
     
-    static CHARACTER = 'character';
+    constructor () 
+    {
+        this.CHARACTER = 'character';
 
-    static OBSTACLE = 'obstacle';
-
+        this.OBSTACLE = 'obstacle';
+    }
 }

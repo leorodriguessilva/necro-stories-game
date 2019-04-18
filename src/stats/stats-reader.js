@@ -1,7 +1,6 @@
-class StatsReader {
+/*jshint esversion: 6 */
 
-    static stats;
-    static statsFactory;
+class StatsReader {
 
     constructor (mode) {
         this.mode = mode;

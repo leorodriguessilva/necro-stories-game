@@ -1,7 +1,7 @@
+/*jshint esversion: 6 */
+
 class StatsFactory {
     
-    static statsCreator;
-
     constructor () {
         this.statsCreator = {
             'character' : function (statsDTO) {
@@ -18,7 +18,7 @@ class StatsFactory {
         {
             return this.statsCreator[type](statsDTO);
         }
-        return this.statsCreator[StatsType.OBSTACLE](statsDTO)
+        return this.statsCreator[StatsType.OBSTACLE](statsDTO);
     }
 
 }

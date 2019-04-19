@@ -1,16 +1,20 @@
+var ColisionHandler = require('./colision-handler');
+
 class GhostColisionHandler extends ColisionHandler {
 
-    constructor (physics, colliderWrapper) {
+    constructor(physics, colliderWrapper) {
         super(physics, colliderWrapper);
     }
 
-    addColliderToHandle (character) {
+    addColliderToHandle(character) {
         this.character = character;
         this.physics.add.overlap(
-            this.character.getSprite, 
-            this.colliderWrapper.getCollider, 
-            this.handle, 
-            null, 
+            this.character.getSprite,
+            this.colliderWrapper.getCollider,
+            this.handle,
+            null,
             this);
-    } 
+    }
 }
+
+module.exports = GhostColisionHandler;

@@ -1,6 +1,9 @@
+var MovementInputHandler = require('../input/movement-input-handler');
+var CharacterState = require('./character-state');
+
 class CharacterMovingState extends CharacterState {
 
-    update () {
+    update() {
         this.hasNoInput = true;
         this.movementInputHandlers.forEach(inputHandler => {
             if (this.handleInput(inputHandler)) {
@@ -9,21 +12,20 @@ class CharacterMovingState extends CharacterState {
             }
         });
 
-        if (this.hasNoInput)
-        {
+        if (this.hasNoInput) {
             this.stateContext.setCurrentState = this.stateContext.IDLE_STATE;
         }
     }
 
-    idle () { }
+    idle() { }
 
-    move () { }
+    move() { }
 
-    harm () { 
+    harm() {
         this.stateContext.setCurrentState = this.stateContext.HARMED_STATE;
     }
 
-    handleInput (inputHandler) {
+    handleInput(inputHandler) {
         if (inputHandler.isKeyDown) {
             inputHandler.handle();
             return true;
@@ -31,7 +33,7 @@ class CharacterMovingState extends CharacterState {
         return false;
     }
 
-    configureState () {
+    configureState() {
         this.movementInputHandlers = [];
 
         this.character.inputHandlers.forEach(inputHandler => {
@@ -42,3 +44,5 @@ class CharacterMovingState extends CharacterState {
     }
 
 }
+
+module.exports = CharacterMovingState;

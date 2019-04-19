@@ -1,10 +1,10 @@
-/*jshint esversion: 6 */
-
 class StatsReaderMode {
-    
-    constructor () { 
+
+    constructor() {
         this.LIVE_MODE = 'live-mode';
         this.DEBUG_MODE = 'debug-mode';
     }
 
 }
+
+module.exports = StatsReaderMode;

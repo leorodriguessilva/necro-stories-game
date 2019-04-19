@@ -1,11 +1,9 @@
-/*jshint esversion: 6 */
-
 class StatsType {
-    
-    constructor () 
-    {
-        this.CHARACTER = 'character';
 
+    constructor() {
+        this.CHARACTER = 'character';
         this.OBSTACLE = 'obstacle';
     }
 }
+
+module.exports = StatsType;

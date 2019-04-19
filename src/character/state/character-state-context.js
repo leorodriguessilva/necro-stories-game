@@ -1,6 +1,10 @@
+var CharacterIdleState = require('./character-idle-state');
+var CharacterMovingState = require('./character-moving-state');
+var CharacterHarmedState = require('./character-harmed-state');
+
 class CharacterStateContext {
 
-    constructor (character) {
+    constructor(character) {
         this.IDLE_STATE = new CharacterIdleState(this, character);
         this.MOVING_STATE = new CharacterMovingState(this, character);
         this.HARMED_STATE = new CharacterHarmedState(this, character);
@@ -8,24 +12,26 @@ class CharacterStateContext {
         this.currentState = this.IDLE_STATE;
     }
 
-    update () {
+    update() {
         this.currentState.update();
     }
 
-    idle () {
+    idle() {
         this.currentState.idle();
     }
 
-    move () {
+    move() {
         this.currentState.move();
     }
 
-    harm () {
+    harm() {
         this.currentState.harm();
     }
 
-    set setCurrentState (state) {
+    setCurrentState(state) {
         this.currentState = state;
     }
-    
+
 }
+
+module.exports = CharacterStateContext;

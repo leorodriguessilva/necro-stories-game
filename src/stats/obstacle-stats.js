@@ -1,54 +1,54 @@
-/*jshint esversion: 6 */
-
 class ObstacleStats {
-    
-    constructor (statsDTO) {
+
+    constructor(statsDTO) {
         this.healthFactor = statsDTO.healthFactor;
         this.moveSpeedFactor = statsDTO.moveSpeedFactor;
         this.durability = statsDTO.durability;
         this.density = statsDTO.density;
     }
-    
-    get getHealth () {
+
+    getHealth() {
         return this.healthFactor * this.durability;
     }
 
-    set setHealthFactor (healthFactor) {
-        this.healthFactor = healthFactor;
-    }
-
-    set getHealthFactor () {
-        return this.healthFactor;
-    }
-
-    set setMoveSpeed (moveSpeed) {
-        return this.moveSpeed = moveSpeed;
-    }
-
-    get getMoveSpeed () {
+    getMoveSpeed() {
         if (this.moveSpeedFactor == 0) {
             return 0;
         }
         return this.moveSpeedFactor / this.density;
     }
 
-    set setMoveSpeedFactor (moveSpeedFactor) {
+    getHealthFactor() {
+        return this.healthFactor;
+    }
+
+    setHealthFactor(healthFactor) {
+        this.healthFactor = healthFactor;
+    }
+
+    getMoveSpeedFactor() {
+        return this.moveSpeedFactor;
+    }
+
+    setMoveSpeedFactor(moveSpeedFactor) {
         this.moveSpeedFactor = moveSpeedFactor;
     }
-    
-    get getDurability () {
+
+    getDurability() {
         return this.durability;
     }
 
-    set setDurability (durability) {
+    setDurability(durability) {
         this.durability = durability;
     }
-    
-    get getDensity () {
+
+    getDensity() {
         return this.density;
     }
 
-    set setDensity (density) {
+    setDensity(density) {
         this.density = density;
     }
 }
+
+module.exports = ObstacleStats;

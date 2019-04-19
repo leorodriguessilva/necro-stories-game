@@ -1,40 +1,43 @@
+var NotImplementedException = require('../common/exception/not-implemented-exception');
+
 class CollidedObjectData {
 
-    constructor (objectId) {
-        if (objectId)
-        {
+    constructor(objectId) {
+        if (objectId) {
             this.objectId = objectId;
             return;
         }
         this.objectId = Math.floor((Math.random() * 100) + 1);
     }
 
-    preload (loader) {
+    preload(loader) {
         console.log('Loading ' + this.getGameObjectName + ' resources to be used');
     }
 
-    create (physics, anims, collisionHandlers) {
+    create(physics, anims, collisionHandlers) {
         console.log('Creating ' + this.getGameObjectName + ' in the game context');
     }
 
-    get getGameObjectName () {
+    get getGameObjectName() {
         return this.getName + this.getObjectId;
     }
 
-    get getObjectId () {
+    get getObjectId() {
         return this.objectId;
     }
 
     get getName() {
         throw new NotImplementedException();
     }
-    
-    get getStats () {
+
+    get getStats() {
         throw new NotImplementedException();
     }
 
     get getSprite() {
         throw new NotImplementedException();
     }
-    
+
 }
+
+module.exports = CollidedObjectData;

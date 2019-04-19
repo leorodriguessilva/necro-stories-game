@@ -1,12 +1,16 @@
+var InputHandler = require('./input-handler');
+
 class CastSkillInputHandler extends InputHandler {
 
-    constructor (key, character, skill) {
+    constructor(key, character, skill) {
         super(key, character);
         this.skill = skill;
     }
 
-    handle () {
-        super.handle ();
+    handle() {
+        super.handle();
         this.skill.cast();
     }
 }
+
+module.exports = CastSkillInputHandler;

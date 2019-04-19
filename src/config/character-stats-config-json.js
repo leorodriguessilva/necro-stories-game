@@ -1,6 +1,6 @@
 class CharacterStatsConfigJson {
 
-    static getStats () {
+    static getStats() {
         return {
             'necromancer': {
                 healthFactor: 7,
@@ -21,3 +21,5 @@ class CharacterStatsConfigJson {
         };
     }
 }
+
+module.exports = CharacterStatsConfigJson;

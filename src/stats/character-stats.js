@@ -9,51 +9,53 @@ class CharacterStats {
         this.agility = statsDTO.agility;
     }
 
-    get getHealth () {
+    getHealth () {
         return this.healthFactor * this.strength;
     }
 
-    set setHealthFactor (healthFactor) {
+    setHealthFactor (healthFactor) {
         this.healthFactor = healthFactor;
     }
     
-    get getMana () {
+    getMana () {
         return this.manaFactor * this.inteligence;
     }
 
-    set setManaFactor (manaFactor) {
+    setManaFactor (manaFactor) {
         this.manaFactor = manaFactor;
     }
 
-    get getMoveSpeed () {
+    getMoveSpeed () {
         return this.moveSpeedFactor * this.agility;
     }
 
-    set setMoveSpeedFactor (moveSpeedFactor) {
+    setMoveSpeedFactor (moveSpeedFactor) {
         this.moveSpeedFactor = moveSpeedFactor;
     }
     
-    get getStrength () {
+    getStrength () {
         return this.strength;
     }
 
-    set setStrength (strength) {
+    setStrength (strength) {
         this.strength = strength;
     }
 
-    get getInteligence () {
+    getInteligence () {
         return this.inteligence;
     }
 
-    set setInteligence (inteligence) {
+    setInteligence (inteligence) {
         this.inteligence = inteligence;
     }
     
-    get getAgility () {
+    getAgility () {
         return this.agility;
     }
 
-    set setAgility (agility) {
+    setAgility (agility) {
         this.agility = agility;
     }
 }
+
+module.exports = CharacterStats;

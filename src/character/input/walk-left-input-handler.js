@@ -1,14 +1,18 @@
+var MovementInputHandler = require('./movement-input-handler');
+
 class WalkLeftInputHandler extends MovementInputHandler {
-    
-    constructor (key, character) {
+
+    constructor(key, character) {
         super(key, character);
     }
 
-    flipSprite (sprite) {
+    flipSprite(sprite) {
         sprite.setFlipX(true);
     }
 
-    get getTurnMoveFactor () {
+    get getTurnMoveFactor() {
         return -1;
     }
 }
+
+module.exports = WalkLeftInputHandler;

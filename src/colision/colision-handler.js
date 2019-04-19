@@ -1,23 +1,25 @@
+var NotImplementedException = require('../common/exception/not-implemented-exception');
+
 class ColisionHandler {
 
-    constructor (physics, colliderWrapper) {
+    constructor(physics, colliderWrapper) {
         this.physics = physics;
         this.colliderWrapper = colliderWrapper;
         this.isOn = true;
     }
 
-    handle (ownerCollidedObjectData, triggerCollidedObjectData) { 
+    handle(ownerCollidedObjectData, triggerCollidedObjectData) {
         this.colliderWrapper.invokeColisionBetweenObjects(
-            this.character, 
+            this.character,
             triggerCollidedObjectData,
             this.colliderWrapper.getCollidedObjectData);
     }
 
-    addColliderToHandle (ownerCollidedObjectData) {
+    addColliderToHandle(ownerCollidedObjectData) {
         throw new NotImplementedException();
-    } 
+    }
 
-    isOn () {
+    isOn() {
         return this.isOn;
     }
 
@@ -30,3 +32,5 @@ class ColisionHandler {
     }
 
 }
+
+module.exports = ColisionHandler;

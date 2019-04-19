@@ -1,3 +1,5 @@
+var CollidedObjectData = require('../collider/collided-object-data');
+
 class BasicObstacle extends CollidedObjectData {
 
     constructor(spriteName, obstacleStatsReader) {
@@ -6,26 +8,26 @@ class BasicObstacle extends CollidedObjectData {
         this.stats = obstacleStatsReader.generateStats(this.getName);
     }
 
-    preload (loader) {
+    preload(loader) {
         super.preload(loader);
         loader.image(this.getName, 'assets/' + this.getName + '.png');
     }
 
-    create (physics, obstacleCreationData, spriteBehaviourInitialization, collisionHandlers) {
+    create(physics, obstacleCreationData, spriteBehaviourInitialization, collisionHandlers) {
         super.create(physics, {}, []);
 
         obstacleCreationData.key = this.getName;
 
         this.groupSprite = physics.add.group(obstacleCreationData);
-    
+
         this.groupSprite.children.iterate(spriteBehaviourInitialization);
-        
+
         collisionHandlers.forEach(collisionHandler => {
             collisionHandler.addColliderToHandle(this);
         });
     }
-    
-    get getStats () {
+
+    get getStats() {
         return this.stats;
     }
 
@@ -38,3 +40,5 @@ class BasicObstacle extends CollidedObjectData {
     }
 
 }
+
+module.exports = BasicObstacle;

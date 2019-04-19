@@ -1,3 +1,6 @@
+var CollidedObjectData = require('../collider/collided-object-data');
+var CharacterStateContext = require('./state/character-state-context');
+
 class Character extends CollidedObjectData {
 
     constructor(locationX, locationY, name, characterStatsReader, objectId) {
@@ -10,14 +13,14 @@ class Character extends CollidedObjectData {
         this.collisionHandlers = [];
     }
 
-    preload (loader) {
+    preload(loader) {
         super.preload(loader);
     }
 
-    create (physics, anims, input, collisionHandlers) {
-        super.create(physics, anims, collisionHandlers);     
+    create(physics, anims, input, collisionHandlers) {
+        super.create(physics, anims, collisionHandlers);
         this.sprite = physics.add.sprite(this.locationX, this.locationY, this.getName);
-        
+
         input.keyboard.on('keydown', this.move, this);
 
         collisionHandlers.forEach(collisionHandler => {
@@ -25,44 +28,45 @@ class Character extends CollidedObjectData {
         });
     }
 
-    move () {
+    move() {
         this.stateContext.move();
     }
 
-    harm () {
+    harm() {
         this.stateContext.harm();
     }
 
-    update () {
-        if (!this.stateContext)
-        {
+    update() {
+        if (!this.stateContext) {
             this.stateContext = new CharacterStateContext(this);
         }
         this.stateContext.update();
     }
 
-    addInputHandler (inputHandler) {
-        var keyCode = inputHandler.getKeyCode; 
+    addInputHandler(inputHandler) {
+        var keyCode = inputHandler.getKeyCode;
         if (this.inputHandlers[keyCode]) {
             delete this.inputHandlers[keyCode];
         }
         this.inputHandlers[keyCode] = inputHandler;
     }
 
-    destroy () {
+    destroy() {
         console.log('Destroying ' + this.getGameObjectName + ' from the game context');
         this.sprite.destroy();
     }
 
-    get getName () {
+    get getName() {
         return this.name;
     }
 
-    get getSprite () {
+    get getSprite() {
         return this.sprite;
     }
 
-    get getStats () {
+    get getStats() {
         return this.stats;
-    } 
+    }
 }
+
+module.exports = Character;

@@ -1,7 +1,9 @@
 class Effect {
 
-    constructor (sprite) {
+    constructor(sprite) {
         this.sprite = sprite;
     }
 
 }
+
+module.exports = Effect;

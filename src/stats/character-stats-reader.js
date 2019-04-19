@@ -1,5 +1,6 @@
 var StatsReader = require('./stats-reader');
 var CharacterStatsConfigJson = require('../config/character-stats-config-json');
+var StatsType = require('./stats-type');
 
 class CharacterStatsReader extends StatsReader {
 

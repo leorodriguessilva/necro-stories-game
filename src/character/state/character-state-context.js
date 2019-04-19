@@ -28,7 +28,7 @@ class CharacterStateContext {
         this.currentState.harm();
     }
 
-    setCurrentState(state) {
+    set setCurrentState(state) {
         this.currentState = state;
     }
 

@@ -1,5 +1,6 @@
 var StatsReader = require('./stats-reader');
 var ObstacleStatsConfigJson = require('../config/obstacle-stats-config-json');
+var StatsType = require('./stats-type');
 
 class ObstacleStatsReader extends StatsReader {
 

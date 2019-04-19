@@ -7,46 +7,46 @@ class ObstacleStats {
         this.density = statsDTO.density;
     }
 
-    getHealth() {
+    get getHealth() {
         return this.healthFactor * this.durability;
     }
 
-    getMoveSpeed() {
+    get getMoveSpeed() {
         if (this.moveSpeedFactor == 0) {
             return 0;
         }
         return this.moveSpeedFactor / this.density;
     }
 
-    getHealthFactor() {
+    get getHealthFactor() {
         return this.healthFactor;
     }
 
-    setHealthFactor(healthFactor) {
+    set setHealthFactor(healthFactor) {
         this.healthFactor = healthFactor;
     }
 
-    getMoveSpeedFactor() {
+    get getMoveSpeedFactor() {
         return this.moveSpeedFactor;
     }
 
-    setMoveSpeedFactor(moveSpeedFactor) {
+    set setMoveSpeedFactor(moveSpeedFactor) {
         this.moveSpeedFactor = moveSpeedFactor;
     }
 
-    getDurability() {
+    get getDurability() {
         return this.durability;
     }
 
-    setDurability(durability) {
+    set setDurability(durability) {
         this.durability = durability;
     }
 
-    getDensity() {
+    get getDensity() {
         return this.density;
     }
 
-    setDensity(density) {
+    set setDensity(density) {
         this.density = density;
     }
 }

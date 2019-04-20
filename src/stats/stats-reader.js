@@ -19,8 +19,12 @@ class StatsReader {
         }
         var jsonStats = this.getStatsConfig();
         var statsDTO = jsonStats[spriteName];
-        this.stats = this.statsFactory.create(this.getStatsType(), statsDTO);
-        return this.stats;
+
+        if (statsDTO) {
+            this.stats = this.statsFactory.create(this.getStatsType(), statsDTO);
+            return this.stats;
+        }
+        return null;
     }
 
     getStatsConfig() {

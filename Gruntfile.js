@@ -1,5 +1,7 @@
 module.exports = function (grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         browserify: {
@@ -31,12 +33,12 @@ module.exports = function (grunt) {
                 },
             },
         },
+        shell: {
+            npm_test_jest: {
+                command: 'npm run test',
+            }
+        }
     });
 
-    grunt.loadNpmTasks('grunt-browserify');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
-    grunt.registerTask('default', ['clean', 'browserify', 'connect', 'watch']);
+    grunt.registerTask('default', ['shell:npm_test_jest', 'clean', 'browserify', 'connect', 'watch']);
 }

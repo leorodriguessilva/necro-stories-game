@@ -1,15 +1,17 @@
+var NotImplementedException = require('../../common/exception/not-implemented-exception');
+
 class InputHandler {
 
-    constructor (key, character) {
+    constructor(key, character) {
         this.key = key;
         this.character = character;
     }
 
-    handle () {
+    handle() {
         throw new NotImplementedException();
     }
 
-    get isKeyDown () {
+    get isKeyDown() {
         return this.key.isDown;
     }
 
@@ -17,3 +19,5 @@ class InputHandler {
         return this.key.keyCode;
     }
 }
+
+module.exports = InputHandler;

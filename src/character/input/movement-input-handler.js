@@ -1,14 +1,14 @@
-class MovementInputHandler extends InputHandler { 
+var NotImplementedException = require('../../common/exception/not-implemented-exception');
+var InputHandler = require('./input-handler');
 
-    static WALK_ANIM_ALIAS = '-walk';
-    
-    constructor (key, character) {
+class MovementInputHandler extends InputHandler {
+
+    constructor(key, character) {
         super(key, character);
-        this.animAlias = character.getName + MovementInputHandler.WALK_ANIM_ALIAS;
+        this.animAlias = character.getName + '-walk';
     }
 
-    handle () { 
-        this.character.setState = CharacterState.MOVING;
+    handle() {
         var sprite = this.character.getSprite;
         var stats = this.character.getStats;
         this.flipSprite(sprite);
@@ -16,12 +16,14 @@ class MovementInputHandler extends InputHandler {
         sprite.anims.play(this.animAlias, true);
     }
 
-    flipSprite (sprite) {
+    flipSprite(sprite) {
         throw new NotImplementedException();
     }
 
-    get getTurnMoveFactor () {
+    get getTurnMoveFactor() {
         throw new NotImplementedException();
     }
 
 }
+
+module.exports = MovementInputHandler;

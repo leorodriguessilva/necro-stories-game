@@ -1,7 +1,11 @@
+var GhostColisionHandler = require('./ghost-colision-handler');
+
 class GhostPhysicalColisionHandler extends GhostColisionHandler {
 
-    handle () { 
+    handle() {
         super.handle();
     }
 
 }
+
+module.exports = GhostPhysicalColisionHandler;

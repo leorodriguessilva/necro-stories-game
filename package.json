@@ -3,18 +3,24 @@
   "version": "1.0.0",
   "description": "This is the source code of the game Necro Stories",
   "main": "server.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^16.2.3",
     "express": "^4.16.4",
+    "grunt": "^1.0.4",
+    "grunt-browserify": "^5.3.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-connect": "^2.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-shell": "^3.0.1",
     "jest": "^24.7.1",
+    "load-grunt-tasks": "^4.0.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.11",
-    "reload": "^2.4.0",
-    "webpack": "^4.30.0"
+    "reload": "^2.4.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

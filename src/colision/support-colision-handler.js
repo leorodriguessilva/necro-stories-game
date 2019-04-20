@@ -1,5 +1,9 @@
+var ColisionHandler = require('./colision-handler');
+
 class SupportColisionHandler extends ColisionHandler {
 
-    handle () { }
-    
+    handle() { }
+
 }
+
+module.exports = SupportColisionHandler;

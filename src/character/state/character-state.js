@@ -1,29 +1,33 @@
+var NotImplementedException = require('../../common/exception/not-implemented-exception');
+
 class CharacterState {
 
-    constructor (stateContext, character) {
+    constructor(stateContext, character) {
         this.stateContext = stateContext;
         this.character = character;
         this.configureState();
     }
 
-    update () {
+    update() {
         throw new NotImplementedException();
     }
 
-    idle () {
+    idle() {
         throw new NotImplementedException();
     }
 
-    move () {
+    move() {
         throw new NotImplementedException();
     }
 
-    harm () {
+    harm() {
         throw new NotImplementedException();
     }
 
-    configureState () {
+    configureState() {
         throw new NotImplementedException();
     }
 
 }
+
+module.exports = CharacterState;

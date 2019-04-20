@@ -1,27 +1,29 @@
 class ColliderWrapper {
 
-    constructor (triggerCollidedObjectData, colisionOwnerCallback) {
+    constructor(triggerCollidedObjectData, colisionOwnerCallback) {
         this.triggerCollidedObjectData = triggerCollidedObjectData;
         this.colisionOwnerCallback = colisionOwnerCallback;
     }
 
-    destroy () {
+    destroy() {
         this.triggerCollidedObjectData.destroy();
     }
 
-    update () {
+    update() {
         this.getCollider.update();
     }
 
-    invokeColisionBetweenObjects (owerCollided, triggerCollided, triggerCollidedGroup) {
+    invokeColisionBetweenObjects(owerCollided, triggerCollided, triggerCollidedGroup) {
         this.colisionOwnerCallback(owerCollided, triggerCollided, triggerCollidedGroup);
     }
 
-    get getCollidedObjectData () {
+    get getCollidedObjectData() {
         return this.triggerCollidedObjectData;
     }
 
-    get getCollider () {
+    get getCollider() {
         return this.triggerCollidedObjectData.getSprite;
     }
 }
+
+module.exports = ColliderWrapper;

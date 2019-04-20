@@ -57,3 +57,5 @@ class CharacterStats {
         this.agility = agility;
     }
 }
+
+module.exports = CharacterStats;

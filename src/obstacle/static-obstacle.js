@@ -1,3 +1,5 @@
+var CollidedObjectData = require('../collider/collided-object-data');
+
 class StaticObstacle extends CollidedObjectData {
 
     constructor(spriteName) {
@@ -5,20 +7,20 @@ class StaticObstacle extends CollidedObjectData {
         this.spriteName = spriteName;
     }
 
-    preload (loader) {
+    preload(loader) {
         super.preload(loader);
         loader.image(this.getName, 'assets/' + this.getName + '.png');
     }
 
-    create (physics, staticGroupSpriteInitialization) {
+    create(physics, staticGroupSpriteInitialization) {
         super.create(physics, {}, []);
 
         this.staticGroupSprite = physics.add.staticGroup();
 
         staticGroupSpriteInitialization(this.staticGroupSprite);
     }
-    
-    get getStats () {
+
+    get getStats() {
         return {};
     }
 
@@ -31,3 +33,5 @@ class StaticObstacle extends CollidedObjectData {
     }
 
 }
+
+module.exports = StaticObstacle;

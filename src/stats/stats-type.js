@@ -1,7 +1,6 @@
-class StatsType {
-    
-    static CHARACTER = 'character';
-
-    static OBSTACLE = 'obstacle';
-
+const StatsType = {
+    CHARACTER: 'character',
+    OBSTACLE: 'obstacle'
 }
+
+module.exports = StatsType;

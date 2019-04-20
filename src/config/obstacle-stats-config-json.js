@@ -1,6 +1,6 @@
 class ObstacleStatsConfigJson {
 
-    static getStats () {
+    static getStats() {
         return {
             'star': {
                 healthFactor: 5,
@@ -17,3 +17,5 @@ class ObstacleStatsConfigJson {
         };
     }
 }
+
+module.exports = ObstacleStatsConfigJson;

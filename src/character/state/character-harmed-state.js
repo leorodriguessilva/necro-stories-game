@@ -1,25 +1,27 @@
+var CharacterState = require('./character-state');
+
 class CharacterHarmedState extends CharacterState {
-    
-    configureState () { 
+
+    configureState() {
         this.sprite = this.character.getSprite;
     }
 
-    update () {
+    update() {
         this.sprite.setVelocityX(0);
         this.sprite.anims.play(this.character.getName + '-harm', true);
         var animationProgress = this.sprite.anims.getProgress();
-        
+
         if (animationProgress === 1) {
-            this.move();
+            this.stateContext.setCurrentState = this.stateContext.MOVING_STATE;
         }
     }
 
-    idle () { }
+    idle() { }
 
-    move () {    
-        this.stateContext.setCurrentState = this.stateContext.MOVING_STATE;
-    }
+    move() { }
 
-    harm () { }
+    harm() { }
 
 }
+
+module.exports = CharacterHarmedState;

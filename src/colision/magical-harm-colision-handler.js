@@ -1,5 +1,9 @@
+var BasicColisionHandler = require('./basic-colision-handler');
+
 class MagicalHarmColisionHandler extends BasicColisionHandler {
-    
-    handle () { }
-    
+
+    handle() { }
+
 }
+
+module.exports = MagicalHarmColisionHandler;

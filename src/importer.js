@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 var dependencyScripts = [
     './src/common/exception/not-implemented-exception.js',
     './src/collider/collided-object-data.js',
@@ -37,10 +39,10 @@ var dependencyScripts = [
     './src/stats/character-stats.js',
     './src/stats/character-stats-reader.js',
     './src/testbed-game.js',
-]
+];
 
 let existScript = function(src) {
-    var scripts = document.getElementsByTagName("script")
+    var scripts = document.getElementsByTagName("script");
     src = src.replace('.', '');
     for (var i = 0; i < scripts.length; i++) {
         if (scripts[i].src.indexOf(src) !== -1) {
@@ -48,7 +50,7 @@ let existScript = function(src) {
         }
     }
     return false;
-}
+};
 
 dependencyScripts.forEach(function(src) {
     if(existScript(src)){

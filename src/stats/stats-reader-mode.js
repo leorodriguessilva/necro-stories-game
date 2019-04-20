@@ -1,7 +1,6 @@
-class StatsReaderMode {
-    
-    static LIVE_MODE = 'live-mode';
-
-    static DEBUG_MODE = 'debug-mode';
-
+const StatsReaderMode = {
+    LIVE_MODE: 'live-mode',
+    DEBUG_MODE: 'debug-mode'
 }
+
+module.exports = StatsReaderMode;

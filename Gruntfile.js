@@ -40,5 +40,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['shell:npm_test_jest', 'clean', 'browserify', 'connect', 'watch']);
+    grunt.registerTask('test', ['shell:npm_test_jest']);
+    grunt.registerTask('build', ['clean', 'browserify']);
+    grunt.registerTask('serve', ['connect', 'watch']);
+    grunt.registerTask('default', ['test', 'build', 'serve']);
 }

@@ -18,7 +18,7 @@ class StatsFactory {
         if (this.statsCreator[type]) {
             return this.statsCreator[type](statsDTO);
         }
-        return this.statsCreator[StatsType.OBSTACLE](statsDTO);
+        return null;
     }
 
 }

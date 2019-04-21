@@ -1,4 +1,4 @@
-const BasicColisionHandler = require('../../src/colision/basic-colision-handler');
+const GhostColisionHandler = require('../../src/colision/ghost-colision-handler');
 const ColliderWrapper = require('../../src/collider/collider-wrapper');
 
 const physics = {};
@@ -8,7 +8,7 @@ beforeAll(() => {
     physics.contexts = [];
 
     physics.add = {
-        collider: function (sprite,
+        overlap: function (sprite,
             collider,
             handle,
             isEnabled,
@@ -33,10 +33,10 @@ afterEach(() => {
     physics.colisions = [];
 });
 
-test('basic colision when detected should execute the callback once', () => {
+test('ghost colision when detected should execute the callback once', () => {
     let mockCallback = jest.fn();
     let colliderWrapper = new ColliderWrapper({}, mockCallback);
-    let basicColisionHandler = new BasicColisionHandler(physics, colliderWrapper);
+    let ghostColisionHandler = new GhostColisionHandler(physics, colliderWrapper);
 
     let mockedCharacter = {
         get getSprite() {
@@ -44,17 +44,17 @@ test('basic colision when detected should execute the callback once', () => {
         }
     };
 
-    basicColisionHandler.addColliderToHandle(mockedCharacter);
+    ghostColisionHandler.addColliderToHandle(mockedCharacter);
 
     physics.update(true);
 
     expect(mockCallback.mock.calls.length).toBe(1);
 });
 
-test('same basic colision when detected for two objects should execute the callback twice', () => {
+test('same ghost colision when detected for two objects should execute the callback twice', () => {
     let mockCallback = jest.fn();
     let colliderWrapper = new ColliderWrapper({}, mockCallback);
-    let basicColisionHandler = new BasicColisionHandler(physics, colliderWrapper);
+    let ghostColisionHandler = new GhostColisionHandler(physics, colliderWrapper);
 
     let mockedCharacter1 = {
         get getSprite() {
@@ -68,18 +68,18 @@ test('same basic colision when detected for two objects should execute the callb
         }
     };
 
-    basicColisionHandler.addColliderToHandle(mockedCharacter1);
-    basicColisionHandler.addColliderToHandle(mockedCharacter2);
+    ghostColisionHandler.addColliderToHandle(mockedCharacter1);
+    ghostColisionHandler.addColliderToHandle(mockedCharacter2);
 
     physics.update(true);
 
     expect(mockCallback.mock.calls.length).toBe(2);
 });
 
-test('when no basic colision detected no callback should be called', () => {
+test('when no ghost colision detected no callback should be called', () => {
     let mockCallback = jest.fn();
     let colliderWrapper = new ColliderWrapper({}, mockCallback);
-    let basicColisionHandler = new BasicColisionHandler(physics, colliderWrapper);
+    let ghostColisionHandler = new GhostColisionHandler(physics, colliderWrapper);
 
     let mockedCharacter = {
         get getSprite() {
@@ -87,7 +87,7 @@ test('when no basic colision detected no callback should be called', () => {
         }
     };
 
-    basicColisionHandler.addColliderToHandle(mockedCharacter);
+    ghostColisionHandler.addColliderToHandle(mockedCharacter);
 
     physics.update(false);
 

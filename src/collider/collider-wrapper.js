@@ -13,8 +13,8 @@ class ColliderWrapper {
         this.getCollider.update();
     }
 
-    invokeColisionBetweenObjects(owerCollided, triggerCollided, triggerCollidedGroup) {
-        this.colisionOwnerCallback(owerCollided, triggerCollided, triggerCollidedGroup);
+    invokeColisionBetweenObjects(ownerCollided, triggerCollided, triggerCollidedGroup) {
+        this.colisionOwnerCallback(ownerCollided, triggerCollided, triggerCollidedGroup);
     }
 
     get getCollidedObjectData() {

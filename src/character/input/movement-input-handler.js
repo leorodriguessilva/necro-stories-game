@@ -1,4 +1,4 @@
-var NotImplementedException = require('../../common/exception/not-implemented-exception');
+var NotImplementedException = require('../../common/exception/NotImplementedException');
 var InputHandler = require('./input-handler');
 
 class MovementInputHandler extends InputHandler {

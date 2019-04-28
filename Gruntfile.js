@@ -37,9 +37,15 @@ module.exports = function (grunt) {
             npm_test_jest: {
                 command: 'npm run test',
             }
+        },
+        ts: {
+            default: {
+                tsconfig: './tsconfig.json'
+            }
         }
     });
 
+    grunt.registerTask('tscompile', ['ts']);
     grunt.registerTask('test', ['shell:npm_test_jest']);
     grunt.registerTask('build', ['clean', 'browserify']);
     grunt.registerTask('serve', ['connect', 'watch']);

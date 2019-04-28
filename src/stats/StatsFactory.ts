@@ -1,20 +1,22 @@
-var CharacterStats = require('./character-stats');
-var ObstacleStats = require('./obstacle-stats');
+import { CharacterStats } from './CharacterStats';
+import { ObstacleStats } from './ObstacleStats';
 
-class StatsFactory {
+export class StatsFactory {
+
+    statsCreator: any;
 
     constructor() {
         this.statsCreator = {
-            'character': function (statsDTO) {
+            'character': function (statsDTO: any) {
                 return new CharacterStats(statsDTO);
             },
-            'obstacle': function (statsDTO) {
+            'obstacle': function (statsDTO: any) {
                 return new ObstacleStats(statsDTO);
             },
         };
     }
 
-    create(type, statsDTO) {
+    create(type: string, statsDTO: any) {
         if (this.statsCreator[type]) {
             return this.statsCreator[type](statsDTO);
         }
@@ -22,5 +24,3 @@ class StatsFactory {
     }
 
 }
-
-module.exports = StatsFactory;

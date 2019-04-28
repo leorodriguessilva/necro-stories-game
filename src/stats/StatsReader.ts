@@ -1,24 +1,28 @@
-var StatsFactory = require('./stats-factory');
-var StatsReaderMode = require('./stats-reader-mode');
-var NotImplementedException = require('../common/exception/not-implemented-exception');
+import { StatsFactory } from './StatsFactory';
+import { StatsReaderMode } from './StatsReaderMode';
+import { NotImplementedException } from '../common/exception/NotImplementedException';
 
-class StatsReader {
+export class StatsReader<Stats> {
 
-    constructor(mode) {
+    mode: string;
+    statsFactory: StatsFactory;
+    stats: any;
+
+    constructor(mode: string) {
         this.mode = mode;
         this.statsFactory = new StatsFactory();
         this.stats = undefined;
     }
 
-    generateStats(spriteName) {
+    generateStats(spriteName: string) : Stats {
         if (this.mode === StatsReaderMode.LIVE_MODE) {
             if (this.stats === undefined) {
                 this.stats = {};
             }
             return this.stats;
         }
-        var jsonStats = this.getStatsConfig();
-        var statsDTO = jsonStats[spriteName];
+        const jsonStats = this.getStatsConfig();
+        const statsDTO = jsonStats.get(spriteName);
 
         if (statsDTO) {
             this.stats = this.statsFactory.create(this.getStatsType(), statsDTO);
@@ -27,13 +31,11 @@ class StatsReader {
         return null;
     }
 
-    getStatsConfig() {
+    getStatsConfig(): Map<string, Stats>  {
         throw new NotImplementedException();
     }
 
-    getStatsType() {
+    getStatsType(): string {
         throw new NotImplementedException();
     }
 }
-
-module.exports = StatsReader;

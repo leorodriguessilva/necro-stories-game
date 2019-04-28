@@ -1,4 +1,8 @@
-class ColliderWrapper {
+import { CollidedObjectData } from "./CollidedObjectData";
+
+export class ColliderWrapper {
+
+    triggerCollidedObjectData: CollidedObjectData;
 
     constructor(triggerCollidedObjectData, colisionOwnerCallback) {
         this.triggerCollidedObjectData = triggerCollidedObjectData;
@@ -25,5 +29,3 @@ class ColliderWrapper {
         return this.triggerCollidedObjectData.getSprite;
     }
 }
-
-module.exports = ColliderWrapper;

@@ -1,6 +1,13 @@
-class CharacterStats {
-    
-    constructor (statsDTO) {
+export class CharacterStats {
+
+    healthFactor: number;
+    manaFactor: number;
+    moveSpeedFactor: number;
+    strength: number;
+    inteligence: number;
+    agility: number;
+
+    constructor(statsDTO: any) {
         this.healthFactor = statsDTO.healthFactor;
         this.manaFactor = statsDTO.manaFactor;
         this.moveSpeedFactor = statsDTO.moveSpeedFactor;
@@ -9,53 +16,51 @@ class CharacterStats {
         this.agility = statsDTO.agility;
     }
 
-    get getHealth () {
+    getHealth(): number {
         return this.healthFactor * this.strength;
     }
 
-    set setHealthFactor (healthFactor) {
+    setHealthFactor(healthFactor: number) {
         this.healthFactor = healthFactor;
     }
-    
-    get getMana () {
+
+    getMana(): number {
         return this.manaFactor * this.inteligence;
     }
 
-    set setManaFactor (manaFactor) {
+    setManaFactor(manaFactor: number) {
         this.manaFactor = manaFactor;
     }
 
-    get getMoveSpeed () {
+    getMoveSpeed(): number {
         return this.moveSpeedFactor * this.agility;
     }
 
-    set setMoveSpeedFactor (moveSpeedFactor) {
+    setMoveSpeedFactor(moveSpeedFactor: number) {
         this.moveSpeedFactor = moveSpeedFactor;
     }
-    
-    get getStrength () {
+
+    getStrength(): number {
         return this.strength;
     }
 
-    set setStrength (strength) {
+    setStrength(strength: number) {
         this.strength = strength;
     }
 
-    get getInteligence () {
+    getInteligence(): number {
         return this.inteligence;
     }
 
-    set setInteligence (inteligence) {
+    setInteligence(inteligence: number) {
         this.inteligence = inteligence;
     }
-    
-    get getAgility () {
+
+    getAgility(): number {
         return this.agility;
     }
 
-    set setAgility (agility) {
+    setAgility(agility: number) {
         this.agility = agility;
     }
 }
-
-module.exports = CharacterStats;

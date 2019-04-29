@@ -1,31 +1,32 @@
 import { CollidedObjectData } from "./CollidedObjectData";
 
-export class ColliderWrapper {
+export class ColliderWrapper<Stats> {
 
-    triggerCollidedObjectData: CollidedObjectData;
+    triggerCollidedObjectData: CollidedObjectData<Stats>;
+    colisionOwnerCallback: any;
 
-    constructor(triggerCollidedObjectData, colisionOwnerCallback) {
+    constructor(triggerCollidedObjectData: CollidedObjectData<Stats>, colisionOwnerCallback: any) {
         this.triggerCollidedObjectData = triggerCollidedObjectData;
         this.colisionOwnerCallback = colisionOwnerCallback;
     }
 
-    destroy() {
+    destroy(): void {
         this.triggerCollidedObjectData.destroy();
     }
 
-    update() {
-        this.getCollider.update();
+    update(): void {
+        this.getCollider().update();
     }
 
-    invokeColisionBetweenObjects(ownerCollided, triggerCollided, triggerCollidedGroup) {
+    invokeColisionBetweenObjects<TriggeredCollided>(ownerCollided: CollidedObjectData<TriggeredCollided>, triggerCollided: CollidedObjectData<Stats>, triggerCollidedGroup: any) {
         this.colisionOwnerCallback(ownerCollided, triggerCollided, triggerCollidedGroup);
     }
 
-    get getCollidedObjectData() {
+    getCollidedObjectData(): CollidedObjectData<Stats> {
         return this.triggerCollidedObjectData;
     }
 
-    get getCollider() {
-        return this.triggerCollidedObjectData.getSprite;
+    getCollider(): Phaser.Physics.Arcade.Sprite {
+        return this.triggerCollidedObjectData.getSprite();
     }
 }

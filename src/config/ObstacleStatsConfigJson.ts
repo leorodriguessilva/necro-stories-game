@@ -2,16 +2,16 @@ import { ObstacleStats } from '../stats/ObstacleStats';
 
 export class ObstacleStatsConfigJson {
 
-    static getStats(): [string, ObstacleStats] {
-        var obstacleStats: [string, ObstacleStats];
-        obstacleStats.push('star', new ObstacleStats({
+    static getStats(): Map<string, ObstacleStats> {
+        var obstacleStats: Map<string, ObstacleStats>;
+        obstacleStats.set('star', new ObstacleStats({
             healthFactor: 5,
             moveSpeedFactor: 1,
             durability: 1,
             density: 1,
         }));
         
-        obstacleStats.push('wall', new ObstacleStats({
+        obstacleStats.set('wall', new ObstacleStats({
             healthFactor: 15,
             moveSpeedFactor: 0,
             durability: 20,

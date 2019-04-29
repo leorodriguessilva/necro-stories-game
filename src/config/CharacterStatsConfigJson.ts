@@ -2,9 +2,9 @@ import { CharacterStats } from '../stats/CharacterStats';
 
 export class CharacterStatsConfigJson {
 
-    static getStats(): [string, CharacterStats] {
-        var characterStats: [string, CharacterStats];
-        characterStats.push('necromancer', new CharacterStats({
+    static getStats(): Map<string, CharacterStats> {
+        var characterStats: Map<string, CharacterStats>;
+        characterStats.set('necromancer', new CharacterStats({
             healthFactor: 7,
             manaFactor: 9,
             moveSpeedFactor: 6,
@@ -12,7 +12,7 @@ export class CharacterStatsConfigJson {
             inteligence: 20,
             agility: 8,
         }));
-        characterStats.push('skeleton', new CharacterStats({
+        characterStats.set('skeleton', new CharacterStats({
             healthFactor: 7,
             manaFactor: 2,
             moveSpeedFactor: 8,

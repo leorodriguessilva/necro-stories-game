@@ -5,7 +5,7 @@ import { CharacterStats } from './CharacterStats';
 
 export class CharacterStatsReader extends StatsReader<CharacterStats> {
 
-    getStatsConfig (): [string, CharacterStats] {
+    getStatsConfig (): Map<string, CharacterStats> {
         return CharacterStatsConfigJson.getStats();
     }
 

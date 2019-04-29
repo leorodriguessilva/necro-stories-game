@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "This is the source code of the game Necro Stories",
   "main": "server.js",
-  "dependencies": {},
+  "dependencies": {
+    "phaser": "^3.16.1"
+  },
   "devDependencies": {
     "@types/node": "^11.13.8",
     "browserify": "^16.2.3",

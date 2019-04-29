@@ -1,5 +1,3 @@
-import { NotImplementedException } from '../common/exception/NotImplementedException';
-
 export abstract class CollidedObjectData<Stats> {
 
     objectId: number;
@@ -17,7 +15,7 @@ export abstract class CollidedObjectData<Stats> {
      * 
      * @param loader - This loader is given by Phaser framework, to load images and sprites
      */
-    preload(loader: any) {
+    preload(loader: Phaser.Loader.LoaderPlugin): void {
         console.log('Loading ' + this.getGameObjectName + ' resources to be used');
     }
 
@@ -28,9 +26,19 @@ export abstract class CollidedObjectData<Stats> {
      * @param anims - This is the animator of Phaser framework, he creates the animations to be runned when called
      * @param collisionHandlers - These are the handlers for especific types of colisions.
      */
-    create(physics: any, anims: any, collisionHandlers: ColisionHandler[]) {
+    create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.Animation): void {
         console.log('Creating ' + this.getGameObjectName + ' in the game context');
     }
+
+    /**
+     * Destroy a Phaser game object on the scene, and clean all its resources.
+     */
+    abstract destroy(): void;
+
+    /**
+     * @returns the Phaser.Sprite game object of the current scene
+     */
+    abstract getSprite(): Phaser.Physics.Arcade.Sprite;
 
     getGameObjectName(): string {
         return `${this.getName}${this.getObjectId}`;
@@ -40,16 +48,8 @@ export abstract class CollidedObjectData<Stats> {
         return this.objectId;
     }
 
-    getName(): string {
-        throw new NotImplementedException();
-    }
+    abstract getName(): string;
 
-    getStats(): Stats {
-        throw new NotImplementedException();
-    }
-
-    getSprite(): any {
-        throw new NotImplementedException();
-    }
+    abstract getStats(): Stats;
 
 }

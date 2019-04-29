@@ -16,7 +16,7 @@ export class StatsFactory {
         };
     }
 
-    create(type: string, statsDTO: any) {
+    create(type: string, statsDTO: any): Object {
         if (this.statsCreator[type]) {
             return this.statsCreator[type](statsDTO);
         }

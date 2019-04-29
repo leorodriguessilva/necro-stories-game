@@ -7,10 +7,10 @@
         "preserveConstEnums": true,
         "outFile": "./dist/tsc.js",
         "sourceMap": true,
-        "lib": [ "es2015", "dom",  "es2017" ]
+        "lib": [ "es2015", "dom", "es2017" ]
     },
     "include": [
-        "src/**/*"
+        "./**/*.ts",
     ],
     "exclude": [
         "node_modules",

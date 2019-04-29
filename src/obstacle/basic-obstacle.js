@@ -1,4 +1,4 @@
-var CollidedObjectData = require('../collider/collided-object-data');
+var CollidedObjectData = require('../collider/CollidedObjectData');
 
 class BasicObstacle extends CollidedObjectData {
 

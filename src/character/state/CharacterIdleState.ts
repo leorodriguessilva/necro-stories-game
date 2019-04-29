@@ -6,8 +6,8 @@ export class CharacterIdleState extends CharacterState {
     private characterName: string;
 
     configureState(): void {
-        this.sprite = this.character.getSprite;
-        this.characterName = this.character.getName;
+        this.sprite = this.character.getSprite();
+        this.characterName = this.character.getName();
     }
 
     update(): void {

@@ -1,9 +1,8 @@
-import { CharacterState } from "./CharacterState";
 import { Character } from "../Character";
-
-var CharacterIdleState = require('./character-idle-state');
-var CharacterMovingState = require('./character-moving-state');
-var CharacterHarmedState = require('./character-harmed-state');
+import { CharacterState } from "./CharacterState";
+import { CharacterIdleState } from './CharacterIdleState';
+import { CharacterMovingState } from './CharacterMovingState';
+import { CharacterHarmedState } from './CharacterHarmedState';
 
 export class CharacterStateContext {
 

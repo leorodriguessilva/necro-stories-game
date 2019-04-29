@@ -44,5 +44,3 @@ export class CharacterMovingState extends CharacterState {
     }
 
 }
-
-module.exports = CharacterMovingState;

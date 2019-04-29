@@ -5,7 +5,7 @@ export class CharacterHarmedState extends CharacterState {
     private sprite: Phaser.Physics.Arcade.Sprite;
 
     configureState(): void {
-        this.sprite = this.character.getSprite;
+        this.sprite = this.character.getSprite();
     }
 
     update(): void {

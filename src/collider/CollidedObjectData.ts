@@ -26,7 +26,7 @@ export abstract class CollidedObjectData<Stats> {
      * @param anims - This is the animator of Phaser framework, he creates the animations to be runned when called
      * @param collisionHandlers - These are the handlers for especific types of colisions.
      */
-    create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.Animation): void {
+    create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
         console.log('Creating ' + this.getGameObjectName + ' in the game context');
     }
 

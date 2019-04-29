@@ -1,15 +1,15 @@
-import { NotImplementedException } from '../common/exception/NotImplementedException';
-import { ColliderWrapper } from '../collider/ColliderWrapper';
-import { CollidedObjectData } from '../collider/CollidedObjectData';
+import { NotImplementedException } from '../../common/exception/NotImplementedException';
+import { ColliderWrapper } from '../../collider/ColliderWrapper';
+import { CollidedObjectData } from '../../collider/CollidedObjectData';
 
 export class ColisionHandler<Stats> {
 
     physics: Phaser.Physics.Arcade.ArcadePhysics;
     colliderWrapper: ColliderWrapper<Stats>;
     isOn: boolean;
+    character: CollidedObjectData<Stats>;
 
     constructor(physics: Phaser.Physics.Arcade.ArcadePhysics, colliderWrapper: ColliderWrapper<Stats>) {
-        this.physics = physics;
         this.colliderWrapper = colliderWrapper;
         this.isOn = true;
     }

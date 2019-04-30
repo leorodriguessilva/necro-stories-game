@@ -1,6 +1,8 @@
-export abstract class CollidedObjectData<Stats> {
+import { ICollider } from "./ICollider";
 
-    objectId: number;
+export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
+
+    private objectId: number;
 
     constructor(objectId: number) {
         if (objectId) {
@@ -26,19 +28,15 @@ export abstract class CollidedObjectData<Stats> {
      * @param anims - This is the animator of Phaser framework, he creates the animations to be runned when called
      * @param collisionHandlers - These are the handlers for especific types of colisions.
      */
-    create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
-        console.log('Creating ' + this.getGameObjectName + ' in the game context');
-    }
+    abstract create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void;
 
-    /**
-     * Destroy a Phaser game object on the scene, and clean all its resources.
-     */
     abstract destroy(): void;
 
-    /**
-     * @returns the Phaser.Sprite game object of the current scene
-     */
     abstract getSprite(): Phaser.Physics.Arcade.Sprite;
+    
+    abstract getSpriteGroup(): Phaser.Physics.Arcade.Group; 
+
+    abstract getStaticGroup(): Phaser.Physics.Arcade.StaticGroup;
 
     getGameObjectName(): string {
         return `${this.getName}${this.getObjectId}`;

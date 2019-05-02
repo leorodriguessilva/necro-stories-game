@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                     removeComments: true,
                     preserveConstEnums: true,
                     sourceMap: true,
-                    lib: ["es2015", "dom", "es2017"],
+                    lib: ["es6", "es7", "dom", "scripthost"],
                 },
                 out: "./dist/tsc.js",
                 src: [

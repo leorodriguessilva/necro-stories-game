@@ -4,13 +4,6 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
-        browserify: {
-            dist: {
-                files: {
-                    './dist/<%= pkg.name %>.js': ['./src/**/*.js']
-                }
-            }
-        },
         clean: ['./dist'],
         connect: {
             server: {
@@ -25,7 +18,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['Gruntfile.js', './src/**/*.js'],
-                tasks: ['clean', 'browserify'],
+                tasks: ['clean', 'ts'],
                 options: {
                     interrupt: true,
                     spawn: true,
@@ -58,9 +51,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('tscompile', ['ts']);
     grunt.registerTask('test', ['shell:npm_test_jest']);
-    grunt.registerTask('build', ['clean', 'browserify']);
+    grunt.registerTask('build', ['clean', 'ts']);
     grunt.registerTask('serve', ['connect', 'watch']);
     grunt.registerTask('default', ['test', 'build', 'serve']);
 }

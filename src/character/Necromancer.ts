@@ -14,7 +14,7 @@ export class Necromancer extends Character {
 
     create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
         super.create(physics, anims);
-        this.getSprite().setCollideWorldBounds(true);
+        this.getSpriteColliderWrapper().setCollideWorldBounds(true);
 
         this.configureAnimation(anims);
     }

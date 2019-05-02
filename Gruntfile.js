@@ -40,7 +40,20 @@ module.exports = function (grunt) {
         },
         ts: {
             default: {
-                tsconfig: './tsconfig.json'
+                options: {
+                    moduleResolution: "node",
+                    module: "system",
+                    noImplicitAny: true,
+                    removeComments: true,
+                    preserveConstEnums: true,
+                    sourceMap: true,
+                    lib: ["es2015", "dom", "es2017"],
+                },
+                out: "./dist/tsc.js",
+                src: [
+                    "./src/**/*.ts",
+                    "./lib/**/*.ts",
+                ]
             }
         }
     });

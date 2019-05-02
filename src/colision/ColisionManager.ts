@@ -1,26 +1,31 @@
 import { IColisionManager } from "./IColisionManager";
-import { CollidedObjectData } from "../collider/CollidedObjectData";
 import { ColisionType } from "./ColisionType";
+import { ICollider } from "../collider/ICollider";
+import { ColliderType } from "../collider/ColliderType";
 
 export class ColisionManager implements IColisionManager {
 
     private physics: Phaser.Physics.Arcade.ArcadePhysics;
     private isOn: boolean;
 
-    constructor() {
+    constructor(physics: Phaser.Physics.Arcade.ArcadePhysics) {
+        this.physics = physics;
         this.turnColisionOn();
     }
 
     addColisionToHandle<FirstStats, SecondStats>(
-        firstCollider: CollidedObjectData<FirstStats>,
-        secondCollider: CollidedObjectData<SecondStats>,
+        firstCollider: ICollider<FirstStats>,
+        secondCollider: ICollider<SecondStats>,
         colisionCallback: ArcadePhysicsCallback,
         colisionType: ColisionType): void {
+        
+        const firstSpriteCollider = this.getColliderByColliderType<FirstStats>(firstCollider);
+        const secondSpriteCollider = this.getColliderByColliderType<SecondStats>(secondCollider);
 
         if (colisionType === ColisionType.COLLIDE) {
             this.physics.add.collider(
-                firstCollider.getSprite(),
-                secondCollider.getSprite(),
+                firstSpriteCollider,
+                secondSpriteCollider,
                 colisionCallback,
                 this.isColisionOn,
                 this);
@@ -28,11 +33,23 @@ export class ColisionManager implements IColisionManager {
         }
         
         this.physics.add.overlap(
-            firstCollider.getSprite(),
-            secondCollider.getSprite(),
+            firstSpriteCollider,
+            secondSpriteCollider,
             colisionCallback,
             this.isColisionOn,
             this);
+    }
+
+    private getColliderByColliderType<Stats>(collider: ICollider<Stats>): any {
+        if(collider.getColliderType() === ColliderType.STATIC) {
+            return collider.getSpriteColliderWrapper().getStaticGroup();
+        }
+        
+        if(collider.getColliderType() === ColliderType.GROUP) {
+            return collider.getSpriteColliderWrapper().getSpriteGroup();
+        }
+        
+        return collider.getSpriteColliderWrapper().getSprite();
     }
 
     isColisionOn(): boolean {

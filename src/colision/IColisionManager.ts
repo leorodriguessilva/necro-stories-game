@@ -1,11 +1,11 @@
-import { CollidedObjectData } from "../collider/CollidedObjectData";
 import { ColisionType } from "./ColisionType";
+import { ICollider } from "../collider/ICollider";
 
 export interface IColisionManager {
 
     addColisionToHandle<FirstStats, SecondStats>(
-        firstCollider: CollidedObjectData<FirstStats>, 
-        secondCollider: CollidedObjectData<SecondStats>,
+        firstCollider: ICollider<FirstStats>, 
+        secondCollider: ICollider<SecondStats>,
         colisionCallback: ArcadePhysicsCallback,
         colisionType: ColisionType): void;
 

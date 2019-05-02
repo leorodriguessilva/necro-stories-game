@@ -11,7 +11,7 @@ export class BasicAttackInputHandler extends InputHandler {
     }
 
     handle() {
-        var sprite = this.character.getSprite();
-        sprite.anims.play(this.animAlias, true);
+        /*var sprite = this.character.getSprite();
+        sprite.anims.play(this.animAlias, true);*/
     }
 }

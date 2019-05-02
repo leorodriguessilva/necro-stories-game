@@ -27,6 +27,6 @@ export class ColliderWrapper<Stats> {
     }
 
     getCollider(): Phaser.Physics.Arcade.Sprite {
-        return this.triggerCollidedObjectData.getSprite();
+        return this.triggerCollidedObjectData.getSpriteColliderWrapper().getSprite();
     }
 }

@@ -11,11 +11,11 @@ export abstract class MovementInputHandler extends InputHandler {
     }
 
     handle(): void {
-        var sprite = this.character.getSprite();
+        /*var sprite = this.character.getSprite();
         var stats = this.character.getStats();
         this.flipSprite(sprite);
         sprite.setVelocityX(stats.getMoveSpeed() * this.getTurnMoveFactor());
-        sprite.anims.play(this.animAlias, true);
+        sprite.anims.play(this.animAlias, true);*/
     }
 
     abstract flipSprite(sprite: Phaser.Physics.Arcade.Sprite): void;

@@ -1,3 +1,6 @@
+import { ColliderType } from "./ColliderType";
+import { ISpriteColliderWrapper } from "./ISpriteColliderWrapper";
+
 export interface ICollider<Stats> {
 
     /**
@@ -6,23 +9,17 @@ export interface ICollider<Stats> {
     destroy(): void;
 
     /**
-     * @returns the Phaser.Sprite game object of the current scene
+     * @returns the sprite collider game object of the current scene
      */
-    getSprite(): Phaser.Physics.Arcade.Sprite;
+    getSpriteColliderWrapper(): ISpriteColliderWrapper;
 
-    /**
-     * @returns the Phaser.Group game object of the current scene
-     */
-    getSpriteGroup(): Phaser.Physics.Arcade.Group;
-
-    /**
-     * @returns the Phaser.StaticGroup game object of the current scene
-     */
-    getStaticGroup(): Phaser.Physics.Arcade.StaticGroup;
+    getObjectId(): number;
 
     getGameObjectName(): string;
 
     getName(): string;
 
     getStats(): Stats;
+
+    getColliderType(): ColliderType;
 }

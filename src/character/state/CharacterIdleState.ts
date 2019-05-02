@@ -6,7 +6,7 @@ export class CharacterIdleState extends CharacterState {
     private characterName: string;
 
     configureState(): void {
-        this.sprite = this.character.getSprite();
+        this.sprite = this.character.getSpriteColliderWrapper().getSprite();
         this.characterName = this.character.getName();
     }
 

@@ -1,13 +1,17 @@
 import { ICollider } from "../collider/ICollider";
 import { ObstacleStats } from "../stats/ObstacleStats";
+import { ColliderType } from "../collider/ColliderType";
+import { SpriteColliderWrapper } from "../collider/SpriteColliderWrapper";
+import { ISpriteColliderWrapper } from "../collider/ISpriteColliderWrapper";
+import { SpriteColliderDataWrapper } from "../collider/SpriteColliderDataWrapper";
 
 export class StaticObstacle implements ICollider<ObstacleStats> {
     
     private objectId: number;
     private spriteName: string;
-    private staticGroupSprite: Phaser.Physics.Arcade.StaticGroup;
+    private spriteColliderWrapper: SpriteColliderWrapper;
 
-    constructor(objectId:number, spriteName: string) {
+    constructor(spriteName: string, objectId:number = null) {
         if (objectId) {
             this.objectId = objectId;
             return;
@@ -24,24 +28,22 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
 
     create(physics: Phaser.Physics.Arcade.ArcadePhysics, 
         staticGroupSpriteInitialization: (staticGroup: Phaser.Physics.Arcade.StaticGroup) => void) {
-        this.staticGroupSprite = physics.add.staticGroup();
-
-        staticGroupSpriteInitialization(this.staticGroupSprite);
+        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(null, null, physics, null, null, this.getColliderType());
+        this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
+        const staticGroupSprite = this.spriteColliderWrapper.getStaticGroup();
+        staticGroupSpriteInitialization(staticGroupSprite);
     }
 
     destroy(): void {
-        this.staticGroupSprite.destroy();
+        this.getSpriteColliderWrapper().destroy();
+    }   
+    
+    getObjectId(): number {
+        return this.objectId;
     }
 
-    getSprite(): Phaser.Physics.Arcade.Sprite {
-        return null;
-    }
-
-    getSpriteGroup(): Phaser.Physics.Arcade.Group {
-        return null;
-    }
-    getStaticGroup(): Phaser.Physics.Arcade.StaticGroup {
-        return this.staticGroupSprite;
+    getSpriteColliderWrapper(): ISpriteColliderWrapper {
+        return this.spriteColliderWrapper;
     }
 
     getGameObjectName(): string {
@@ -54,6 +56,10 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
 
     getStats(): ObstacleStats {
         return null;
+    }    
+    
+    getColliderType(): ColliderType {
+        return ColliderType.STATIC;
     }
 
 }

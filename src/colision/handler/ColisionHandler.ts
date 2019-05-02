@@ -15,10 +15,10 @@ export class ColisionHandler<Stats> {
     }
 
     handle<Stats>(triggerCollidedObjectData: CollidedObjectData<Stats>) {
-        this.colliderWrapper.invokeColisionBetweenObjects(
+        /*this.colliderWrapper.invokeColisionBetweenObjects(
             this.character,
             triggerCollidedObjectData,
-            this.colliderWrapper.getCollidedObjectData);
+            this.colliderWrapper.getCollidedObjectData);*/
     }
 
     addColliderToHandle<Stats>(ownerCollidedObjectData: CollidedObjectData<Stats>) {

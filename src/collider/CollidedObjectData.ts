@@ -1,4 +1,6 @@
 import { ICollider } from "./ICollider";
+import { ColliderType } from "./ColliderType";
+import { ISpriteColliderWrapper } from "./ISpriteColliderWrapper";
 
 export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
 
@@ -26,17 +28,12 @@ export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
      * 
      * @param physics - This physics is given by Phaser framework, to provide utils to change object physics
      * @param anims - This is the animator of Phaser framework, he creates the animations to be runned when called
-     * @param collisionHandlers - These are the handlers for especific types of colisions.
      */
     abstract create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void;
 
     abstract destroy(): void;
 
-    abstract getSprite(): Phaser.Physics.Arcade.Sprite;
-    
-    abstract getSpriteGroup(): Phaser.Physics.Arcade.Group; 
-
-    abstract getStaticGroup(): Phaser.Physics.Arcade.StaticGroup;
+    abstract getSpriteColliderWrapper(): ISpriteColliderWrapper;
 
     getGameObjectName(): string {
         return `${this.getName}${this.getObjectId}`;
@@ -49,5 +46,7 @@ export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
     abstract getName(): string;
 
     abstract getStats(): Stats;
+
+    abstract getColliderType(): ColliderType;
 
 }

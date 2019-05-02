@@ -1,13 +1,17 @@
 import { ICollider } from '../collider/ICollider';
 import { ObstacleStatsReader } from '../stats/ObstacleStatsReader';
 import { ObstacleStats } from '../stats/ObstacleStats';
+import { ColliderType } from '../collider/ColliderType';
+import { ISpriteColliderWrapper } from '../collider/ISpriteColliderWrapper';
+import { SpriteColliderWrapper } from '../collider/SpriteColliderWrapper';
+import { SpriteColliderDataWrapper } from '../collider/SpriteColliderDataWrapper';
 
 export class BasicObstacle implements ICollider<ObstacleStats> {
 
     private objectId: number;
     private spriteName: string;
     private stats: ObstacleStats;
-    private groupSprite: Phaser.Physics.Arcade.Group;
+    private spriteColliderWrapper: SpriteColliderWrapper;
 
     constructor(objectId: number, spriteName: string, obstacleStatsReader: ObstacleStatsReader) {
         if (objectId) {
@@ -30,29 +34,24 @@ export class BasicObstacle implements ICollider<ObstacleStats> {
         spriteBehaviourInitialization: (collider: Phaser.Physics.Arcade.Sprite) => void): void {
         obstacleCreationData.defaultKey = this.getName();
 
-        this.groupSprite = physics.add.group(obstacleCreationData);
+        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(null, null, physics, this.getName(), obstacleCreationData, this.getColliderType());
+        this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
 
-        this.groupSprite.children.iterate(spriteBehaviourInitialization);
+        const spriteGroup = this.spriteColliderWrapper.getSpriteGroup();
+
+        spriteGroup.children.iterate(spriteBehaviourInitialization);
     }
 
     destroy(): void {
-        this.groupSprite.destroy();
+        this.spriteColliderWrapper.destroy();
     }
 
     getStats(): ObstacleStats {
         return this.stats;
     }
 
-    getSprite(): Phaser.Physics.Arcade.Sprite {
-        return null;
-    }
-
-    getSpriteGroup(): Phaser.Physics.Arcade.Group {
-        return this.groupSprite;
-    }
-
-    getStaticGroup(): Phaser.Physics.Arcade.StaticGroup {
-        return null;
+    getSpriteColliderWrapper(): ISpriteColliderWrapper {
+        return this.spriteColliderWrapper;
     }
 
     getGameObjectName(): string {
@@ -61,6 +60,14 @@ export class BasicObstacle implements ICollider<ObstacleStats> {
 
     getName(): string {
         return this.spriteName;
+    }    
+    
+    getObjectId(): number {
+        return this.objectId;
+    }
+    
+    getColliderType(): ColliderType {
+        return ColliderType.GROUP;
     }
 
 }

@@ -45,7 +45,7 @@ module.exports = function (grunt) {
                 },
                 out: "./dist/tsc.js",
                 src: [
-                    "./src/**/*.ts",
+                    "./src/*",
                     "./lib/**/*.ts",
                 ]
             }

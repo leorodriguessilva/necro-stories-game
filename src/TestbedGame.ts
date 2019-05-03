@@ -5,7 +5,7 @@ const config: GameConfig = {
   title: "Testbed",
   width: 800,
   height: 600,
-  scene: [TestbedScene],
+  scene: [ TestbedScene ],
   parent: "game",
   physics: {
       default: "arcade",

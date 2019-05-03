@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "This is the source code of the game Necro Stories",
   "main": "server.js",
-  "dependencies": {
-    "phaser": "^3.16.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^11.13.8",
     "browserify": "^16.2.3",
@@ -22,16 +20,19 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.11",
     "reload": "^2.4.0",
+    "systemjs": "^3.1.6",
     "typescript": "^3.4.5"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "grunt build",
+    "start": "grunt serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leorodriguessilva/necro-stories-game.git"
   },
-  "author": "",
+  "author": "Leonardo 'Aesir' Rodrigues da Silva",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/leorodriguessilva/necro-stories-game/issues"

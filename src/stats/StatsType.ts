@@ -1,4 +1,4 @@
 export enum StatsType {
-    CHARACTER = 'character',
-    OBSTACLE = 'obstacle'
+    CHARACTER = "character",
+    OBSTACLE = "obstacle",
 }

@@ -7,12 +7,12 @@ import { ISpriteColliderWrapper } from "../collider/ISpriteColliderWrapper";
 import { SpriteColliderDataWrapper } from "../collider/SpriteColliderDataWrapper";
 
 export class StaticObstacle implements ICollider<ObstacleStats> {
-    
+
     private objectId: number;
     private spriteName: string;
     private spriteColliderWrapper: SpriteColliderWrapper;
 
-    constructor(spriteName: string, objectId:number = null) {
+    constructor(spriteName: string, objectId: number = null) {
         if (objectId) {
             this.objectId = objectId;
             return;
@@ -23,43 +23,50 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
         this.spriteName = spriteName;
     }
 
-    preload(loader: Phaser.Loader.LoaderPlugin) {
-        loader.image(this.getName(), 'assets/' + this.getName() + '.png');
+    public preload(loader: Phaser.Loader.LoaderPlugin) {
+        loader.image(this.getName(), "assets/" + this.getName() + ".png");
     }
 
-    create(physics: Phaser.Physics.Arcade.ArcadePhysics, 
+    public create(
+        physics: Phaser.Physics.Arcade.ArcadePhysics,
         staticGroupSpriteInitialization: (staticGroup: Phaser.Physics.Arcade.StaticGroup) => void) {
-        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(null, null, physics, null, null, this.getColliderType());
+        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
+            null,
+            null,
+            physics,
+            null,
+            null,
+            this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
         const staticGroupSprite = this.spriteColliderWrapper.getStaticGroup();
         staticGroupSpriteInitialization(staticGroupSprite);
     }
 
-    destroy(): void {
+    public destroy(): void {
         this.getSpriteColliderWrapper().destroy();
-    }   
-    
-    getObjectId(): number {
+    }
+
+    public getObjectId(): number {
         return this.objectId;
     }
 
-    getSpriteColliderWrapper(): ISpriteColliderWrapper {
+    public getSpriteColliderWrapper(): ISpriteColliderWrapper {
         return this.spriteColliderWrapper;
     }
 
-    getGameObjectName(): string {
+    public getGameObjectName(): string {
         return `${this.spriteName}${this.objectId}`;
     }
 
-    getName(): string {
+    public getName(): string {
         return this.spriteName;
     }
 
-    getStats(): ObstacleStats {
+    public getStats(): ObstacleStats {
         return null;
-    }    
-    
-    getColliderType(): ColliderType {
+    }
+
+    public getColliderType(): ColliderType {
         return ColliderType.STATIC;
     }
 

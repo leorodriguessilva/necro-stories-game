@@ -11,14 +11,14 @@ export abstract class CharacterState {
         this.character = character;
         this.configureState();
     }
-    
+
     public abstract update(): void;
 
     public abstract idle(): void;
 
-    public abstract move(): void
+    public abstract move(): void;
 
-    public abstract harm(): void
+    public abstract harm(): void;
 
     protected abstract configureState(): void;
 

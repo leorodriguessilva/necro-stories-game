@@ -19,7 +19,7 @@ export class TestbedScene extends Phaser.Scene {
 
     constructor() {
         super({
-            key: "TestbedScene"
+            key: "TestbedScene",
         });
     }
 
@@ -65,4 +65,5 @@ export class TestbedScene extends Phaser.Scene {
         this.necromancer.update();
         this.skeleton.update();
     }
+
 }

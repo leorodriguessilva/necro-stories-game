@@ -14,12 +14,12 @@ export class ColisionManager implements IColisionManager {
         this.turnColisionOn();
     }
 
-    addColisionToHandle<FirstStats, SecondStats>(
+    public addColisionToHandle<FirstStats, SecondStats>(
         firstCollider: ICollider<FirstStats>,
         secondCollider: ICollider<SecondStats>,
         colisionCallback: ArcadePhysicsCallback,
         colisionType: ColisionType): void {
-        
+
         const firstSpriteCollider = this.getColliderByColliderType<FirstStats>(firstCollider);
         const secondSpriteCollider = this.getColliderByColliderType<SecondStats>(secondCollider);
 
@@ -32,7 +32,7 @@ export class ColisionManager implements IColisionManager {
                 this);
             return;
         }
-        
+
         this.physics.add.overlap(
             firstSpriteCollider,
             secondSpriteCollider,
@@ -41,27 +41,28 @@ export class ColisionManager implements IColisionManager {
             this);
     }
 
-    private getColliderByColliderType<Stats>(collider: ICollider<Stats>): any {
-        if(collider.getColliderType() === ColliderType.STATIC) {
-            return collider.getSpriteColliderWrapper().getStaticGroup();
-        }
-        
-        if(collider.getColliderType() === ColliderType.GROUP) {
-            return collider.getSpriteColliderWrapper().getSpriteGroup();
-        }
-        
-        return collider.getSpriteColliderWrapper().getSprite();
-    }
-
-    isColisionOn(): boolean {
+    public isColisionOn(): boolean {
         return this.isOn;
     }
 
-    turnColisionOn(): void {
+    public turnColisionOn(): void {
         this.isOn = true;
     }
 
-    turnColisionOff(): void {
+    public turnColisionOff(): void {
         this.isOn = false;
     }
+
+    private getColliderByColliderType<Stats>(collider: ICollider<Stats>): any {
+        if (collider.getColliderType() === ColliderType.STATIC) {
+            return collider.getSpriteColliderWrapper().getStaticGroup();
+        }
+
+        if (collider.getColliderType() === ColliderType.GROUP) {
+            return collider.getSpriteColliderWrapper().getSpriteGroup();
+        }
+
+        return collider.getSpriteColliderWrapper().getSprite();
+    }
+
 }

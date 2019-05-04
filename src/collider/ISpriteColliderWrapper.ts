@@ -23,8 +23,9 @@ export interface ISpriteColliderWrapper {
 
     /**
      * Set if the sprite is going to collide with the visible bounderies of the scene
-     * 
+     *
      * @param collideWorldBounderies true for colision with the bounderies, false for no colision
      */
     setCollideWorldBounds(collideWorldBounderies: boolean): void;
+
 }

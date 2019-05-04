@@ -1,10 +1,10 @@
-import { CharacterStats } from '../stats/CharacterStats';
+import { CharacterStats } from "../stats/CharacterStats";
 
 export class CharacterStatsConfigJson {
 
-    static getStats(): Map<string, CharacterStats> {
+    public static getStats(): Map<string, CharacterStats> {
         const characterStats: Map<string, CharacterStats> = new Map<string, CharacterStats>();
-        characterStats.set('necromancer', new CharacterStats({
+        characterStats.set("necromancer", new CharacterStats({
             healthFactor: 7,
             manaFactor: 9,
             moveSpeedFactor: 6,
@@ -12,7 +12,7 @@ export class CharacterStatsConfigJson {
             inteligence: 20,
             agility: 8,
         }));
-        characterStats.set('skeleton', new CharacterStats({
+        characterStats.set("skeleton", new CharacterStats({
             healthFactor: 7,
             manaFactor: 2,
             moveSpeedFactor: 8,
@@ -22,4 +22,5 @@ export class CharacterStatsConfigJson {
         }));
         return characterStats;
     }
+
 }

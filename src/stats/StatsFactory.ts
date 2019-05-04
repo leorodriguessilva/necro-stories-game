@@ -1,23 +1,24 @@
-import { CharacterStats } from './CharacterStats';
-import { ObstacleStats } from './ObstacleStats';
+import { CharacterStats } from "./CharacterStats";
+import { ObstacleStats } from "./ObstacleStats";
 
 export class StatsFactory {
 
-    statsCreator: any;
+    private statsCreator: Map<string, (statsDTO: any) => object>;
 
     constructor() {
-        this.statsCreator = {
-            'character': function (statsDTO: any) {
-                return new CharacterStats(statsDTO);
-            },
-            'obstacle': function (statsDTO: any) {
-                return new ObstacleStats(statsDTO);
-            },
-        };
+        this.statsCreator = new Map<string, any>();
+
+        this.statsCreator.set("character", (statsDTO: any) => {
+            return new CharacterStats(statsDTO);
+        });
+
+        this.statsCreator.set("obstacle", (statsDTO: any) => {
+            return new ObstacleStats(statsDTO);
+        });
     }
 
-    create(type: string, statsDTO: any): Object {
-        if (this.statsCreator[type]) {
+    public create(type: string, statsDTO: any): object {
+        if (this.statsCreator.has(type)) {
             return this.statsCreator[type](statsDTO);
         }
         return null;

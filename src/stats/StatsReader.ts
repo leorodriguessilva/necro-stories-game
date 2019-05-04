@@ -1,22 +1,21 @@
-import { StatsFactory } from './StatsFactory';
-import { StatsReaderMode } from './StatsReaderMode';
-import { NotImplementedException } from '../common/exception/NotImplementedException';
+import { StatsFactory } from "./StatsFactory";
+import { StatsReaderMode } from "./StatsReaderMode";
 
-export class StatsReader<Stats> {
+export abstract class StatsReader<Stats> {
 
-    mode: string;
-    statsFactory: StatsFactory;
-    stats: any;
+    private mode: string;
+    private statsFactory: StatsFactory;
+    private stats: any;
 
     constructor(mode: string) {
         this.mode = mode;
         this.statsFactory = new StatsFactory();
-        this.stats = undefined;
+        this.stats = null;
     }
 
-    generateStats(spriteName: string) : Stats {
+    public generateStats(spriteName: string): Stats {
         if (this.mode === StatsReaderMode.LIVE_MODE) {
-            if (this.stats === undefined) {
+            if (this.stats === null) {
                 this.stats = {};
             }
             return this.stats;
@@ -31,11 +30,8 @@ export class StatsReader<Stats> {
         return null;
     }
 
-    getStatsConfig(): Map<string, Stats>  {
-        throw new NotImplementedException();
-    }
+    protected abstract getStatsConfig(): Map<string, Stats>;
 
-    getStatsType(): string {
-        throw new NotImplementedException();
-    }
+    protected abstract getStatsType(): string;
+
 }

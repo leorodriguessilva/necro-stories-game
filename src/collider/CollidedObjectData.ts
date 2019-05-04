@@ -17,37 +17,37 @@ export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
 
     /**
      * Preload images, sprites and vfx into the scene
-     * 
+     *
      * @param loader - This loader is given by Phaser framework, to load images and sprites
      */
-    preload(loader: Phaser.Loader.LoaderPlugin): void {
-        console.log('Loading ' + this.getGameObjectName() + ' resources to be used');
-    }
+    public abstract preload(loader: Phaser.Loader.LoaderPlugin): void;
 
     /**
      * Create the instance of the game object into the scene, and configure its initial behaviour.
-     * 
+     *
      * @param physics - This physics is given by Phaser framework, to provide utils to change object physics
      * @param anims - This is the animator of Phaser framework, he creates the animations to be runned when called
      */
-    abstract create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void;
+    public abstract create(
+        physics: Phaser.Physics.Arcade.ArcadePhysics,
+        anims: Phaser.Animations.AnimationManager): void;
 
-    abstract destroy(): void;
+    public abstract destroy(): void;
 
-    abstract getSpriteColliderWrapper(): ISpriteColliderWrapper;
+    public abstract getSpriteColliderWrapper(): ISpriteColliderWrapper;
 
-    getGameObjectName(): string {
+    public getGameObjectName(): string {
         return `${this.getName}${this.getObjectId}`;
     }
 
-    getObjectId(): number {
+    public getObjectId(): number {
         return this.objectId;
     }
 
-    abstract getName(): string;
+    public abstract getName(): string;
 
-    abstract getStats(): Stats;
+    public abstract getStats(): Stats;
 
-    abstract getColliderType(): ColliderType;
+    public abstract getColliderType(): ColliderType;
 
 }

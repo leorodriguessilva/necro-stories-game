@@ -1,15 +1,15 @@
-import { StatsReader } from './StatsReader';
-import { ObstacleStatsConfigJson } from '../config/ObstacleStatsConfigJson';
-import { StatsType } from './StatsType';
-import { ObstacleStats } from './ObstacleStats';
+import { StatsReader } from "./StatsReader";
+import { ObstacleStatsConfigJson } from "../config/ObstacleStatsConfigJson";
+import { StatsType } from "./StatsType";
+import { ObstacleStats } from "./ObstacleStats";
 
 export class ObstacleStatsReader extends StatsReader<ObstacleStats> {
 
-    getStatsConfig(): Map<string, ObstacleStats> {
+    public getStatsConfig(): Map<string, ObstacleStats> {
         return ObstacleStatsConfigJson.getStats();
     }
 
-    getStatsType(): string {
+    public getStatsType(): string {
         return StatsType.OBSTACLE;
     }
 

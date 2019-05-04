@@ -1,16 +1,16 @@
 import { Character } from "../Character";
 import { CharacterState } from "./CharacterState";
-import { CharacterIdleState } from './CharacterIdleState';
-import { CharacterMovingState } from './CharacterMovingState';
-import { CharacterHarmedState } from './CharacterHarmedState';
+import { CharacterIdleState } from "./CharacterIdleState";
+import { CharacterMovingState } from "./CharacterMovingState";
+import { CharacterHarmedState } from "./CharacterHarmedState";
 
 export class CharacterStateContext {
 
-    IDLE_STATE: CharacterState;
-    MOVING_STATE: CharacterState;
-    HARMED_STATE: CharacterState;
+    public readonly IDLE_STATE: CharacterState;
+    public readonly MOVING_STATE: CharacterState;
+    public readonly HARMED_STATE: CharacterState;
 
-    currentState: CharacterState;
+    private currentState: CharacterState;
 
     constructor(character: Character) {
         this.IDLE_STATE = new CharacterIdleState(this, character);
@@ -20,23 +20,24 @@ export class CharacterStateContext {
         this.currentState = this.IDLE_STATE;
     }
 
-    update(): void {
+    public update(): void {
         this.currentState.update();
     }
 
-    idle(): void {
+    public idle(): void {
         this.currentState.idle();
     }
 
-    move(): void {
+    public move(): void {
         this.currentState.move();
     }
 
-    harm(): void {
+    public harm(): void {
         this.currentState.harm();
     }
 
-    setCurrentState(state: CharacterState): void {
+    public setCurrentState(state: CharacterState): void {
         this.currentState = state;
     }
+
 }

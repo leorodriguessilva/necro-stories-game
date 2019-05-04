@@ -1,9 +1,9 @@
 export class ObstacleStats {
 
-    healthFactor: number;
-    moveSpeedFactor: number;
-    durability: number;
-    density: number;
+    private healthFactor: number;
+    private moveSpeedFactor: number;
+    private durability: number;
+    private density: number;
 
     constructor(statsDTO: any) {
         this.healthFactor = statsDTO.healthFactor;
@@ -12,46 +12,47 @@ export class ObstacleStats {
         this.density = statsDTO.density;
     }
 
-    getHealth(): number {
+    public getHealth(): number {
         return this.healthFactor * this.durability;
     }
 
-    getMoveSpeed(): number {
-        if (this.moveSpeedFactor == 0) {
+    public getMoveSpeed(): number {
+        if (this.moveSpeedFactor === 0) {
             return 0;
         }
         return this.moveSpeedFactor / this.density;
     }
 
-    getHealthFactor(): number {
+    public getHealthFactor(): number {
         return this.healthFactor;
     }
 
-    setHealthFactor(healthFactor: number) {
+    public setHealthFactor(healthFactor: number) {
         this.healthFactor = healthFactor;
     }
 
-    getMoveSpeedFactor(): number {
+    public getMoveSpeedFactor(): number {
         return this.moveSpeedFactor;
     }
 
-    setMoveSpeedFactor(moveSpeedFactor: number) {
+    public setMoveSpeedFactor(moveSpeedFactor: number) {
         this.moveSpeedFactor = moveSpeedFactor;
     }
 
-    getDurability(): number {
+    public getDurability(): number {
         return this.durability;
     }
 
-    setDurability(durability: number) {
+    public setDurability(durability: number) {
         this.durability = durability;
     }
 
-    getDensity(): number {
+    public getDensity(): number {
         return this.density;
     }
 
-    setDensity(density: number) {
+    public setDensity(density: number) {
         this.density = density;
     }
+
 }

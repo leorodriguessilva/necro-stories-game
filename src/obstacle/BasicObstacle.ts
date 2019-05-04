@@ -1,11 +1,11 @@
 import "phaser";
-import { ICollider } from '../collider/ICollider';
-import { ObstacleStatsReader } from '../stats/ObstacleStatsReader';
-import { ObstacleStats } from '../stats/ObstacleStats';
-import { ColliderType } from '../collider/ColliderType';
-import { ISpriteColliderWrapper } from '../collider/ISpriteColliderWrapper';
-import { SpriteColliderWrapper } from '../collider/SpriteColliderWrapper';
-import { SpriteColliderDataWrapper } from '../collider/SpriteColliderDataWrapper';
+import { ICollider } from "../collider/ICollider";
+import { ObstacleStatsReader } from "../stats/ObstacleStatsReader";
+import { ObstacleStats } from "../stats/ObstacleStats";
+import { ColliderType } from "../collider/ColliderType";
+import { ISpriteColliderWrapper } from "../collider/ISpriteColliderWrapper";
+import { SpriteColliderWrapper } from "../collider/SpriteColliderWrapper";
+import { SpriteColliderDataWrapper } from "../collider/SpriteColliderDataWrapper";
 
 export class BasicObstacle implements ICollider<ObstacleStats> {
 
@@ -26,16 +26,23 @@ export class BasicObstacle implements ICollider<ObstacleStats> {
         this.stats = obstacleStatsReader.generateStats(this.getName());
     }
 
-    preload(loader: Phaser.Loader.LoaderPlugin): void {
-        loader.image(this.getName(), 'assets/' + this.getName() + '.png');
+    public preload(loader: Phaser.Loader.LoaderPlugin): void {
+        loader.image(this.getName(), "assets/" + this.getName() + ".png");
     }
 
-    create(physics: Phaser.Physics.Arcade.ArcadePhysics,
+    public create(
+        physics: Phaser.Physics.Arcade.ArcadePhysics,
         obstacleCreationData: PhysicsGroupConfig,
         spriteBehaviourInitialization: (collider: Phaser.Physics.Arcade.Sprite) => void): void {
         obstacleCreationData.defaultKey = this.getName();
 
-        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(null, null, physics, this.getName(), obstacleCreationData, this.getColliderType());
+        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
+            null,
+            null,
+            physics,
+            this.getName(),
+            obstacleCreationData,
+            this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
 
         const spriteGroup = this.spriteColliderWrapper.getSpriteGroup();
@@ -43,31 +50,31 @@ export class BasicObstacle implements ICollider<ObstacleStats> {
         spriteGroup.children.iterate(spriteBehaviourInitialization);
     }
 
-    destroy(): void {
+    public destroy(): void {
         this.spriteColliderWrapper.destroy();
     }
 
-    getStats(): ObstacleStats {
+    public getStats(): ObstacleStats {
         return this.stats;
     }
 
-    getSpriteColliderWrapper(): ISpriteColliderWrapper {
+    public getSpriteColliderWrapper(): ISpriteColliderWrapper {
         return this.spriteColliderWrapper;
     }
 
-    getGameObjectName(): string {
+    public getGameObjectName(): string {
         return `${this.spriteName}${this.objectId}`;
     }
 
-    getName(): string {
+    public getName(): string {
         return this.spriteName;
-    }    
-    
-    getObjectId(): number {
+    }
+
+    public getObjectId(): number {
         return this.objectId;
     }
-    
-    getColliderType(): ColliderType {
+
+    public getColliderType(): ColliderType {
         return ColliderType.GROUP;
     }
 

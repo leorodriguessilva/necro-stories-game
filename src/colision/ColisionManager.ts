@@ -1,3 +1,4 @@
+import "phaser";
 import { IColisionManager } from "./IColisionManager";
 import { ColisionType } from "./ColisionType";
 import { ICollider } from "../collider/ICollider";

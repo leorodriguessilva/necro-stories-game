@@ -1,3 +1,4 @@
+import "phaser";
 import { CollidedObjectData } from "./CollidedObjectData";
 
 export class ColliderWrapper<Stats> {

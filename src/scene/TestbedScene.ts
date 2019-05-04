@@ -1,3 +1,4 @@
+import "phaser";
 import { Necromancer } from "../character/Necromancer";
 import { Skeleton } from "../character/Skeleton";
 import { StaticObstacle } from "../obstacle/StaticObstacle";

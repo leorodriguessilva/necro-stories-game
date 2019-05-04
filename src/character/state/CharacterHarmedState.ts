@@ -1,3 +1,4 @@
+import "phaser";
 import { CharacterState } from './CharacterState';
 
 export class CharacterHarmedState extends CharacterState {

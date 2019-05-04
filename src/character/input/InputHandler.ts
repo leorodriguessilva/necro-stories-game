@@ -1,3 +1,4 @@
+import "phaser";
 import { Character } from "../Character";
 
 export abstract class InputHandler {

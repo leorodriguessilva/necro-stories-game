@@ -3,7 +3,7 @@ import { CharacterStats } from '../stats/CharacterStats';
 export class CharacterStatsConfigJson {
 
     static getStats(): Map<string, CharacterStats> {
-        var characterStats: Map<string, CharacterStats>;
+        const characterStats: Map<string, CharacterStats> = new Map<string, CharacterStats>();
         characterStats.set('necromancer', new CharacterStats({
             healthFactor: 7,
             manaFactor: 9,

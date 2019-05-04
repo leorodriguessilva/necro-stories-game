@@ -1,4 +1,4 @@
-//var MovementInputHandler = require('../input/movement-input-handler');
+import "phaser";
 import { CharacterState } from './CharacterState';
 
 export class CharacterMovingState extends CharacterState {

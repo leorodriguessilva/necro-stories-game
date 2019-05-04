@@ -1,3 +1,4 @@
+import "phaser";
 import { ICollider } from "./ICollider";
 import { ColliderType } from "./ColliderType";
 import { ISpriteColliderWrapper } from "./ISpriteColliderWrapper";
@@ -20,7 +21,7 @@ export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
      * @param loader - This loader is given by Phaser framework, to load images and sprites
      */
     preload(loader: Phaser.Loader.LoaderPlugin): void {
-        console.log('Loading ' + this.getGameObjectName + ' resources to be used');
+        console.log('Loading ' + this.getGameObjectName() + ' resources to be used');
     }
 
     /**

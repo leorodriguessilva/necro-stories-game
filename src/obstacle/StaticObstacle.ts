@@ -1,3 +1,4 @@
+import "phaser";
 import { ICollider } from "../collider/ICollider";
 import { ObstacleStats } from "../stats/ObstacleStats";
 import { ColliderType } from "../collider/ColliderType";

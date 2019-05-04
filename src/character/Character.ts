@@ -1,3 +1,4 @@
+import "phaser";
 import { CollidedObjectData } from '../collider/CollidedObjectData'; 
 import { CharacterStats } from '../stats/CharacterStats';
 import { CharacterStatsReader } from '../stats/CharacterStatsReader';

@@ -1,3 +1,4 @@
+import "phaser";
 import { Character } from './Character';
 import { CharacterStatsReader } from '../stats/CharacterStatsReader';
 
@@ -21,21 +22,21 @@ export class Necromancer extends Character {
 
     configureAnimation(anims: Phaser.Animations.AnimationManager): void {
         anims.create({
-            key: this.getName + '-walk',
+            key: this.getName() + '-walk',
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 5 }),
             frameRate: 8,
             repeat: -1
         });
 
         anims.create({
-            key: this.getName + '-idle',
+            key: this.getName() + '-idle',
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 5 }),
             frameRate: 5,
             repeat: -1
         });
 
         anims.create({
-            key: this.getName + '-harm',
+            key: this.getName() + '-harm',
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 2 }),
             frameRate: 1,
             repeat: -1

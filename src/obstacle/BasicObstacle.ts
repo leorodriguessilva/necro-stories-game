@@ -1,3 +1,4 @@
+import "phaser";
 import { ICollider } from '../collider/ICollider';
 import { ObstacleStatsReader } from '../stats/ObstacleStatsReader';
 import { ObstacleStats } from '../stats/ObstacleStats';

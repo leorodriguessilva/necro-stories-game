@@ -3,7 +3,7 @@ import { ObstacleStats } from '../stats/ObstacleStats';
 export class ObstacleStatsConfigJson {
 
     static getStats(): Map<string, ObstacleStats> {
-        var obstacleStats: Map<string, ObstacleStats>;
+        const obstacleStats: Map<string, ObstacleStats> = new Map<string, ObstacleStats>();
         obstacleStats.set('star', new ObstacleStats({
             healthFactor: 5,
             moveSpeedFactor: 1,

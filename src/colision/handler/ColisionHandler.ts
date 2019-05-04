@@ -1,3 +1,4 @@
+import "phaser";
 import { NotImplementedException } from '../../common/exception/NotImplementedException';
 import { ColliderWrapper } from '../../collider/ColliderWrapper';
 import { CollidedObjectData } from '../../collider/CollidedObjectData';

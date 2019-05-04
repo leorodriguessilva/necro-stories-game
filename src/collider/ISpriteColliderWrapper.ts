@@ -1,3 +1,5 @@
+import "phaser";
+
 export interface ISpriteColliderWrapper {
     /**
      * @returns the Phaser.Sprite game object of the current scene

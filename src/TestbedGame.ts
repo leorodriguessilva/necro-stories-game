@@ -6,6 +6,7 @@ const config: GameConfig = {
   width: 800,
   height: 600,
   scene: [ TestbedScene ],
+  parent: "game",
   physics: {
       default: "arcade",
       arcade: {

@@ -1,3 +1,4 @@
+import "phaser";
 import { ColliderType } from "./ColliderType";
 
 export class SpriteColliderDataWrapper {

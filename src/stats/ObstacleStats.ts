@@ -55,5 +55,3 @@ export class ObstacleStats {
         this.density = density;
     }
 }
-
-module.exports = ObstacleStats;

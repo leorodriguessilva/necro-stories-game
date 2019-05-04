@@ -1,3 +1,4 @@
+import "phaser";
 import { MovementInputHandler } from './MovementInputHandler';
 import { Character } from '../Character';
 

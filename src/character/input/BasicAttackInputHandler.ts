@@ -1,18 +1,20 @@
 import "phaser";
-import { InputHandler } from './InputHandler';
-import { Character } from '../Character';
+import { InputHandler } from "./InputHandler";
+import { Character } from "../Character";
 
 export class BasicAttackInputHandler extends InputHandler {
 
-    animAlias: string;
+    private readonly ANIM_ATTACK: string = "-attack";
+    private animAlias: string;
 
     constructor(key: Phaser.Input.Keyboard.Key, character: Character) {
         super(key, character);
-        this.animAlias = character.getName() + '-attack';
+        this.animAlias = character.getName() + this.ANIM_ATTACK;
     }
 
-    handle() {
-        /*var sprite = this.character.getSprite();
-        sprite.anims.play(this.animAlias, true);*/
+    public handle(): void {
+        const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
+        const sprite = spriteColliderWrapper.getSprite();
+        sprite.anims.play(this.animAlias, true);
     }
 }

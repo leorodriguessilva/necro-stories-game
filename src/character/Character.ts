@@ -1,15 +1,15 @@
 import "phaser";
-import { CollidedObjectData } from '../collider/CollidedObjectData'; 
-import { CharacterStats } from '../stats/CharacterStats';
-import { CharacterStatsReader } from '../stats/CharacterStatsReader';
-import { CharacterStateContext } from './state/CharacterStateContext';
-import { ColliderType } from '../collider/ColliderType';
-import { ISpriteColliderWrapper } from '../collider/ISpriteColliderWrapper';
-import { SpriteColliderWrapper } from '../collider/SpriteColliderWrapper';
-import { SpriteColliderDataWrapper } from '../collider/SpriteColliderDataWrapper';
+import { CollidedObjectData } from "../collider/CollidedObjectData";
+import { ColliderType } from "../collider/ColliderType";
+import { CharacterStats } from "../stats/CharacterStats";
+import { CharacterCreationData } from "./data/CharacterCreationData";
+import { CharacterStateContext } from "./state/CharacterStateContext";
+import { SpriteColliderWrapper } from "../collider/SpriteColliderWrapper";
+import { SpriteColliderDataWrapper } from "../collider/SpriteColliderDataWrapper";
+import { ISpriteColliderWrapper } from "../collider/ISpriteColliderWrapper";
 
-export class Character extends CollidedObjectData<CharacterStats> {
-    
+export abstract class Character extends CollidedObjectData<CharacterStats> {
+
     private locationX: number;
     private locationY: number;
     private name: string;
@@ -17,56 +17,61 @@ export class Character extends CollidedObjectData<CharacterStats> {
     private stateContext: CharacterStateContext;
     private spriteColliderWrapper: ISpriteColliderWrapper;
 
-    constructor(locationX: number, locationY: number, name: string, characterStatsReader: CharacterStatsReader, objectId: number) {
-        super(objectId);
-        this.locationX = locationX;
-        this.locationY = locationY;
-        this.name = name;
+    constructor(characterCreationData: CharacterCreationData) {
+        super(characterCreationData.ObjectId);
+        this.locationX = characterCreationData.LocationX;
+        this.locationY = characterCreationData.LocationY;
+        this.name = characterCreationData.Name;
+        const characterStatsReader = characterCreationData.CharacterStatsReader;
         this.stats = characterStatsReader.generateStats(this.getName());
     }
 
-    preload(loader: Phaser.Loader.LoaderPlugin): void {
+    public preload(loader: Phaser.Loader.LoaderPlugin): void {
         super.preload(loader);
     }
 
-    create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
-        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(this.locationX, this.locationY, physics, this.getName(), null, this.getColliderType());
+    public create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
+        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
+            this.locationX,
+            this.locationY,
+            physics,
+            this.getName(),
+            null,
+            this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
+        this.stateContext = new CharacterStateContext(this);
     }
 
-    move() {
+    public move() {
         this.stateContext.move();
     }
 
-    harm() {
+    public harm() {
         this.stateContext.harm();
     }
 
-    update() {
-        if (!this.stateContext) {
-            this.stateContext = new CharacterStateContext(this);
-        }
+    public update() {
         this.stateContext.update();
     }
 
-    destroy() {
-        console.log('Destroying ' + this.getGameObjectName + ' from the game context');
+    public destroy() {
         this.spriteColliderWrapper.destroy();
     }
 
-    getName(): string {
+    public getName(): string {
         return this.name;
     }
 
-    getSpriteColliderWrapper(): ISpriteColliderWrapper {
+    public getSpriteColliderWrapper(): ISpriteColliderWrapper {
         return this.spriteColliderWrapper;
     }
 
-    getStats(): CharacterStats {
+    public getStats(): CharacterStats {
         return this.stats;
     }
 
-    getColliderType(): ColliderType {
+    public getColliderType(): ColliderType {
         return ColliderType.SPRITE;
     }
+
 }

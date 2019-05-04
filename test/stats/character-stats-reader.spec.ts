@@ -1,10 +1,10 @@
-const CharacterStatsReader = require('../../src/stats/character-stats-reader');
-const StatsReaderMode = require('../../src/stats/stats-reader-mode');
+import { CharacterStatsReader } from '../../src/stats/CharacterStatsReader';
+import { StatsReaderMode } from '../../src/stats/StatsReaderMode';
 
 test('passing an existing character name key, should return his stats', () => {
-    var characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
+    const characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
 
-    var necromancer = {
+    const necromancer = {
         healthFactor: 7,
         manaFactor: 9,
         moveSpeedFactor: 6,
@@ -13,7 +13,7 @@ test('passing an existing character name key, should return his stats', () => {
         agility: 8,
     };
 
-    var characterData = {
+    const characterData = {
         'necromancer': necromancer,
         'skeleton' : {
             healthFactor: 5,
@@ -29,15 +29,15 @@ test('passing an existing character name key, should return his stats', () => {
         return characterData;
     }
 
-    var characterStats = characterStatsReader.generateStats('necromancer');
+    const characterStats = characterStatsReader.generateStats('necromancer');
 
     expect(characterStats).toEqual(necromancer);
 });
 
 test('passing a non existing character name key, should return undefined stats', () => {
-    var characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
+    const characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
 
-    var necromancer = {
+    const necromancer = {
         healthFactor: 7,
         manaFactor: 9,
         moveSpeedFactor: 6,
@@ -46,7 +46,7 @@ test('passing a non existing character name key, should return undefined stats',
         agility: 8,
     };
 
-    var characterData = {
+    const characterData = {
         'necromancer': necromancer
     };
 
@@ -54,7 +54,7 @@ test('passing a non existing character name key, should return undefined stats',
         return characterData;
     }
 
-    var characterStats = characterStatsReader.generateStats('skeleton');
+    const characterStats = characterStatsReader.generateStats('skeleton');
 
     expect(characterStats).toBeNull();
 });

@@ -1,29 +1,30 @@
 import "phaser";
-import { CharacterState } from './CharacterState';
+import { CharacterState } from "./CharacterState";
 
 export class CharacterIdleState extends CharacterState {
 
     private sprite: Phaser.Physics.Arcade.Sprite;
     private characterName: string;
 
-    configureState(): void {
-        this.sprite = this.character.getSpriteColliderWrapper().getSprite();
-        this.characterName = this.character.getName();
-    }
-
-    update(): void {
+    public update(): void {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.characterName + '-idle', true);
+        this.sprite.anims.play(this.characterName + "-idle", true);
     }
 
-    idle(): void { }
+    public idle(): void { }
 
-    move(): void {
+    public move(): void {
         this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
     }
 
-    harm(): void {
+    public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
+    }
+
+    protected configureState(): void {
+        const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
+        this.sprite = spriteColliderWrapper.getSprite();
+        this.characterName = this.character.getName();
     }
 
 }

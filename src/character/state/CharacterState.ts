@@ -3,8 +3,8 @@ import { Character } from "../Character";
 
 export abstract class CharacterState {
 
-    stateContext: CharacterStateContext;
-    character: Character;
+    protected stateContext: CharacterStateContext;
+    protected character: Character;
 
     constructor(stateContext: CharacterStateContext, character: Character) {
         this.stateContext = stateContext;
@@ -12,14 +12,14 @@ export abstract class CharacterState {
         this.configureState();
     }
     
-    abstract update(): void;
+    public abstract update(): void;
 
-    abstract idle(): void;
+    public abstract idle(): void;
 
-    abstract move(): void
+    public abstract move(): void
 
-    abstract harm(): void
+    public abstract harm(): void
 
-    abstract configureState(): void;
+    protected abstract configureState(): void;
 
 }

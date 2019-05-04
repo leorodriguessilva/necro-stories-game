@@ -1,28 +1,29 @@
 import "phaser";
-import { CharacterState } from './CharacterState';
+import { CharacterState } from "./CharacterState";
 
 export class CharacterHarmedState extends CharacterState {
 
     private sprite: Phaser.Physics.Arcade.Sprite;
 
-    configureState(): void {
-        this.sprite = this.character.getSpriteColliderWrapper().getSprite();
-    }
-
-    update(): void {
+    public update(): void {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.character.getName + '-harm', true);
-        var animationProgress = this.sprite.anims.getProgress();
+        this.sprite.anims.play(this.character.getName + "-harm", true);
+        const animationProgress = this.sprite.anims.getProgress();
 
         if (animationProgress === 1) {
             this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
         }
     }
 
-    idle(): void { }
+    public idle(): void { }
 
-    move(): void { }
+    public move(): void { }
 
-    harm(): void { }
+    public harm(): void { }
+
+    protected configureState(): void {
+        const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
+        this.sprite = spriteColliderWrapper.getSprite();
+    }
 
 }

@@ -8,15 +8,29 @@
     "jest": "^24.7.1",
     "live-server": "^1.2.1",
     "phaser": "^3.16.2",
+    "ts-jest": "^24.0.2",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.6",
     "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2"
   },
   "scripts": {
+    "lint": "tslint -c tslint.json './src/**/*.{ts,tsx}'",
+    "pretest": "npm run lint",
     "test": "jest",
     "build": "webpack",
     "start": "live-server --port=8085"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/__tests__/.*\\.(ts|tsx|js)$"
   },
   "repository": {
     "type": "git",

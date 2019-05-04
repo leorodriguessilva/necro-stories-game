@@ -1,9 +1,9 @@
 import "phaser";
-import { CharacterState } from './CharacterState';
+import { CharacterState } from "./CharacterState";
 
 export class CharacterMovingState extends CharacterState {
 
-    update(): void {
+    public update(): void {
         /*this.hasNoInput = true;
         this.movementInputHandlers.forEach(inputHandler => {
             if (this.handleInput(inputHandler)) {
@@ -17,23 +17,15 @@ export class CharacterMovingState extends CharacterState {
         }*/
     }
 
-    idle(): void { }
+    public idle(): void { }
 
-    move(): void { }
+    public move(): void { }
 
-    harm(): void {
+    public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
     }
 
-    /*handleInput(inputHandler) {
-        if (inputHandler.isKeyDown) {
-            inputHandler.handle();
-            return true;
-        }
-        return false;
-    }*/
-
-    configureState() {
+    protected configureState() {
         /*this.movementInputHandlers = [];
 
         this.character.inputHandlers.forEach(inputHandler => {
@@ -41,6 +33,14 @@ export class CharacterMovingState extends CharacterState {
                 this.movementInputHandlers.push(inputHandler);
             }
         });*/
+    }
+
+    private handleInput(inputHandler): boolean {
+        if (inputHandler.isKeyDown) {
+            inputHandler.handle();
+            return true;
+        }
+        return false;
     }
 
 }

@@ -11,17 +11,17 @@ const config: GameConfig = {
       default: "arcade",
       arcade: {
           gravity: { y: 300 },
-          debug: false
-      }
+          debug: false,
+      },
   },
 };
 
 export class TestbedGame extends Phaser.Game {
-  constructor(config: GameConfig) {
-    super(config);
+  constructor(gameConfig: GameConfig) {
+    super(gameConfig);
   }
 }
 
 window.onload = () => {
-  var game = new TestbedGame(config);
+  const game = new TestbedGame(config);
 };

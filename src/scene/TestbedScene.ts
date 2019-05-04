@@ -1,4 +1,5 @@
 import "phaser";
+import { CharacterCreationData } from "../character/data/CharacterCreationData";
 import { Necromancer } from "../character/Necromancer";
 import { Skeleton } from "../character/Skeleton";
 import { StaticObstacle } from "../obstacle/StaticObstacle";
@@ -14,7 +15,6 @@ export class TestbedScene extends Phaser.Scene {
     private necromancer: Necromancer;
     private skeleton: Skeleton;
     private platforms: StaticObstacle;
-    private characterStatsReader: CharacterStatsReader;
     private colisionManager: ColisionManager;
 
     constructor() {
@@ -24,8 +24,14 @@ export class TestbedScene extends Phaser.Scene {
     }
 
     init(params: any): void {
-        this.characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
-        this.necromancer = new Necromancer(100, 300, this.characterStatsReader, 1);
+        const characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
+
+        const necromancerCreationData = new CharacterCreationData();
+        necromancerCreationData.LocationX = 100;
+        necromancerCreationData.LocationY = 300;
+        necromancerCreationData.CharacterStatsReader = characterStatsReader;
+
+        this.necromancer = new Necromancer(necromancerCreationData);
         this.skeleton = new Skeleton(200, 300, this.characterStatsReader, 1);
         this.platforms = new StaticObstacle(this.PLATFORM_SPRITE_NAME);
     }

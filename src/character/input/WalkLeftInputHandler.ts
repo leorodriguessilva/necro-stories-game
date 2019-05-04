@@ -1,6 +1,6 @@
 import "phaser";
-import { MovementInputHandler } from './MovementInputHandler';
-import { Character } from '../Character';
+import { MovementInputHandler } from "./MovementInputHandler";
+import { Character } from "../Character";
 
 export class WalkLeftInputHandler extends MovementInputHandler {
 
@@ -8,11 +8,12 @@ export class WalkLeftInputHandler extends MovementInputHandler {
         super(key, character);
     }
 
-    flipSprite(sprite: Phaser.Physics.Arcade.Sprite): void {
+    protected flipSprite(sprite: Phaser.Physics.Arcade.Sprite): void {
         sprite.setFlipX(true);
     }
 
-    getTurnMoveFactor(): number {
+    protected getTurnMoveFactor(): number {
         return -1;
     }
+
 }

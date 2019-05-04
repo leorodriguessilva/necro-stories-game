@@ -3,21 +3,22 @@ import { Character } from "../Character";
 
 export abstract class InputHandler {
 
-    key: Phaser.Input.Keyboard.Key;
-    character: Character;
+    protected character: Character;
+    private key: Phaser.Input.Keyboard.Key;
 
     constructor(key: Phaser.Input.Keyboard.Key, character: Character) {
         this.key = key;
         this.character = character;
     }
 
-    abstract handle(): void;
+    public abstract handle(): void;
 
-    isKeyDown(): boolean {
+    protected isKeyDown(): boolean {
         return this.key.isDown;
     }
 
-    getKeyCode(): number {
+    protected getKeyCode(): number {
         return this.key.keyCode;
     }
+
 }

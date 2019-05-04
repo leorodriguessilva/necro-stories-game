@@ -23,7 +23,7 @@ export class TestbedScene extends Phaser.Scene {
         });
     }
 
-    init(params: any): void {
+    public init(params: any): void {
         const characterStatsReader = new CharacterStatsReader(StatsReaderMode.DEBUG_MODE);
 
         const necromancerCreationData = new CharacterCreationData();
@@ -31,18 +31,23 @@ export class TestbedScene extends Phaser.Scene {
         necromancerCreationData.LocationY = 300;
         necromancerCreationData.CharacterStatsReader = characterStatsReader;
 
+        const skeletonCreationData = new CharacterCreationData();
+        skeletonCreationData.LocationX = 200;
+        skeletonCreationData.LocationY = 300;
+        skeletonCreationData.CharacterStatsReader = characterStatsReader;
+
         this.necromancer = new Necromancer(necromancerCreationData);
-        this.skeleton = new Skeleton(200, 300, this.characterStatsReader, 1);
+        this.skeleton = new Skeleton(skeletonCreationData);
         this.platforms = new StaticObstacle(this.PLATFORM_SPRITE_NAME);
     }
 
-    preload(): void {
+    public preload(): void {
         this.necromancer.preload(this.load);
         this.skeleton.preload(this.load);
         this.platforms.preload(this.load);
     }
 
-    create(): void {
+    public create(): void {
         this.necromancer.create(this.physics, this.anims);
         this.skeleton.create(this.physics, this.anims);
         this.platforms.create(this.physics, (platform) => {
@@ -56,7 +61,7 @@ export class TestbedScene extends Phaser.Scene {
         this.colisionManager.addColisionToHandle(this.skeleton, this.platforms, null, ColisionType.COLLIDE);
     }
 
-    update(): void {
+    public update(): void {
         this.necromancer.update();
         this.skeleton.update();
     }

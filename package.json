@@ -2,31 +2,27 @@
   "name": "necro-stories-game",
   "version": "1.0.0",
   "description": "This is the source code of the game Necro Stories",
-  "main": "server.js",
+  "main": "webpack.config.js",
   "dependencies": {},
   "devDependencies": {
-    "browserify": "^16.2.3",
-    "express": "^4.16.4",
-    "grunt": "^1.0.4",
-    "grunt-browserify": "^5.3.0",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-connect": "^2.0.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-shell": "^3.0.1",
     "jest": "^24.7.1",
-    "load-grunt-tasks": "^4.0.0",
-    "morgan": "^1.9.1",
-    "nodemon": "^1.18.11",
-    "reload": "^2.4.0"
+    "live-server": "^1.2.1",
+    "phaser": "^3.16.2",
+    "ts-loader": "^5.3.0",
+    "typescript": "^3.1.6",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack",
+    "start": "live-server --port=8085"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leorodriguessilva/necro-stories-game.git"
   },
-  "author": "",
+  "author": "Leonardo 'Aesir' Rodrigues da Silva",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/leorodriguessilva/necro-stories-game/issues"

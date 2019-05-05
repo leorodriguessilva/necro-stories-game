@@ -1,26 +1,17 @@
-import "phaser";
 import { CharacterState } from "./CharacterState";
 
-export class CharacterHarmedState extends CharacterState {
+export class CharacterUsingSkillState extends CharacterState {
 
     private sprite: Phaser.Physics.Arcade.Sprite;
 
-    public update(): void {
-        this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.character.getName + "-harm", true);
-        const animationProgress = this.sprite.anims.getProgress();
-
-        if (animationProgress === 1) {
-            this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
-        }
-    }
-
+    public update(): void { }    
+    
     public idle(): void { }
 
     public move(): void { }
 
     public harm(): void { }
-    
+
     public attack(): void { }
 
     public useSkill(): void { }

@@ -20,6 +20,10 @@ export class CharacterIdleState extends CharacterState {
     public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
     }
+    
+    public attack(): void { }
+
+    public useSkill(): void { }
 
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();

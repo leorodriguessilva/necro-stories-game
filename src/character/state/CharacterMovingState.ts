@@ -2,7 +2,7 @@ import "phaser";
 import { CharacterState } from "./CharacterState";
 
 export class CharacterMovingState extends CharacterState {
-
+  
     public update(): void {
         /*this.hasNoInput = true;
         this.movementInputHandlers.forEach(inputHandler => {
@@ -23,7 +23,12 @@ export class CharacterMovingState extends CharacterState {
 
     public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
-    }
+    }  
+    
+    public attack(): void { }
+    
+    public useSkill(): void { }
+
 
     protected configureState() {
         /*this.movementInputHandlers = [];

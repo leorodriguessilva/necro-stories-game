@@ -5,6 +5,8 @@
   "main": "webpack.config.js",
   "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "@types/node": "^12.0.0",
     "jest": "^24.7.1",
     "live-server": "^1.2.1",
     "phaser": "^3.16.2",
@@ -18,19 +20,19 @@
     "lint": "tslint -c tslint.json './src/**/*.{ts,tsx}'",
     "pretest": "npm run lint",
     "test": "jest",
+    "prebuild": "npm run lint",
     "build": "webpack",
     "start": "live-server --port=8085"
   },
   "jest": {
     "moduleFileExtensions": [
       "ts",
-      "tsx",
       "js"
     ],
     "transform": {
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.(ts)$": "ts-jest"
     },
-    "testRegex": "/__tests__/.*\\.(ts|tsx|js)$"
+    "testRegex": "/test/.*\\.(ts)$"
   },
   "repository": {
     "type": "git",

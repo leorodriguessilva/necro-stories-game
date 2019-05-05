@@ -10,7 +10,6 @@ export class Skeleton extends Character {
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
-        super.preload(loader);
         loader.spritesheet(this.getName(), "assets/skeleton.png", { frameWidth: 42, frameHeight: 45 });
     }
 

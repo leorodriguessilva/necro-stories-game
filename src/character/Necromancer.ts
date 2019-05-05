@@ -10,7 +10,6 @@ export class Necromancer extends Character {
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
-        super.preload(loader);
         loader.spritesheet(this.getName(), "assets/necromancer.png", { frameWidth: 46, frameHeight: 45 });
     }
 

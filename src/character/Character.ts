@@ -26,9 +26,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.stats = characterStatsReader.generateStats(this.getName());
     }
 
-    public preload(loader: Phaser.Loader.LoaderPlugin): void {
-        super.preload(loader);
-    }
+    public abstract preload(loader: Phaser.Loader.LoaderPlugin): void;
 
     public create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
         const spriteColliderDataWrapper = new SpriteColliderDataWrapper(

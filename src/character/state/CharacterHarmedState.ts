@@ -20,7 +20,7 @@ export class CharacterHarmedState extends CharacterState {
     public move(): void { }
 
     public harm(): void { }
-    
+
     public attack(): void { }
 
     public useSkill(): void { }

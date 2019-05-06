@@ -11,5 +11,5 @@ export interface ICharacterState {
     attack(): void;
 
     useSkill(): void;
-    
+
 }

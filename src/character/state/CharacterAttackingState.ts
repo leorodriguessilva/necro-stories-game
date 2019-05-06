@@ -4,8 +4,8 @@ export class CharacterAttackingState extends CharacterState {
 
     private sprite: Phaser.Physics.Arcade.Sprite;
 
-    public update(): void { }    
-    
+    public update(): void { }
+
     public idle(): void { }
 
     public move(): void { }

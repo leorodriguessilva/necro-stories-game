@@ -40,7 +40,7 @@ export class CharacterStateContext {
     public harm(): void {
         this.currentState.harm();
     }
-    
+
     public attack(): void {
         this.currentState.attack();
     }

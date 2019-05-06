@@ -2,7 +2,7 @@ import { CharacterStateContext } from "./CharacterStateContext";
 import { Character } from "../Character";
 import { ICharacterState } from "./ICharacterState";
 
-export abstract class CharacterState implements ICharacterState{
+export abstract class CharacterState implements ICharacterState {
 
     protected stateContext: CharacterStateContext;
     protected character: Character;

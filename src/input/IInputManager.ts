@@ -1,8 +1,9 @@
 import "phaser";
+import { IKey } from "./IKey";
 
 export interface IInputManager {
 
-    addInputToHandle(key: Phaser.Input.Keyboard.Key, callback: () => boolean): void;
+    addInputToHandle(key: IKey, callback: () => boolean): void;
 
     update(): void;
 

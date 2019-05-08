@@ -32,7 +32,7 @@
     "transform": {
       "\\.(ts)$": "ts-jest"
     },
-    "testRegex": "/test/.*\\.(ts)$"
+    "testRegex": "/test/.*\\.(spec).(ts)$"
   },
   "repository": {
     "type": "git",

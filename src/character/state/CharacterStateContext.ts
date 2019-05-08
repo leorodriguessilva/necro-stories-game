@@ -49,7 +49,7 @@ export class CharacterStateContext {
         this.currentState.useSkill();
     }
 
-    public setCurrentState(state: CharacterState): void {
+    public setCurrentState(state: ICharacterState): void {
         this.currentState = state;
     }
 

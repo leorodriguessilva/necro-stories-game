@@ -5,6 +5,7 @@ import { CharacterMovingState } from "./CharacterMovingState";
 import { CharacterHarmedState } from "./CharacterHarmedState";
 import { ICharacterState } from "./ICharacterState";
 import { CharacterAttackingState } from "./CharacterAttackingState";
+import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
 export class CharacterStateContext {
 
@@ -33,8 +34,8 @@ export class CharacterStateContext {
         this.currentState.idle();
     }
 
-    public move(): void {
-        this.currentState.move();
+    public move(movingDirection: CharacterMovingDirection): void {
+        this.currentState.move(movingDirection);
     }
 
     public harm(): void {

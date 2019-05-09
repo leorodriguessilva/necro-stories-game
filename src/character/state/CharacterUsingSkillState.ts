@@ -1,4 +1,5 @@
 import { CharacterState } from "./CharacterState";
+import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
 export class CharacterUsingSkillState extends CharacterState {
 
@@ -8,7 +9,7 @@ export class CharacterUsingSkillState extends CharacterState {
 
     public idle(): void { }
 
-    public move(): void { }
+    public move(movingDirection: CharacterMovingDirection): void { }
 
     public harm(): void { }
 

@@ -1,6 +1,7 @@
 import { CharacterStateContext } from "./CharacterStateContext";
 import { Character } from "../Character";
 import { ICharacterState } from "./ICharacterState";
+import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
 export abstract class CharacterState implements ICharacterState {
 
@@ -17,7 +18,7 @@ export abstract class CharacterState implements ICharacterState {
 
     public abstract idle(): void;
 
-    public abstract move(): void;
+    public abstract move(movingDirection: CharacterMovingDirection): void;
 
     public abstract harm(): void;
 

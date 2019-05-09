@@ -1,5 +1,6 @@
 import "phaser";
 import { CharacterState } from "./CharacterState";
+import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
 export class CharacterIdleState extends CharacterState {
 
@@ -13,8 +14,9 @@ export class CharacterIdleState extends CharacterState {
 
     public idle(): void { }
 
-    public move(): void {
+    public move(movingDirection: CharacterMovingDirection): void {
         this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
+        this.stateContext.move(movingDirection);
     }
 
     public harm(): void {

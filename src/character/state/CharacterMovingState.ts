@@ -1,25 +1,31 @@
 import "phaser";
 import { CharacterState } from "./CharacterState";
+import { CharacterMovingDirection } from "./CharacterMovingDirection";
+import { ISpriteColliderWrapper } from "../../collider/ISpriteColliderWrapper";
 
 export class CharacterMovingState extends CharacterState {
 
-    public update(): void {
-        /*this.hasNoInput = true;
-        this.movementInputHandlers.forEach(inputHandler => {
-            if (this.handleInput(inputHandler)) {
-                this.hasNoInput = false;
-                return;
-            }
-        });
+    private movingDirection: CharacterMovingDirection;
+    private spriteColliderWrapper: ISpriteColliderWrapper;
 
-        if (this.hasNoInput) {
-            this.stateContext.setCurrentState = this.stateContext.IDLE_STATE;
-        }*/
+    public update(): void {
+        const sprite = this.spriteColliderWrapper.getSprite();
+        let turnFactor = 1;
+        sprite.resetFlip();
+        if (this.movingDirection === CharacterMovingDirection.LEFT) {
+            turnFactor = -1;
+            sprite.setFlipX(true);
+        }
+        sprite.setVelocityX(this.character.getStats().getMoveSpeed() * turnFactor);
     }
 
-    public idle(): void { }
+    public idle(): void {
+        this.stateContext.setCurrentState(this.stateContext.IDLE_STATE);
+    }
 
-    public move(): void { }
+    public move(movingDirection: CharacterMovingDirection): void {
+        this.movingDirection = movingDirection;
+    }
 
     public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
@@ -30,21 +36,7 @@ export class CharacterMovingState extends CharacterState {
     public useSkill(): void { }
 
     protected configureState() {
-        /*this.movementInputHandlers = [];
-
-        this.character.inputHandlers.forEach(inputHandler => {
-            if (inputHandler instanceof MovementInputHandler) {
-                this.movementInputHandlers.push(inputHandler);
-            }
-        });*/
-    }
-
-    private handleInput(inputHandler): boolean {
-        if (inputHandler.isKeyDown) {
-            inputHandler.handle();
-            return true;
-        }
-        return false;
+        this.spriteColliderWrapper = this.character.getSpriteColliderWrapper();
     }
 
 }

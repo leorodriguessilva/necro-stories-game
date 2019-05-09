@@ -7,6 +7,7 @@ import { CharacterStateContext } from "./state/CharacterStateContext";
 import { SpriteColliderWrapper } from "../collider/SpriteColliderWrapper";
 import { SpriteColliderDataWrapper } from "../collider/SpriteColliderDataWrapper";
 import { ISpriteColliderWrapper } from "../collider/ISpriteColliderWrapper";
+import { CharacterMovingDirection } from "./state/CharacterMovingDirection";
 
 export abstract class Character extends CollidedObjectData<CharacterStats> {
 
@@ -40,8 +41,8 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.stateContext = new CharacterStateContext(this);
     }
 
-    public move() {
-        this.stateContext.move();
+    public move(movingDirection: CharacterMovingDirection) {
+        this.stateContext.move(movingDirection);
     }
 
     public harm() {

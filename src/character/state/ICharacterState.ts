@@ -1,10 +1,12 @@
+import { CharacterMovingDirection } from "./CharacterMovingDirection";
+
 export interface ICharacterState {
 
     update(): void;
 
     idle(): void;
 
-    move(): void;
+    move(movingDirection: CharacterMovingDirection): void;
 
     harm(): void;
 

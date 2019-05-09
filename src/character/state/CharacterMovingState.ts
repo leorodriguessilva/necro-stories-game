@@ -17,6 +17,7 @@ export class CharacterMovingState extends CharacterState {
             sprite.setFlipX(true);
         }
         sprite.setVelocityX(this.character.getStats().getMoveSpeed() * turnFactor);
+        this.idle();
     }
 
     public idle(): void {

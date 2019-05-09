@@ -7,6 +7,10 @@ import { CharacterStatsReader } from "../stats/CharacterStatsReader";
 import { StatsReaderMode } from "../stats/StatsReaderMode";
 import { ColisionManager } from "../colision/ColisionManager";
 import { ColisionType } from "../colision/ColisionType";
+import { IInputManager } from "../input/IInputManager";
+import { InputManager } from "../input/InputManager";
+import { PhaserKey } from "../input/PhaserKey";
+import { CharacterMovingDirection } from "../character/state/CharacterMovingDirection";
 
 export class TestbedScene extends Phaser.Scene {
 
@@ -16,6 +20,7 @@ export class TestbedScene extends Phaser.Scene {
     private skeleton: Skeleton;
     private platforms: StaticObstacle;
     private colisionManager: ColisionManager;
+    private inputManager: IInputManager;
 
     constructor() {
         super({
@@ -39,6 +44,22 @@ export class TestbedScene extends Phaser.Scene {
         this.necromancer = new Necromancer(necromancerCreationData);
         this.skeleton = new Skeleton(skeletonCreationData);
         this.platforms = new StaticObstacle(this.PLATFORM_SPRITE_NAME);
+
+        this.inputManager = new InputManager();
+        const phaserRightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT, true, true);
+        const phaserLeftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT, true, true);
+        const keyRightWrapper = new PhaserKey(phaserRightKey);
+        const keyLeftWrapper = new PhaserKey(phaserLeftKey);
+
+        this.inputManager.addInputToHandle(keyRightWrapper, () => {
+            this.necromancer.move(CharacterMovingDirection.RIGHT);
+            return true;
+        });
+        this.inputManager.addInputToHandle(keyLeftWrapper, () => {
+            this.necromancer.move(CharacterMovingDirection.LEFT);
+            return true;
+        });
+
     }
 
     public preload(): void {
@@ -64,6 +85,7 @@ export class TestbedScene extends Phaser.Scene {
     public update(): void {
         this.necromancer.update();
         this.skeleton.update();
+        this.inputManager.update();
     }
 
 }

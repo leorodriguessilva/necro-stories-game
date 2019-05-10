@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: './src/TestbedGame.ts',
+  watch: true,
   module: {
     rules: [
       {
@@ -18,5 +19,11 @@ module.exports = {
     filename: 'app.js',
     path: path.resolve(__dirname, 'dist')
   },
-  mode: 'development'
+  mode: 'development',
+  devServer: {
+    contentBase: path.join(__dirname, ''),
+    compress: true,
+    port: 9000,
+    hot: true
+  }
 };

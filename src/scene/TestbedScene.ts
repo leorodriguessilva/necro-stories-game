@@ -59,7 +59,6 @@ export class TestbedScene extends Phaser.Scene {
             this.necromancer.move(CharacterMovingDirection.LEFT);
             return true;
         });
-
     }
 
     public preload(): void {

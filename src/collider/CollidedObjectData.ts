@@ -1,4 +1,3 @@
-import "phaser";
 import { ICollider } from "./ICollider";
 import { ColliderType } from "./ColliderType";
 import { ISpriteColliderWrapper } from "./ISpriteColliderWrapper";
@@ -31,6 +30,10 @@ export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
     public abstract create(
         physics: Phaser.Physics.Arcade.ArcadePhysics,
         anims: Phaser.Animations.AnimationManager): void;
+
+    public abstract update(): void;
+
+    public abstract getAssetName(): string;
 
     public abstract destroy(): void;
 

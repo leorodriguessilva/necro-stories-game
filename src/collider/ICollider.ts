@@ -1,7 +1,8 @@
 import { ColliderType } from "./ColliderType";
 import { ISpriteColliderWrapper } from "./ISpriteColliderWrapper";
+import { ILoadable } from "../loader/ILoadable";
 
-export interface ICollider<Stats> {
+export interface ICollider<Stats> extends ILoadable {
 
     /**
      * Destroy a Phaser game object on the scene, and clean all its resources.

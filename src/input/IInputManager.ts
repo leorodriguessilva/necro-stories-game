@@ -1,4 +1,3 @@
-import "phaser";
 import { IKey } from "./IKey";
 
 export interface IInputManager {

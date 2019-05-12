@@ -1,4 +1,3 @@
-import "phaser";
 import { CollidedObjectData } from "../collider/CollidedObjectData";
 import { ColliderType } from "../collider/ColliderType";
 import { CharacterStats } from "../stats/CharacterStats";
@@ -8,6 +7,7 @@ import { SpriteColliderWrapper } from "../collider/SpriteColliderWrapper";
 import { SpriteColliderDataWrapper } from "../collider/SpriteColliderDataWrapper";
 import { ISpriteColliderWrapper } from "../collider/ISpriteColliderWrapper";
 import { CharacterMovingDirection } from "./state/CharacterMovingDirection";
+import { ISkill } from "./skill/ISkill";
 
 export abstract class Character extends CollidedObjectData<CharacterStats> {
 
@@ -17,6 +17,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
     private stats: CharacterStats;
     private stateContext: CharacterStateContext;
     private spriteColliderWrapper: ISpriteColliderWrapper;
+    private basicAttackSkill: ISkill;
 
     constructor(characterCreationData: CharacterCreationData) {
         super(characterCreationData.ObjectId);
@@ -30,6 +31,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
     public abstract preload(loader: Phaser.Loader.LoaderPlugin): void;
 
     public create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
+        this.basicAttackSkill.create(physics, anims);
         const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
             this.locationX,
             this.locationY,
@@ -41,15 +43,19 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.stateContext = new CharacterStateContext(this);
     }
 
-    public move(movingDirection: CharacterMovingDirection) {
+    public move(movingDirection: CharacterMovingDirection): void {
         this.stateContext.move(movingDirection);
     }
 
-    public harm() {
+    public harm(): void {
         this.stateContext.harm();
     }
 
-    public update() {
+    public attack(): void {
+        this.stateContext.attack(this.locationX + 10, this.locationY);
+    }
+
+    public update(): void {
         this.stateContext.update();
     }
 
@@ -73,4 +79,11 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         return ColliderType.SPRITE;
     }
 
+    public getBasicAttackSkill(): ISkill {
+        return this.basicAttackSkill;
+    }
+
+    public setBasicAttackSkill(basicAttackSkill: ISkill): void {
+        this.basicAttackSkill = basicAttackSkill;
+    }
 }

@@ -1,4 +1,3 @@
-import "phaser";
 import { CharacterState } from "./CharacterState";
 import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
@@ -8,7 +7,7 @@ export class CharacterHarmedState extends CharacterState {
 
     public update(): void {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.character.getName + "-harm", true);
+        this.sprite.anims.play(this.character.getName() + "-harm", true);
         const animationProgress = this.sprite.anims.getProgress();
 
         if (animationProgress === 1) {
@@ -22,7 +21,7 @@ export class CharacterHarmedState extends CharacterState {
 
     public harm(): void { }
 
-    public attack(): void { }
+    public attack(locationX: number, locationY: number): void { }
 
     public useSkill(): void { }
 

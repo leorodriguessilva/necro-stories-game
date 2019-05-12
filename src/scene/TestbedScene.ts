@@ -1,4 +1,3 @@
-import "phaser";
 import { CharacterCreationData } from "../character/data/CharacterCreationData";
 import { Necromancer } from "../character/Necromancer";
 import { Skeleton } from "../character/Skeleton";
@@ -11,16 +10,22 @@ import { IInputManager } from "../input/IInputManager";
 import { InputManager } from "../input/InputManager";
 import { PhaserKey } from "../input/PhaserKey";
 import { CharacterMovingDirection } from "../character/state/CharacterMovingDirection";
+import { ISkill } from "../character/skill/ISkill";
+import { MeleeAttackSkill } from "../character/skill/MeleeAttackSkill";
+import { IAssetLoadManager } from "../loader/IAssetLoadManager";
+import { AssetLoadManager } from "../loader/AssetLoadManager";
 
 export class TestbedScene extends Phaser.Scene {
 
     private readonly PLATFORM_SPRITE_NAME: string = "platform";
 
+    private assetLoadManager: IAssetLoadManager;
     private necromancer: Necromancer;
     private skeleton: Skeleton;
     private platforms: StaticObstacle;
     private colisionManager: ColisionManager;
     private inputManager: IInputManager;
+    private basicAttackSkill: ISkill;
 
     constructor() {
         super({
@@ -48,8 +53,10 @@ export class TestbedScene extends Phaser.Scene {
         this.inputManager = new InputManager();
         const phaserRightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT, true, true);
         const phaserLeftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT, true, true);
+        const phaserSpaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE, true, true);
         const keyRightWrapper = new PhaserKey(phaserRightKey);
         const keyLeftWrapper = new PhaserKey(phaserLeftKey);
+        const keySpaceWrapper = new PhaserKey(phaserSpaceKey);
 
         this.inputManager.addInputToHandle(keyRightWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.RIGHT);
@@ -59,15 +66,30 @@ export class TestbedScene extends Phaser.Scene {
             this.necromancer.move(CharacterMovingDirection.LEFT);
             return true;
         });
+        this.inputManager.addInputToHandle(keySpaceWrapper, () => {
+            this.necromancer.attack();
+            return true;
+        });
+
+        this.basicAttackSkill = new MeleeAttackSkill(1);
+        this.assetLoadManager = new AssetLoadManager();
+
+        this.necromancer.setBasicAttackSkill(this.basicAttackSkill);
+        this.skeleton.setBasicAttackSkill(this.basicAttackSkill);
+
+        this.assetLoadManager.addAsset(this.necromancer);
+        this.assetLoadManager.addAsset(this.skeleton);
+        this.assetLoadManager.addAsset(this.platforms);
+        this.assetLoadManager.addAsset(this.basicAttackSkill);
     }
 
     public preload(): void {
-        this.necromancer.preload(this.load);
-        this.skeleton.preload(this.load);
-        this.platforms.preload(this.load);
+        this.assetLoadManager.load(this.load);
+        this.load.image("sky", "assets/sky.png");
     }
 
     public create(): void {
+        this.add.image(400, 300, "sky");
         this.necromancer.create(this.physics, this.anims);
         this.skeleton.create(this.physics, this.anims);
         this.platforms.create(this.physics, (platform) => {

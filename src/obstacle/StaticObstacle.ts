@@ -1,4 +1,3 @@
-import "phaser";
 import { ICollider } from "../collider/ICollider";
 import { ObstacleStats } from "../stats/ObstacleStats";
 import { ColliderType } from "../collider/ColliderType";
@@ -7,6 +6,8 @@ import { ISpriteColliderWrapper } from "../collider/ISpriteColliderWrapper";
 import { SpriteColliderDataWrapper } from "../collider/SpriteColliderDataWrapper";
 
 export class StaticObstacle implements ICollider<ObstacleStats> {
+
+    private readonly ASSET_NAME: string;
 
     private objectId: number;
     private spriteName: string;
@@ -21,6 +22,7 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
         this.objectId = Math.floor((Math.random() * 100) + 1);
 
         this.spriteName = spriteName;
+        this.ASSET_NAME = "assets/" + this.getName() + ".png";
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin) {
@@ -40,6 +42,10 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
         const staticGroupSprite = this.spriteColliderWrapper.getStaticGroup();
         staticGroupSpriteInitialization(staticGroupSprite);
+    }
+
+    public getAssetName(): string {
+        return this.ASSET_NAME;
     }
 
     public destroy(): void {

@@ -1,4 +1,3 @@
-import "phaser";
 import { ColisionType } from "./ColisionType";
 import { ICollider } from "../collider/ICollider";
 

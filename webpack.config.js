@@ -2,7 +2,6 @@ const path = require('path');
 
 module.exports = {
   entry: './src/TestbedGame.ts',
-  watch: true,
   module: {
     rules: [
       {

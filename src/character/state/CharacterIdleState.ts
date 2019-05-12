@@ -1,4 +1,3 @@
-import "phaser";
 import { CharacterState } from "./CharacterState";
 import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
@@ -23,7 +22,12 @@ export class CharacterIdleState extends CharacterState {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
     }
 
-    public attack(): void { }
+    public attack(locationX: number, locationY: number): void {
+        this.character.getBasicAttackSkill().cast(locationX, locationY, () => {
+            this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
+        });
+        this.stateContext.setCurrentState(this.stateContext.ATTACKING_STATE);
+    }
 
     public useSkill(): void { }
 

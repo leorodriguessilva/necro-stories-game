@@ -1,4 +1,3 @@
-import "phaser";
 import { ISpriteColliderWrapper } from "./ISpriteColliderWrapper";
 import { SpriteColliderDataWrapper } from "./SpriteColliderDataWrapper";
 

@@ -1,5 +1,4 @@
 import { Character } from "../Character";
-import { CharacterState } from "./CharacterState";
 import { CharacterIdleState } from "./CharacterIdleState";
 import { CharacterMovingState } from "./CharacterMovingState";
 import { CharacterHarmedState } from "./CharacterHarmedState";
@@ -42,8 +41,8 @@ export class CharacterStateContext {
         this.currentState.harm();
     }
 
-    public attack(): void {
-        this.currentState.attack();
+    public attack(locationX: number, locationY: number): void {
+        this.currentState.attack(locationX, locationY);
     }
 
     public useSkill(): void {

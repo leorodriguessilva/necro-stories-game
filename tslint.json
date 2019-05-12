@@ -7,7 +7,8 @@
     "rules": {
         "object-literal-sort-keys": false,
         "ordered-imports": false,
-        "no-empty": [true, "allow-empty-functions"]
+        "no-empty": [true, "allow-empty-functions"],
+        "no-console": false
     },
     "rulesDirectory": []
 }

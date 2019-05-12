@@ -1,12 +1,14 @@
-import "phaser";
 import { Character } from "./Character";
 import { CharacterCreationData } from "./data/CharacterCreationData";
 
 export class Skeleton extends Character {
 
+    private readonly ASSET_NAME: string;
+
     constructor(characterCreationData: CharacterCreationData) {
         characterCreationData.Name = "skeleton";
         super(characterCreationData);
+        this.ASSET_NAME = "assets/skeleton.png";
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -18,6 +20,10 @@ export class Skeleton extends Character {
         this.getSpriteColliderWrapper().setCollideWorldBounds(true);
 
         this.configureAnimation(anims);
+    }
+
+    public getAssetName(): string {
+        return this.ASSET_NAME;
     }
 
     private configureAnimation(anims: Phaser.Animations.AnimationManager) {

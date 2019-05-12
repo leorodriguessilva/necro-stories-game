@@ -1,4 +1,3 @@
-import "phaser";
 import { InputHandler } from "./InputHandler";
 import { Character } from "../Character";
 

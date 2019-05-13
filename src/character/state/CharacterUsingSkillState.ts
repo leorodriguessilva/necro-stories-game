@@ -13,7 +13,7 @@ export class CharacterUsingSkillState extends CharacterState {
 
     public harm(): void { }
 
-    public attack(locationX: number, locationY: number): void { }
+    public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }
 
     public useSkill(): void { }
 

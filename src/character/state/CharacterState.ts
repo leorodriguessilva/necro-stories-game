@@ -22,7 +22,7 @@ export abstract class CharacterState implements ICharacterState {
 
     public abstract harm(): void;
 
-    public abstract attack(locationX: number, locationY: number): void;
+    public abstract attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void;
 
     public abstract useSkill(): void;
 

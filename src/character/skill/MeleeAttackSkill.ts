@@ -1,12 +1,12 @@
 import { ISkill } from "./ISkill";
-import { ColisionType } from "../../colision/ColisionType";
+import { CharacterMovingDirection } from "../state/CharacterMovingDirection";
 
 export class MeleeAttackSkill implements ISkill {
 
     private readonly ASSET_NAME: string;
 
     private id: number;
-    private sprite: Phaser.Physics.Arcade.Sprite;
+    private sprite: Phaser.GameObjects.Sprite;
     private anims: Phaser.Animations.AnimationManager;
     private callbackWhenDoneCasting: () => void;
 
@@ -19,14 +19,10 @@ export class MeleeAttackSkill implements ISkill {
         loader.spritesheet(this.getName(), this.ASSET_NAME, { frameWidth: 13, frameHeight: 48 });
     }
 
-    public create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
-        this.sprite = physics.add.sprite(0, 0, this.getName());
-        this.sprite.setVelocityX(0);
-        this.sprite.setVelocityY(0);
-        this.sprite.setGravityX(0);
-        this.sprite.setGravityY(0);
+    public create(scene: Phaser.Scene): void {
+        this.sprite = scene.add.sprite(0, 0, this.getName());
         this.inactivateSprite();
-        this.anims = anims;
+        this.anims = scene.anims;
 
         this.configureAnimation();
     }
@@ -45,7 +41,7 @@ export class MeleeAttackSkill implements ISkill {
         return this.ASSET_NAME;
     }
 
-    public getSprite(): Phaser.Physics.Arcade.Sprite {
+    public getSprite(): Phaser.GameObjects.Sprite {
         return this.sprite;
     }
 
@@ -57,27 +53,40 @@ export class MeleeAttackSkill implements ISkill {
         return "melee-attack";
     }
 
-    public cast(locationX: number, locationY: number, callbackWhenDoneCasting: () => void): void {
+    public cast(
+        locationX: number,
+        locationY: number,
+        movingDirection: CharacterMovingDirection,
+        callbackWhenDoneCasting: () => void): void {
         this.callbackWhenDoneCasting = callbackWhenDoneCasting;
-        this.sprite.setX(locationX);
+
+        this.sprite.resetFlip();
+        const characterFrontDistance = (this.sprite.width * 2);
+        this.sprite.setX(locationX + characterFrontDistance);
+        if (movingDirection === CharacterMovingDirection.LEFT) {
+            this.sprite.setFlipX(true);
+            this.sprite.setX(locationX - characterFrontDistance);
+        }
+
         this.sprite.setY(locationY);
-        console.log("Cast at X: " + locationX + " and Y: " + locationY);
         this.activateSprite();
     }
 
     private activateSprite(): void {
         this.sprite.active = true;
+        this.sprite.visible = true;
     }
 
     private inactivateSprite(): void {
         this.sprite.active = false;
+        this.sprite.visible = false;
     }
 
     private configureAnimation() {
         this.anims.create({
             key: this.getName() + "-slash",
             frames: this.anims.generateFrameNumbers(this.getName(), { start: 0, end: 11 }),
-            frameRate: 8,
+            frameRate: 30,
             repeat: -1,
         });
     }

@@ -4,14 +4,19 @@ import { ISpriteColliderWrapper } from "../../collider/ISpriteColliderWrapper";
 
 export class CharacterMovingState extends CharacterState {
 
-    private movingDirection: CharacterMovingDirection;
     private spriteColliderWrapper: ISpriteColliderWrapper;
 
-    public update(): void {
+    public update(): void { }
+
+    public idle(): void {
+        this.stateContext.setCurrentState(this.stateContext.IDLE_STATE);
+    }
+
+    public move(movingDirection: CharacterMovingDirection): void {
         const sprite = this.spriteColliderWrapper.getSprite();
         let turnFactor = 1;
         sprite.resetFlip();
-        if (this.movingDirection === CharacterMovingDirection.LEFT) {
+        if (movingDirection === CharacterMovingDirection.LEFT) {
             turnFactor = -1;
             sprite.setFlipX(true);
         }
@@ -19,20 +24,12 @@ export class CharacterMovingState extends CharacterState {
         this.idle();
     }
 
-    public idle(): void {
-        this.stateContext.setCurrentState(this.stateContext.IDLE_STATE);
-    }
-
-    public move(movingDirection: CharacterMovingDirection): void {
-        this.movingDirection = movingDirection;
-    }
-
     public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
     }
 
-    public attack(locationX: number, locationY: number): void {
-        this.character.getBasicAttackSkill().cast(locationX, locationY, () => {
+    public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void {
+        this.character.getBasicAttackSkill().cast(locationX, locationY, movingDirection, () => {
             this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
         });
         this.stateContext.setCurrentState(this.stateContext.ATTACKING_STATE);

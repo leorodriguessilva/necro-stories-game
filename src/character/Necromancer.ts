@@ -15,11 +15,11 @@ export class Necromancer extends Character {
         loader.spritesheet(this.getName(), "assets/necromancer.png", { frameWidth: 46, frameHeight: 45 });
     }
 
-    public create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
-        super.create(physics, anims);
+    public create(scene: Phaser.Scene): void {
+        super.create(scene);
         this.getSpriteColliderWrapper().setCollideWorldBounds(true);
 
-        this.configureAnimation(anims);
+        this.configureAnimation(scene.anims);
     }
 
     public getAssetName(): string {

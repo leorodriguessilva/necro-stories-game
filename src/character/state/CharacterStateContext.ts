@@ -15,6 +15,7 @@ export class CharacterStateContext {
     public readonly USING_SKILL_STATE_STATE: ICharacterState;
 
     private currentState: ICharacterState;
+    private lastMovingDirection: CharacterMovingDirection;
 
     constructor(character: Character) {
         this.IDLE_STATE = new CharacterIdleState(this, character);
@@ -23,6 +24,7 @@ export class CharacterStateContext {
         this.ATTACKING_STATE = new CharacterAttackingState(this, character);
 
         this.currentState = this.IDLE_STATE;
+        this.lastMovingDirection = CharacterMovingDirection.RIGHT;
     }
 
     public update(): void {
@@ -34,6 +36,7 @@ export class CharacterStateContext {
     }
 
     public move(movingDirection: CharacterMovingDirection): void {
+        this.lastMovingDirection = movingDirection;
         this.currentState.move(movingDirection);
     }
 
@@ -42,7 +45,7 @@ export class CharacterStateContext {
     }
 
     public attack(locationX: number, locationY: number): void {
-        this.currentState.attack(locationX, locationY);
+        this.currentState.attack(locationX, locationY, this.lastMovingDirection);
     }
 
     public useSkill(): void {
@@ -50,6 +53,8 @@ export class CharacterStateContext {
     }
 
     public setCurrentState(state: ICharacterState): void {
+        console.log("Changing from state: " +
+        this.currentState.constructor.name + " to state: " + state.constructor.name);
         this.currentState = state;
     }
 

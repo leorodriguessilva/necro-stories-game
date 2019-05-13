@@ -6,6 +6,7 @@ export class CharacterAttackingState extends CharacterState {
     private sprite: Phaser.Physics.Arcade.Sprite;
 
     public update(): void {
+        this.sprite.setVelocityX(0);
         this.character.getBasicAttackSkill().update();
     }
 
@@ -17,7 +18,7 @@ export class CharacterAttackingState extends CharacterState {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
     }
 
-    public attack(locationX: number, locationY: number): void { }
+    public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }
 
     public useSkill(): void { }
 

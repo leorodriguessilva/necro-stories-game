@@ -90,8 +90,8 @@ export class TestbedScene extends Phaser.Scene {
 
     public create(): void {
         this.add.image(400, 300, "sky");
-        this.necromancer.create(this.physics, this.anims);
-        this.skeleton.create(this.physics, this.anims);
+        this.necromancer.create(this);
+        this.skeleton.create(this);
         this.platforms.create(this.physics, (platform) => {
             platform.create(400, 568, this.PLATFORM_SPRITE_NAME).setScale(2).refreshBody();
             platform.create(600, 400, this.PLATFORM_SPRITE_NAME);

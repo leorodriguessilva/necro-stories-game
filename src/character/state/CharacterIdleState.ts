@@ -22,8 +22,8 @@ export class CharacterIdleState extends CharacterState {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
     }
 
-    public attack(locationX: number, locationY: number): void {
-        this.character.getBasicAttackSkill().cast(locationX, locationY, () => {
+    public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void {
+        this.character.getBasicAttackSkill().cast(locationX, locationY, movingDirection, () => {
             this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
         });
         this.stateContext.setCurrentState(this.stateContext.ATTACKING_STATE);

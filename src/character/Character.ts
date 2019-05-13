@@ -30,12 +30,12 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
 
     public abstract preload(loader: Phaser.Loader.LoaderPlugin): void;
 
-    public create(physics: Phaser.Physics.Arcade.ArcadePhysics, anims: Phaser.Animations.AnimationManager): void {
-        this.basicAttackSkill.create(physics, anims);
+    public create(scene: Phaser.Scene): void {
+        this.basicAttackSkill.create(scene);
         const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
             this.locationX,
             this.locationY,
-            physics,
+            scene.physics,
             this.getName(),
             null,
             this.getColliderType());
@@ -52,7 +52,9 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
     }
 
     public attack(): void {
-        this.stateContext.attack(this.locationX + 10, this.locationY);
+        this.stateContext.attack(
+            this.spriteColliderWrapper.getSprite().x,
+            this.spriteColliderWrapper.getSprite().y);
     }
 
     public update(): void {

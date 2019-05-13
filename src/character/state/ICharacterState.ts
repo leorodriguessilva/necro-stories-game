@@ -10,7 +10,7 @@ export interface ICharacterState {
 
     harm(): void;
 
-    attack(locationX: number, locationY: number): void;
+    attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void;
 
     useSkill(): void;
 

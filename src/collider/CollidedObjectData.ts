@@ -24,12 +24,10 @@ export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
     /**
      * Create the instance of the game object into the scene, and configure its initial behaviour.
      *
-     * @param physics - This physics is given by Phaser framework, to provide utils to change object physics
-     * @param anims - This is the animator of Phaser framework, he creates the animations to be runned when called
+     * @param scene - This scene is given by Phaser framework,
+     * to provide utils to change and create objects in the scene
      */
-    public abstract create(
-        physics: Phaser.Physics.Arcade.ArcadePhysics,
-        anims: Phaser.Animations.AnimationManager): void;
+    public abstract create(scene: Phaser.Scene): void;
 
     public abstract update(): void;
 

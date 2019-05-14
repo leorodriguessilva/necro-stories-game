@@ -14,4 +14,6 @@ export interface ISkill extends IGameObject {
         locationY: number,
         movingDirection: CharacterMovingDirection,
         callbackWhenDoneCasting: () => void): void;
+
+    interrupt(): void;
 }

@@ -13,6 +13,11 @@ export class Skeleton extends Character {
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
         loader.spritesheet(this.getName(), "assets/skeleton.png", { frameWidth: 42, frameHeight: 45 });
+        loader.spritesheet(this.getName() + "-idle", "assets/skeleton-idle.png", { frameWidth: 42, frameHeight: 45 });
+        loader.spritesheet(
+            this.getName() + "-attack",
+            "assets/skeleton-attack.png",
+            { frameWidth: 42, frameHeight: 45 });
     }
 
     public create(scene: Phaser.Scene): void {
@@ -30,15 +35,22 @@ export class Skeleton extends Character {
         anims.create({
             key: this.getName() + "-walk",
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 3 }),
-            frameRate: 5,
+            frameRate: 7,
             repeat: -1,
         });
 
         anims.create({
             key: this.getName() + "-idle",
-            frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 1 }),
-            frameRate: 3,
+            frames: anims.generateFrameNumbers(this.getName() + "-idle", { start: 0, end: 3 }),
+            frameRate: 4,
             repeat: -1,
+        });
+
+        anims.create({
+            key: this.getName() + "-attack",
+            frames: anims.generateFrameNumbers(this.getName() + "-attack", { start: 0, end: 9 }),
+            frameRate: 15,
+            repeat: 0,
         });
     }
 }

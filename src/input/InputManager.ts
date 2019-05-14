@@ -4,6 +4,7 @@ import { IKey } from "./IKey";
 export class InputManager implements IInputManager {
 
     private keyboardToActionMap: Map<IKey, () => boolean>;
+    private whenNoInputHandler: () => void;
 
     constructor() {
         this.keyboardToActionMap = new Map<IKey, () => boolean>();
@@ -16,12 +17,23 @@ export class InputManager implements IInputManager {
         this.keyboardToActionMap.set(key, callback);
     }
 
+    public addWhenNoInputHandler(callback: () => void): void {
+        this.whenNoInputHandler = callback;
+    }
+
     public update(): void {
-        this.keyboardToActionMap.forEach((callback: () => boolean , key: IKey) => {
+        let noInputReceived = false;
+        this.keyboardToActionMap.forEach((callback: () => boolean, key: IKey) => {
             if (key.isDown()) {
+                noInputReceived = true;
                 callback();
             }
         });
+
+        if (noInputReceived) {
+            console.log("no input received");
+            this.whenNoInputHandler();
+        }
     }
 
 }

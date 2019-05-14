@@ -7,6 +7,7 @@ export class CharacterAttackingState extends CharacterState {
 
     public update(): void {
         this.sprite.setVelocityX(0);
+        this.sprite.anims.play(this.character.getName() + "-attack", true);
         this.character.getBasicAttackSkill().update();
     }
 
@@ -16,6 +17,7 @@ export class CharacterAttackingState extends CharacterState {
 
     public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
+        this.stateContext.harm();
     }
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }

@@ -43,6 +43,10 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.stateContext = new CharacterStateContext(this);
     }
 
+    public idle(): void {
+        this.stateContext.idle();
+    }
+
     public move(movingDirection: CharacterMovingDirection): void {
         this.stateContext.move(movingDirection);
     }

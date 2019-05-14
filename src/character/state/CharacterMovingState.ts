@@ -6,10 +6,14 @@ export class CharacterMovingState extends CharacterState {
 
     private spriteColliderWrapper: ISpriteColliderWrapper;
 
-    public update(): void { }
+    public update(): void {
+        const sprite = this.spriteColliderWrapper.getSprite();
+        sprite.anims.play(this.character.getName() + "-walk", true);
+    }
 
     public idle(): void {
         this.stateContext.setCurrentState(this.stateContext.IDLE_STATE);
+        this.stateContext.idle();
     }
 
     public move(movingDirection: CharacterMovingDirection): void {
@@ -21,18 +25,19 @@ export class CharacterMovingState extends CharacterState {
             sprite.setFlipX(true);
         }
         sprite.setVelocityX(this.character.getStats().getMoveSpeed() * turnFactor);
-        this.idle();
     }
 
     public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
+        this.stateContext.harm();
     }
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void {
         this.character.getBasicAttackSkill().cast(locationX, locationY, movingDirection, () => {
-            this.stateContext.setCurrentState(this.stateContext.MOVING_STATE);
+            this.stateContext.setCurrentState(this.stateContext.IDLE_STATE);
         });
         this.stateContext.setCurrentState(this.stateContext.ATTACKING_STATE);
+        this.stateContext.attack(locationX, locationY);
     }
 
     public useSkill(): void { }

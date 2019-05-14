@@ -30,7 +30,7 @@ export class Necromancer extends Character {
         anims.create({
             key: this.getName() + "-walk",
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 5 }),
-            frameRate: 8,
+            frameRate: 10,
             repeat: -1,
         });
 

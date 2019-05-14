@@ -25,7 +25,8 @@ export class TestbedScene extends Phaser.Scene {
     private platforms: StaticObstacle;
     private colisionManager: ColisionManager;
     private inputManager: IInputManager;
-    private basicAttackSkill: ISkill;
+    private necromancerBasicAttackSkill: ISkill;
+    private skeletonBasicAttackSkill: ISkill;
 
     constructor() {
         super({
@@ -60,27 +61,37 @@ export class TestbedScene extends Phaser.Scene {
 
         this.inputManager.addInputToHandle(keyRightWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.RIGHT);
+            this.skeleton.move(CharacterMovingDirection.RIGHT);
             return true;
         });
         this.inputManager.addInputToHandle(keyLeftWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.LEFT);
+            this.skeleton.move(CharacterMovingDirection.LEFT);
             return true;
         });
         this.inputManager.addInputToHandle(keySpaceWrapper, () => {
             this.necromancer.attack();
+            this.skeleton.attack();
             return true;
         });
 
-        this.basicAttackSkill = new MeleeAttackSkill(1);
+        this.inputManager.addWhenNoInputHandler(() => {
+            this.necromancer.idle();
+            this.skeleton.idle();
+        });
+
+        this.necromancerBasicAttackSkill = new MeleeAttackSkill(1);
+        this.skeletonBasicAttackSkill = new MeleeAttackSkill(1);
         this.assetLoadManager = new AssetLoadManager();
 
-        this.necromancer.setBasicAttackSkill(this.basicAttackSkill);
-        this.skeleton.setBasicAttackSkill(this.basicAttackSkill);
+        this.necromancer.setBasicAttackSkill(this.necromancerBasicAttackSkill);
+        this.skeleton.setBasicAttackSkill(this.skeletonBasicAttackSkill);
 
         this.assetLoadManager.addAsset(this.necromancer);
         this.assetLoadManager.addAsset(this.skeleton);
         this.assetLoadManager.addAsset(this.platforms);
-        this.assetLoadManager.addAsset(this.basicAttackSkill);
+        this.assetLoadManager.addAsset(this.necromancerBasicAttackSkill);
+        this.assetLoadManager.addAsset(this.skeletonBasicAttackSkill);
     }
 
     public preload(): void {

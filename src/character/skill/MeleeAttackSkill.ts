@@ -72,6 +72,10 @@ export class MeleeAttackSkill implements ISkill {
         this.activateSprite();
     }
 
+    public interrupt(): void {
+        this.inactivateSprite();
+    }
+
     private activateSprite(): void {
         this.sprite.active = true;
         this.sprite.visible = true;

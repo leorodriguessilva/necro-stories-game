@@ -28,7 +28,6 @@ export class CharacterIdleState extends CharacterState {
             this.stateContext.setCurrentState(this.stateContext.IDLE_STATE);
         });
         this.stateContext.setCurrentState(this.stateContext.ATTACKING_STATE);
-        this.stateContext.attack(locationX, locationY);
     }
 
     public useSkill(): void { }

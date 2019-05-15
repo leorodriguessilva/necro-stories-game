@@ -27,13 +27,12 @@ export class InputManager implements IInputManager {
             if (key.isDown()) {
                 noInputReceived = true;
                 callback();
+                return;
             }
         });
 
         if (noInputReceived) {
-            console.log("no input received");
             this.whenNoInputHandler();
         }
     }
-
 }

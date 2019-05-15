@@ -48,8 +48,8 @@ export class Skeleton extends Character {
 
         anims.create({
             key: this.getName() + "-attack",
-            frames: anims.generateFrameNumbers(this.getName() + "-attack", { start: 0, end: 9 }),
-            frameRate: 15,
+            frames: anims.generateFrameNumbers(this.getName() + "-attack", { start: 3, end: 9 }),
+            frameRate: 17,
             repeat: 0,
         });
     }

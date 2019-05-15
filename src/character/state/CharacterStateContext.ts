@@ -53,8 +53,6 @@ export class CharacterStateContext {
     }
 
     public setCurrentState(state: ICharacterState): void {
-        console.log("Changing from state: " +
-        this.currentState.constructor.name + " to state: " + state.constructor.name);
         this.currentState = state;
     }
 

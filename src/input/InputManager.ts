@@ -22,16 +22,16 @@ export class InputManager implements IInputManager {
     }
 
     public update(): void {
-        let noInputReceived = false;
+        let noInputReceived = true;
         this.keyboardToActionMap.forEach((callback: () => boolean, key: IKey) => {
             if (key.isDown()) {
-                noInputReceived = true;
+                noInputReceived = false;
                 callback();
                 return;
             }
         });
 
-        if (noInputReceived) {
+        if (noInputReceived && this.whenNoInputHandler) {
             this.whenNoInputHandler();
         }
     }

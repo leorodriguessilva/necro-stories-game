@@ -2,6 +2,7 @@ import { IColisionManager } from "./IColisionManager";
 import { ColisionType } from "./ColisionType";
 import { ICollider } from "../collider/ICollider";
 import { ColliderType } from "../collider/ColliderType";
+import { ISkill } from "../character/skill/ISkill";
 
 export class ColisionManager implements IColisionManager {
 
@@ -22,6 +23,37 @@ export class ColisionManager implements IColisionManager {
         const firstSpriteCollider = this.getColliderByColliderType<FirstStats>(firstCollider);
         const secondSpriteCollider = this.getColliderByColliderType<SecondStats>(secondCollider);
 
+        this.addColision(colisionType, firstSpriteCollider, secondSpriteCollider, colisionCallback);
+    }
+
+    public addSkillColisionToHandle<Stats>(
+        firstCollider: ICollider<Stats>,
+        secondCollider: ISkill,
+        colisionCallback: ArcadePhysicsCallback,
+        colisionType: ColisionType): void {
+
+        const firstSpriteCollider = this.getColliderByColliderType<Stats>(firstCollider);
+
+        this.addColision(colisionType, firstSpriteCollider, secondCollider.getSprite(), colisionCallback);
+    }
+
+    public isColisionOn(): boolean {
+        return this.isOn;
+    }
+
+    public turnColisionOn(): void {
+        this.isOn = true;
+    }
+
+    public turnColisionOff(): void {
+        this.isOn = false;
+    }
+
+    private addColision(
+        colisionType: ColisionType,
+        firstSpriteCollider: any,
+        secondSpriteCollider: any,
+        colisionCallback: ArcadePhysicsCallback): void {
         if (colisionType === ColisionType.COLLIDE) {
             this.physics.add.collider(
                 firstSpriteCollider,
@@ -38,18 +70,6 @@ export class ColisionManager implements IColisionManager {
             colisionCallback,
             this.isColisionOn,
             this);
-    }
-
-    public isColisionOn(): boolean {
-        return this.isOn;
-    }
-
-    public turnColisionOn(): void {
-        this.isOn = true;
-    }
-
-    public turnColisionOff(): void {
-        this.isOn = false;
     }
 
     private getColliderByColliderType<Stats>(collider: ICollider<Stats>): any {

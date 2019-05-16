@@ -52,5 +52,12 @@ export class Skeleton extends Character {
             frameRate: 17,
             repeat: 0,
         });
+
+        anims.create({
+            key: this.getName() + "-harm",
+            frames: anims.generateFrameNumbers(this.getName() + "-idle", { start: 0, end: 2 }),
+            frameRate: 1,
+            repeat: -1,
+        });
     }
 }

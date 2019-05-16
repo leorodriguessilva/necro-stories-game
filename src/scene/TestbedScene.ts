@@ -61,23 +61,19 @@ export class TestbedScene extends Phaser.Scene {
 
         this.inputManager.addInputToHandle(keyRightWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.RIGHT);
-            this.skeleton.move(CharacterMovingDirection.RIGHT);
             return true;
         });
         this.inputManager.addInputToHandle(keyLeftWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.LEFT);
-            this.skeleton.move(CharacterMovingDirection.LEFT);
             return true;
         });
         this.inputManager.addInputToHandle(keySpaceWrapper, () => {
             this.necromancer.attack();
-            this.skeleton.attack();
             return true;
         });
 
         this.inputManager.addWhenNoInputHandler(() => {
             this.necromancer.idle();
-            this.skeleton.idle();
         });
 
         this.necromancerBasicAttackSkill = new MeleeAttackSkill(1);
@@ -112,6 +108,9 @@ export class TestbedScene extends Phaser.Scene {
         this.colisionManager = new ColisionManager(this.physics);
         this.colisionManager.addColisionToHandle(this.necromancer, this.platforms, null, ColisionType.COLLIDE);
         this.colisionManager.addColisionToHandle(this.skeleton, this.platforms, null, ColisionType.COLLIDE);
+        this.colisionManager.addSkillColisionToHandle(this.skeleton, this.necromancerBasicAttackSkill, () => {
+            this.skeleton.harm();
+        }, ColisionType.OVERLAP);
     }
 
     public update(): void {

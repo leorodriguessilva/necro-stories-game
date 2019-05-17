@@ -109,6 +109,7 @@ export class TestbedScene extends Phaser.Scene {
         this.colisionManager.addColisionToHandle(this.necromancer, this.platforms, null, ColisionType.COLLIDE);
         this.colisionManager.addColisionToHandle(this.skeleton, this.platforms, null, ColisionType.COLLIDE);
         this.colisionManager.addSkillColisionToHandle(this.skeleton, this.necromancerBasicAttackSkill, () => {
+            console.log("acerto miseravi!!!");
             this.skeleton.harm();
         }, ColisionType.OVERLAP);
     }

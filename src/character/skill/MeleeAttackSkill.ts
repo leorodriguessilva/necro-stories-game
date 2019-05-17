@@ -6,7 +6,7 @@ export class MeleeAttackSkill implements ISkill {
     private readonly ASSET_NAME: string;
 
     private id: number;
-    private sprite: Phaser.GameObjects.Sprite;
+    private sprite: Phaser.Physics.Arcade.Sprite;
     private anims: Phaser.Animations.AnimationManager;
     private callbackWhenDoneCasting: () => void;
 
@@ -20,10 +20,12 @@ export class MeleeAttackSkill implements ISkill {
     }
 
     public create(scene: Phaser.Scene): void {
-        this.sprite = scene.add.sprite(0, 0, this.getName());
-        this.inactivateSprite();
+        const physicSprite: any = scene.physics.add.sprite(0, 0, this.getName());
+        physicSprite.body.allowGravity = false;
         this.anims = scene.anims;
+        this.sprite = physicSprite;
 
+        this.inactivateSprite();
         this.configureAnimation();
     }
 

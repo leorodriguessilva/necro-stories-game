@@ -17,6 +17,7 @@ export class CharacterAttackingState extends CharacterState {
 
     public harm(): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
+        this.character.getBasicAttackSkill().interrupt();
         this.stateContext.harm();
     }
 

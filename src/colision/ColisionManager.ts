@@ -19,11 +19,10 @@ export class ColisionManager implements IColisionManager {
         secondCollider: ICollider<SecondStats>,
         colisionCallback: ArcadePhysicsCallback,
         colisionType: ColisionType): void {
-
         const firstSpriteCollider = this.getColliderByColliderType<FirstStats>(firstCollider);
         const secondSpriteCollider = this.getColliderByColliderType<SecondStats>(secondCollider);
 
-        this.addColision(colisionType, firstSpriteCollider, secondSpriteCollider, colisionCallback);
+        this.addColision(firstSpriteCollider, secondSpriteCollider, colisionCallback, colisionType);
     }
 
     public addSkillColisionToHandle<Stats>(
@@ -31,10 +30,9 @@ export class ColisionManager implements IColisionManager {
         secondCollider: ISkill,
         colisionCallback: ArcadePhysicsCallback,
         colisionType: ColisionType): void {
-
         const firstSpriteCollider = this.getColliderByColliderType<Stats>(firstCollider);
 
-        this.addColision(colisionType, firstSpriteCollider, secondCollider.getSprite(), colisionCallback);
+        this.addColision(firstSpriteCollider, secondCollider.getSprite(), colisionCallback, colisionType);
     }
 
     public isColisionOn(): boolean {
@@ -50,10 +48,10 @@ export class ColisionManager implements IColisionManager {
     }
 
     private addColision(
-        colisionType: ColisionType,
-        firstSpriteCollider: any,
-        secondSpriteCollider: any,
-        colisionCallback: ArcadePhysicsCallback): void {
+        firstSpriteCollider: Phaser.GameObjects.Sprite,
+        secondSpriteCollider: Phaser.GameObjects.Sprite,
+        colisionCallback: ArcadePhysicsCallback,
+        colisionType: ColisionType): void {
         if (colisionType === ColisionType.COLLIDE) {
             this.physics.add.collider(
                 firstSpriteCollider,

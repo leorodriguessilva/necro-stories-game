@@ -20,8 +20,7 @@ export class MeleeAttackSkill implements ISkill {
     }
 
     public create(scene: Phaser.Scene): void {
-        const physicSprite: any = scene.physics.add.sprite(0, 0, this.getName());
-        physicSprite.body.allowGravity = false;
+        const physicSprite: any = scene.physics.add.staticSprite(0, 0, this.getName());
         this.anims = scene.anims;
         this.sprite = physicSprite;
 
@@ -62,30 +61,36 @@ export class MeleeAttackSkill implements ISkill {
         callbackWhenDoneCasting: () => void): void {
         this.callbackWhenDoneCasting = callbackWhenDoneCasting;
 
-        this.sprite.resetFlip();
-        const characterFrontDistance = (this.sprite.width * 2);
-        this.sprite.setX(locationX + characterFrontDistance);
-        if (movingDirection === CharacterMovingDirection.LEFT) {
-            this.sprite.setFlipX(true);
-            this.sprite.setX(locationX - characterFrontDistance);
-        }
+        const calculatedX = this.preparePositionXToDraw(locationX, movingDirection);
 
-        this.sprite.setY(locationY);
-        this.activateSprite();
+        this.activateSprite(calculatedX, locationY);
     }
 
     public interrupt(): void {
         this.inactivateSprite();
     }
 
-    private activateSprite(): void {
-        this.sprite.active = true;
-        this.sprite.visible = true;
+    private calculateCharacterFrontDistance() {
+        return (this.sprite.width * 2);
+    }
+
+    private activateSprite(locationX: number, locationY: number): void {
+        this.sprite.enableBody(true, locationX, locationY, true, true);
     }
 
     private inactivateSprite(): void {
-        this.sprite.active = false;
-        this.sprite.visible = false;
+        this.sprite.disableBody(true, true);
+    }
+
+    private preparePositionXToDraw(locationX: number, movingDirection: CharacterMovingDirection): number {
+        this.sprite.resetFlip();
+        const characterFrontDistance = this.calculateCharacterFrontDistance();
+        let calculatedX = locationX + characterFrontDistance;
+        if (movingDirection === CharacterMovingDirection.LEFT) {
+            this.sprite.setFlipX(true);
+            calculatedX = locationX - characterFrontDistance;
+        }
+        return calculatedX;
     }
 
     private configureAnimation() {
@@ -93,7 +98,7 @@ export class MeleeAttackSkill implements ISkill {
             key: this.getName() + "-slash",
             frames: this.anims.generateFrameNumbers(this.getName(), { start: 0, end: 11 }),
             frameRate: 30,
-            repeat: -1,
+            repeat: 0,
         });
     }
 }

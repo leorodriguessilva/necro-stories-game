@@ -93,23 +93,23 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.basicAttackSkill = basicAttackSkill;
     }
 
-    protected getHarmAnimAlias() : string {
+    protected getHarmAnimAlias(): string {
         return `${this.getName}-harm`;
     }
 
-    protected getWalkAnimAlias() : string {
+    protected getWalkAnimAlias(): string {
         return `${this.getName}-walk`;
     }
 
-    protected getAttackAnimAlias() : string {
+    protected getAttackAnimAlias(): string {
         return `${this.getName}-attack`;
     }
-    
-    protected getIdleAnimAlias() : string {
+
+    protected getIdleAnimAlias(): string {
         return `${this.getName}-idle`;
     }
-    
-    protected getCastingAnimAlias() : string {
+
+    protected getCastingAnimAlias(): string {
         return `${this.getName}-cast`;
     }
 }

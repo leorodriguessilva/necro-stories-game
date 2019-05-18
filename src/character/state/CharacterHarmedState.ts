@@ -23,7 +23,7 @@ export class CharacterHarmedState extends CharacterState {
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }
 
-    public useSkill(): void { }
+    public cast(): void { }
 
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();

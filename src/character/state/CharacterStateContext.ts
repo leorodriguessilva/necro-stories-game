@@ -49,7 +49,7 @@ export class CharacterStateContext {
     }
 
     public useSkill(): void {
-        this.currentState.useSkill();
+        this.currentState.cast();
     }
 
     public setCurrentState(state: ICharacterState): void {

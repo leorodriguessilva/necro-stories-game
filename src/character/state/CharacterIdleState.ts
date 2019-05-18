@@ -30,7 +30,7 @@ export class CharacterIdleState extends CharacterState {
         this.stateContext.setCurrentState(this.stateContext.ATTACKING_STATE);
     }
 
-    public useSkill(): void { }
+    public cast(): void { }
 
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();

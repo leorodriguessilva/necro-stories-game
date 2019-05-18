@@ -1,7 +1,7 @@
 import { CharacterState } from "./CharacterState";
 import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
-export class CharacterUsingSkillState extends CharacterState {
+export class CharacterCastingState extends CharacterState {
 
     private sprite: Phaser.Physics.Arcade.Sprite;
 
@@ -15,7 +15,7 @@ export class CharacterUsingSkillState extends CharacterState {
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }
 
-    public useSkill(): void { }
+    public cast(): void { }
 
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();

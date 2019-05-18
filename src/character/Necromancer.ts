@@ -12,7 +12,7 @@ export class Necromancer extends Character {
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
-        loader.spritesheet(this.getName(), "assets/necromancer.png", { frameWidth: 46, frameHeight: 45 });
+        loader.spritesheet(this.getName(), this.ASSET_NAME, { frameWidth: 46, frameHeight: 45 });
     }
 
     public create(scene: Phaser.Scene): void {
@@ -28,21 +28,21 @@ export class Necromancer extends Character {
 
     private configureAnimation(anims: Phaser.Animations.AnimationManager): void {
         anims.create({
-            key: this.getName() + "-walk",
+            key: `${this.getName()}-walk`,
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 5 }),
             frameRate: 10,
             repeat: -1,
         });
 
         anims.create({
-            key: this.getName() + "-idle",
+            key: `${this.getName()}-idle`,
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 5 }),
             frameRate: 5,
             repeat: -1,
         });
 
         anims.create({
-            key: this.getName() + "-harm",
+            key: `${this.getName()}-harm`,
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 2 }),
             frameRate: 1,
             repeat: -1,

@@ -92,4 +92,24 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
     public setBasicAttackSkill(basicAttackSkill: ISkill): void {
         this.basicAttackSkill = basicAttackSkill;
     }
+
+    protected getHarmAnimAlias() : string {
+        return `${this.getName}-harm`;
+    }
+
+    protected getWalkAnimAlias() : string {
+        return `${this.getName}-walk`;
+    }
+
+    protected getAttackAnimAlias() : string {
+        return `${this.getName}-attack`;
+    }
+    
+    protected getIdleAnimAlias() : string {
+        return `${this.getName}-idle`;
+    }
+    
+    protected getCastingAnimAlias() : string {
+        return `${this.getName}-cast`;
+    }
 }

@@ -33,29 +33,29 @@ export class Skeleton extends Character {
 
     private configureAnimation(anims: Phaser.Animations.AnimationManager) {
         anims.create({
-            key: this.getName() + "-walk",
+            key: `${this.getName()}-walk`,
             frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 3 }),
             frameRate: 7,
             repeat: -1,
         });
 
         anims.create({
-            key: this.getName() + "-idle",
-            frames: anims.generateFrameNumbers(this.getName() + "-idle", { start: 0, end: 3 }),
+            key: `${this.getName()}-idle`,
+            frames: anims.generateFrameNumbers(`${this.getName()}-idle`, { start: 0, end: 3 }),
             frameRate: 4,
             repeat: -1,
         });
 
         anims.create({
-            key: this.getName() + "-attack",
-            frames: anims.generateFrameNumbers(this.getName() + "-attack", { start: 3, end: 9 }),
+            key: `${this.getName()}-attack`,
+            frames: anims.generateFrameNumbers(`${this.getName()}-attack`, { start: 3, end: 9 }),
             frameRate: 17,
             repeat: 0,
         });
 
         anims.create({
-            key: this.getName() + "-harm",
-            frames: anims.generateFrameNumbers(this.getName() + "-idle", { start: 0, end: 2 }),
+            key: `${this.getName()}-harm`,
+            frames: anims.generateFrameNumbers(`${this.getName()}-harm`, { start: 0, end: 2 }),
             frameRate: 1,
             repeat: -1,
         });

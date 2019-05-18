@@ -17,7 +17,7 @@ export class InputManager implements IInputManager {
         this.keyboardToActionMap.set(key, callback);
     }
 
-    public addWhenNoInputHandler(callback: () => void): void {
+    public addWhenNoInputDetected(callback: () => void): void {
         this.whenNoInputHandler = callback;
     }
 

@@ -49,7 +49,7 @@ test("when no key is pressed, a specific callback should be called", () => {
     inputManager.addInputToHandle(fakeKey2, callback2);
 
     const whenNoInputHandler = jest.fn();
-    inputManager.addWhenNoInputHandler(whenNoInputHandler);
+    inputManager.addWhenNoInputDetected(whenNoInputHandler);
 
     inputManager.update();
 

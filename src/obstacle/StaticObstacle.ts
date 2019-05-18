@@ -22,11 +22,11 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
         this.objectId = Math.floor((Math.random() * 100) + 1);
 
         this.spriteName = spriteName;
-        this.ASSET_NAME = "assets/" + this.getName() + ".png";
+        this.ASSET_NAME = `assets/${this.getName()}.png`;
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin) {
-        loader.image(this.getName(), "assets/" + this.getName() + ".png");
+        loader.image(this.getName(), this.ASSET_NAME);
     }
 
     public create(

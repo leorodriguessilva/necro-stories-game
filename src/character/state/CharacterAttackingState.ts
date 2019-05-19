@@ -7,7 +7,7 @@ export class CharacterAttackingState extends CharacterState {
 
     public update(): void {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.character.getName() + "-attack", true);
+        this.sprite.anims.play(this.character.getAttackAnimAlias(), true);
         this.character.getBasicAttackSkill().update();
     }
 

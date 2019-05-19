@@ -27,6 +27,7 @@ export class TestbedScene extends Phaser.Scene {
     private inputManager: IInputManager;
     private necromancerBasicAttackSkill: ISkill;
     private skeletonBasicAttackSkill: ISkill;
+    private debugText: Phaser.GameObjects.Text;
 
     constructor() {
         super({
@@ -54,26 +55,30 @@ export class TestbedScene extends Phaser.Scene {
         this.inputManager = new InputManager();
         const phaserRightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT, true, true);
         const phaserLeftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT, true, true);
-        const phaserSpaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE, true, true);
+        const phaserSpaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE, true, false);
         const keyRightWrapper = new PhaserKey(phaserRightKey);
         const keyLeftWrapper = new PhaserKey(phaserLeftKey);
         const keySpaceWrapper = new PhaserKey(phaserSpaceKey);
 
         this.inputManager.addInputToHandle(keyRightWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.RIGHT);
+            this.skeleton.move(CharacterMovingDirection.RIGHT);
             return true;
         });
         this.inputManager.addInputToHandle(keyLeftWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.LEFT);
+            this.skeleton.move(CharacterMovingDirection.LEFT);
             return true;
         });
         this.inputManager.addInputToHandle(keySpaceWrapper, () => {
             this.necromancer.attack();
+            this.skeleton.attack();
             return true;
         });
 
         this.inputManager.addWhenNoInputDetected(() => {
             this.necromancer.idle();
+            this.skeleton.idle();
         });
 
         this.necromancerBasicAttackSkill = new MeleeAttackSkill(1);
@@ -111,12 +116,24 @@ export class TestbedScene extends Phaser.Scene {
         this.colisionManager.addSkillColisionToHandle(this.skeleton, this.necromancerBasicAttackSkill, () => {
             this.skeleton.harm();
         }, ColisionType.OVERLAP);
+
+        this.debugText = this.add.text(10, 10, "Debug", { color: "#00ff00" });
     }
 
     public update(): void {
         this.necromancer.update();
         this.skeleton.update();
         this.inputManager.update();
+
+        // this.skeleton.getSpriteColliderWrapper().getSprite().body.setSize(42, 45);
+
+        const debug = [
+            `Necromancer Width: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.width}`,
+            `Necromancer Height: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.height}`,
+            `Skeleton Width: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.width}`,
+            `Skeleton Height: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.height}`,
+        ];
+        this.debugText.setText(debug);
     }
 
 }

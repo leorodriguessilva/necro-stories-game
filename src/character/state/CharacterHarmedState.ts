@@ -7,7 +7,7 @@ export class CharacterHarmedState extends CharacterState {
 
     public update(): void {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.character.getName() + "-harm", true);
+        this.sprite.anims.play(this.character.getHarmAnimAlias(), true);
         const animationProgress = this.sprite.anims.getProgress();
 
         if (animationProgress === 1) {

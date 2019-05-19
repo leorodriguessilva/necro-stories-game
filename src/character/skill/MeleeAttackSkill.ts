@@ -4,6 +4,7 @@ import { CharacterMovingDirection } from "../state/CharacterMovingDirection";
 export class MeleeAttackSkill implements ISkill {
 
     private readonly ASSET_NAME: string;
+    private readonly SLASH_ANIM_ALIAS: string;
 
     private id: number;
     private sprite: Phaser.Physics.Arcade.Sprite;
@@ -13,6 +14,7 @@ export class MeleeAttackSkill implements ISkill {
     constructor(id: number) {
         this.id = id;
         this.ASSET_NAME = "assets/slash.png";
+        this.SLASH_ANIM_ALIAS = `${this.getName()}-slash`;
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -29,7 +31,7 @@ export class MeleeAttackSkill implements ISkill {
     }
 
     public update(): void {
-        this.sprite.anims.play(this.getName() + "-slash", true);
+        this.sprite.anims.play(this.SLASH_ANIM_ALIAS, true);
         const animationProgress = this.sprite.anims.getProgress();
 
         if (animationProgress === 1) {
@@ -95,7 +97,7 @@ export class MeleeAttackSkill implements ISkill {
 
     private configureAnimation() {
         this.anims.create({
-            key: this.getName() + "-slash",
+            key: this.SLASH_ANIM_ALIAS,
             frames: this.anims.generateFrameNumbers(this.getName(), { start: 0, end: 11 }),
             frameRate: 30,
             repeat: 0,

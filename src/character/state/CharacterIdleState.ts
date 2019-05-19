@@ -4,11 +4,10 @@ import { CharacterMovingDirection } from "./CharacterMovingDirection";
 export class CharacterIdleState extends CharacterState {
 
     private sprite: Phaser.Physics.Arcade.Sprite;
-    private characterName: string;
 
     public update(): void {
         this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.characterName + "-idle", true);
+        this.sprite.anims.play(this.character.getIdleAnimAlias(), true);
     }
 
     public idle(): void { }
@@ -35,7 +34,6 @@ export class CharacterIdleState extends CharacterState {
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
         this.sprite = spriteColliderWrapper.getSprite();
-        this.characterName = this.character.getName();
     }
 
 }

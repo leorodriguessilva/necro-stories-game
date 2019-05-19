@@ -41,6 +41,8 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
             this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
         this.stateContext = new CharacterStateContext(this);
+        this.getSpriteColliderWrapper().setCollideWorldBounds(true);
+        this.configureAnimation(scene.anims);
     }
 
     public idle(): void {
@@ -93,23 +95,26 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.basicAttackSkill = basicAttackSkill;
     }
 
-    protected getHarmAnimAlias(): string {
-        return `${this.getName}-harm`;
+    public getHarmAnimAlias(): string {
+        return `${this.getName()}-harm`;
     }
 
-    protected getWalkAnimAlias(): string {
-        return `${this.getName}-walk`;
+    public getWalkAnimAlias(): string {
+        return `${this.getName()}-walk`;
     }
 
-    protected getAttackAnimAlias(): string {
-        return `${this.getName}-attack`;
+    public getAttackAnimAlias(): string {
+        return `${this.getName()}-attack`;
     }
 
-    protected getIdleAnimAlias(): string {
-        return `${this.getName}-idle`;
+    public getIdleAnimAlias(): string {
+        return `${this.getName()}-idle`;
     }
 
-    protected getCastingAnimAlias(): string {
-        return `${this.getName}-cast`;
+    public getCastingAnimAlias(): string {
+        return `${this.getName()}-cast`;
     }
+
+    protected abstract configureAnimation(anims: Phaser.Animations.AnimationManager): void;
+
 }

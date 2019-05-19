@@ -8,15 +8,7 @@ export class CharacterMovingState extends CharacterState {
     private movingDirection: CharacterMovingDirection;
 
     public update(): void {
-        const sprite = this.spriteColliderWrapper.getSprite();
-        let turnFactor = 1;
-        sprite.resetFlip();
-        if (this.movingDirection === CharacterMovingDirection.LEFT) {
-            turnFactor = -1;
-            sprite.setFlipX(true);
-        }
-        sprite.setVelocityX(this.character.getStats().getMoveSpeed() * turnFactor);
-        sprite.anims.play(this.character.getName() + "-walk", true);
+        this.animate();
         this.stateContext.setCurrentState(this.stateContext.IDLE_STATE);
     }
 
@@ -43,6 +35,18 @@ export class CharacterMovingState extends CharacterState {
     protected configureState() {
         this.spriteColliderWrapper = this.character.getSpriteColliderWrapper();
         this.movingDirection = CharacterMovingDirection.RIGHT;
+    }
+
+    private animate() {
+        const sprite = this.spriteColliderWrapper.getSprite();
+        let turnFactor = 1;
+        sprite.resetFlip();
+        if (this.movingDirection === CharacterMovingDirection.LEFT) {
+            turnFactor = -1;
+            sprite.setFlipX(true);
+        }
+        sprite.setVelocityX(this.character.getStats().getMoveSpeed() * turnFactor);
+        sprite.anims.play(this.character.getWalkAnimAlias(), true);
     }
 
 }

@@ -1,13 +1,12 @@
 import { ColisionType } from "./ColisionType";
 import { ICollider } from "../collider/ICollider";
 import { ISkill } from "../character/skill/ISkill";
+import { IColision } from "./IColision";
 
 export interface IColisionManager {
 
     addColisionToHandle<FirstStats, SecondStats>(
-        firstCollider: ICollider<FirstStats>,
-        secondCollider: ICollider<SecondStats>,
-        colisionCallback: ArcadePhysicsCallback,
+        colision: IColision<FirstStats, SecondStats>,
         colisionType: ColisionType): void;
 
     addSkillColisionToHandle<Stats>(

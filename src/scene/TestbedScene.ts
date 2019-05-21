@@ -14,6 +14,7 @@ import { ISkill } from "../character/skill/ISkill";
 import { MeleeAttackSkill } from "../character/skill/MeleeAttackSkill";
 import { IAssetLoadManager } from "../loader/IAssetLoadManager";
 import { AssetLoadManager } from "../loader/AssetLoadManager";
+import { PhaserColisionWatcher } from "../colision/PhaserColisionWatcher";
 
 export class TestbedScene extends Phaser.Scene {
 
@@ -110,7 +111,8 @@ export class TestbedScene extends Phaser.Scene {
             platform.create(50, 250, this.PLATFORM_SPRITE_NAME);
             platform.create(750, 220, this.PLATFORM_SPRITE_NAME);
         });
-        this.colisionManager = new ColisionManager(this.physics);
+        const phaserColisionWatcher = new PhaserColisionWatcher(this.physics);
+        this.colisionManager = new ColisionManager(phaserColisionWatcher);
         this.colisionManager.addColisionToHandle(this.necromancer, this.platforms, null, ColisionType.COLLIDE);
         this.colisionManager.addColisionToHandle(this.skeleton, this.platforms, null, ColisionType.COLLIDE);
         this.colisionManager.addSkillColisionToHandle(this.skeleton, this.necromancerBasicAttackSkill, () => {
@@ -125,13 +127,15 @@ export class TestbedScene extends Phaser.Scene {
         this.skeleton.update();
         this.inputManager.update();
 
-        // this.skeleton.getSpriteColliderWrapper().getSprite().body.setSize(42, 45);
-
         const debug = [
             `Necromancer Width: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.width}`,
             `Necromancer Height: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.height}`,
+            `Necromancer X: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.x}`,
+            `Necromancer Y: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.y}`,
             `Skeleton Width: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.width}`,
             `Skeleton Height: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.height}`,
+            `Skeleton X: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.x}`,
+            `Skeleton Y: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.y}`,
         ];
         this.debugText.setText(debug);
     }

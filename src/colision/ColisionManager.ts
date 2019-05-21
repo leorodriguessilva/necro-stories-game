@@ -3,26 +3,24 @@ import { ColisionType } from "./ColisionType";
 import { ICollider } from "../collider/ICollider";
 import { ColliderType } from "../collider/ColliderType";
 import { ISkill } from "../character/skill/ISkill";
+import { IColisionWatcher } from "./IColisionWatcher";
+import { IColision } from "./IColision";
+import { PhaserColision } from "./PhaserColision";
 
 export class ColisionManager implements IColisionManager {
 
-    private physics: Phaser.Physics.Arcade.ArcadePhysics;
+    private colisionWatcher: IColisionWatcher;
     private isOn: boolean;
 
-    constructor(physics: Phaser.Physics.Arcade.ArcadePhysics) {
-        this.physics = physics;
+    constructor(colisionWatcher: IColisionWatcher) {
+        this.colisionWatcher = colisionWatcher;
         this.turnColisionOn();
     }
-
     public addColisionToHandle<FirstStats, SecondStats>(
-        firstCollider: ICollider<FirstStats>,
-        secondCollider: ICollider<SecondStats>,
-        colisionCallback: ArcadePhysicsCallback,
+        colision: IColision<FirstStats, SecondStats>,
         colisionType: ColisionType): void {
-        const firstSpriteCollider = this.getColliderByColliderType<FirstStats>(firstCollider);
-        const secondSpriteCollider = this.getColliderByColliderType<SecondStats>(secondCollider);
 
-        this.addColision(firstSpriteCollider, secondSpriteCollider, colisionCallback, colisionType);
+        this.addColision(colision, colisionType);
     }
 
     public addSkillColisionToHandle<Stats>(
@@ -30,7 +28,8 @@ export class ColisionManager implements IColisionManager {
         secondCollider: ISkill,
         colisionCallback: ArcadePhysicsCallback,
         colisionType: ColisionType): void {
-        const firstSpriteCollider = this.getColliderByColliderType<Stats>(firstCollider);
+        
+        const colision = new PhaserColision();
 
         this.addColision(firstSpriteCollider, secondCollider.getSprite(), colisionCallback, colisionType);
     }
@@ -47,39 +46,19 @@ export class ColisionManager implements IColisionManager {
         this.isOn = false;
     }
 
-    private addColision(
-        firstSpriteCollider: Phaser.GameObjects.Sprite,
-        secondSpriteCollider: Phaser.GameObjects.Sprite,
-        colisionCallback: ArcadePhysicsCallback,
+    private addColision<FirstStats, SecondStats>(
+        colision: IColision<FirstStats, SecondStats>,
         colisionType: ColisionType): void {
         if (colisionType === ColisionType.COLLIDE) {
-            this.physics.add.collider(
-                firstSpriteCollider,
-                secondSpriteCollider,
-                colisionCallback,
-                this.isColisionOn,
-                this);
+            this.colisionWatcher.addColisionWatcherOver(
+                colision,
+                this.isColisionOn);
             return;
         }
 
-        this.physics.add.overlap(
-            firstSpriteCollider,
-            secondSpriteCollider,
-            colisionCallback,
-            this.isColisionOn,
-            this);
-    }
-
-    private getColliderByColliderType<Stats>(collider: ICollider<Stats>): any {
-        if (collider.getColliderType() === ColliderType.STATIC) {
-            return collider.getSpriteColliderWrapper().getStaticGroup();
-        }
-
-        if (collider.getColliderType() === ColliderType.GROUP) {
-            return collider.getSpriteColliderWrapper().getSpriteGroup();
-        }
-
-        return collider.getSpriteColliderWrapper().getSprite();
+        this.colisionWatcher.addOverlapWatcherOver(
+            colision,
+            this.isColisionOn);
     }
 
 }

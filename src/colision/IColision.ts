@@ -9,5 +9,5 @@ export interface IColision<FirstStats, SecondStats> {
     getSecondCollider(): ICollider<SecondStats>;
 
     hasCollided(): boolean;
-    
+
 }

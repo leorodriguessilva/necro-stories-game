@@ -1,11 +1,12 @@
-import { IGameObject } from "../../gameobject/IGameObject";
 import { CharacterMovingDirection } from "../state/CharacterMovingDirection";
+import { ICollider } from "../../collider/ICollider";
+import { ObstacleStats } from "../../stats/ObstacleStats";
 
-export interface ISkill extends IGameObject {
+export interface ISkill extends ICollider<ObstacleStats> {
 
-    getSprite(): Phaser.GameObjects.Sprite;
+    update(): void;
 
-    getId(): number;
+    create(scene: Phaser.Scene): void;
 
     getName(): string;
 

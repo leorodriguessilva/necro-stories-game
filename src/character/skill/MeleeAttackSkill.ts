@@ -1,18 +1,23 @@
 import { ISkill } from "./ISkill";
 import { CharacterMovingDirection } from "../state/CharacterMovingDirection";
+import { ObstacleStats } from "../../stats/ObstacleStats";
+import { ColliderType } from "../../collider/ColliderType";
+import { CollidedObjectData } from "../../collider/CollidedObjectData";
+import { ISpriteColliderWrapper } from "../../collider/ISpriteColliderWrapper";
+import { SpriteColliderDataWrapper } from "../../collider/SpriteColliderDataWrapper";
+import { SpriteColliderWrapper } from "../../collider/SpriteColliderWrapper";
 
-export class MeleeAttackSkill implements ISkill {
+export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
 
     private readonly ASSET_NAME: string;
     private readonly SLASH_ANIM_ALIAS: string;
 
-    private id: number;
-    private sprite: Phaser.Physics.Arcade.Sprite;
+    private spriteColliderWrapper: ISpriteColliderWrapper;
     private anims: Phaser.Animations.AnimationManager;
     private callbackWhenDoneCasting: () => void;
 
     constructor(id: number) {
-        this.id = id;
+        super(id);
         this.ASSET_NAME = "assets/slash.png";
         this.SLASH_ANIM_ALIAS = `${this.getName()}-slash`;
     }
@@ -22,17 +27,24 @@ export class MeleeAttackSkill implements ISkill {
     }
 
     public create(scene: Phaser.Scene): void {
-        const physicSprite: any = scene.physics.add.staticSprite(0, 0, this.getName());
         this.anims = scene.anims;
-        this.sprite = physicSprite;
+        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
+            0,
+            0,
+            scene.physics,
+            this.getName(),
+            null,
+            this.getColliderType());
+        this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
 
         this.inactivateSprite();
         this.configureAnimation();
     }
 
     public update(): void {
-        this.sprite.anims.play(this.SLASH_ANIM_ALIAS, true);
-        const animationProgress = this.sprite.anims.getProgress();
+        const sprite = this.getSpriteColliderWrapper().getSprite();
+        sprite.anims.play(this.SLASH_ANIM_ALIAS, true);
+        const animationProgress = sprite.anims.getProgress();
 
         if (animationProgress === 1) {
             this.inactivateSprite();
@@ -42,14 +54,6 @@ export class MeleeAttackSkill implements ISkill {
 
     public getAssetName(): string {
         return this.ASSET_NAME;
-    }
-
-    public getSprite(): Phaser.GameObjects.Sprite {
-        return this.sprite;
-    }
-
-    public getId(): number {
-        return this.id;
     }
 
     public getName(): string {
@@ -72,24 +76,44 @@ export class MeleeAttackSkill implements ISkill {
         this.inactivateSprite();
     }
 
+    public getColliderType(): ColliderType {
+        return ColliderType.SPRITE;
+    }
+
+    public destroy(): void {
+        this.getSpriteColliderWrapper().destroy();
+    }
+
+    public getSpriteColliderWrapper(): ISpriteColliderWrapper {
+        return this.spriteColliderWrapper;
+    }
+
+    public getStats(): ObstacleStats {
+        return null;
+    }
+
     private calculateCharacterFrontDistance() {
-        return (this.sprite.width * 2);
+        const sprite = this.getSpriteColliderWrapper().getSprite();
+        return (sprite.width * 2);
     }
 
     private activateSprite(locationX: number, locationY: number): void {
-        this.sprite.enableBody(true, locationX, locationY, true, true);
+        const sprite = this.getSpriteColliderWrapper().getSprite();
+        sprite.enableBody(true, locationX, locationY, true, true);
     }
 
     private inactivateSprite(): void {
-        this.sprite.disableBody(true, true);
+        const sprite = this.getSpriteColliderWrapper().getSprite();
+        sprite.disableBody(true, true);
     }
 
     private preparePositionXToDraw(locationX: number, movingDirection: CharacterMovingDirection): number {
-        this.sprite.resetFlip();
+        const sprite = this.getSpriteColliderWrapper().getSprite();
+        sprite.resetFlip();
         const characterFrontDistance = this.calculateCharacterFrontDistance();
         let calculatedX = locationX + characterFrontDistance;
         if (movingDirection === CharacterMovingDirection.LEFT) {
-            this.sprite.setFlipX(true);
+            sprite.setFlipX(true);
             calculatedX = locationX - characterFrontDistance;
         }
         return calculatedX;

@@ -15,6 +15,9 @@ import { MeleeAttackSkill } from "../character/skill/MeleeAttackSkill";
 import { IAssetLoadManager } from "../loader/IAssetLoadManager";
 import { AssetLoadManager } from "../loader/AssetLoadManager";
 import { PhaserColisionWatcher } from "../colision/PhaserColisionWatcher";
+import { ObstacleStats } from "../stats/ObstacleStats";
+import { CharacterStats } from "../stats/CharacterStats";
+import { PhaserColision } from "../colision/PhaserColision";
 
 export class TestbedScene extends Phaser.Scene {
 
@@ -113,11 +116,25 @@ export class TestbedScene extends Phaser.Scene {
         });
         const phaserColisionWatcher = new PhaserColisionWatcher(this.physics);
         this.colisionManager = new ColisionManager(phaserColisionWatcher);
-        this.colisionManager.addColisionToHandle(this.necromancer, this.platforms, null, ColisionType.COLLIDE);
-        this.colisionManager.addColisionToHandle(this.skeleton, this.platforms, null, ColisionType.COLLIDE);
-        this.colisionManager.addSkillColisionToHandle(this.skeleton, this.necromancerBasicAttackSkill, () => {
+
+        const colisionNecromancerAndPlatforms = new PhaserColision(this.necromancer, this.platforms, null);
+        const colisionSkeletonAndPlatforms = new PhaserColision(this.skeleton, this.platforms, null);
+        const colisionSkeletonAndNecromancerMeleeSkill = new PhaserColision(
+            this.skeleton,
+            this.necromancerBasicAttackSkill,
+            () => {
             this.skeleton.harm();
-        }, ColisionType.OVERLAP);
+        });
+
+        this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
+            colisionNecromancerAndPlatforms,
+            ColisionType.COLLIDE);
+        this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
+            colisionSkeletonAndPlatforms,
+            ColisionType.COLLIDE);
+        this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
+            colisionSkeletonAndNecromancerMeleeSkill,
+            ColisionType.OVERLAP);
 
         this.debugText = this.add.text(10, 10, "Debug", { color: "#00ff00" });
     }

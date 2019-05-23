@@ -1,7 +1,6 @@
 import { IColisionManager } from "./IColisionManager";
 import { ColisionType } from "./ColisionType";
 import { ICollider } from "../collider/ICollider";
-import { ColliderType } from "../collider/ColliderType";
 import { ISkill } from "../character/skill/ISkill";
 import { IColisionWatcher } from "./IColisionWatcher";
 import { IColision } from "./IColision";
@@ -21,17 +20,6 @@ export class ColisionManager implements IColisionManager {
         colisionType: ColisionType): void {
 
         this.addColision(colision, colisionType);
-    }
-
-    public addSkillColisionToHandle<Stats>(
-        firstCollider: ICollider<Stats>,
-        secondCollider: ISkill,
-        colisionCallback: ArcadePhysicsCallback,
-        colisionType: ColisionType): void {
-        
-        const colision = new PhaserColision();
-
-        this.addColision(firstSpriteCollider, secondCollider.getSprite(), colisionCallback, colisionType);
     }
 
     public isColisionOn(): boolean {

@@ -4,48 +4,46 @@ export class SpriteColliderDataWrapper {
 
     private locationX: number;
     private locationY: number;
-    private physics: Phaser.Physics.Arcade.ArcadePhysics;
+    private scene: Phaser.Scene;
     private colliderName: string;
     private physicsGroupConfig: PhysicsGroupConfig;
     private colliderType: ColliderType;
+    private spriteFactory: Map<ColliderType, () => Phaser.GameObjects.GameObject | Phaser.GameObjects.Group>;
 
     constructor(
         locationX: number,
         locationY: number,
-        physics: Phaser.Physics.Arcade.ArcadePhysics,
+        scene: Phaser.Scene,
         colliderName: string,
         physicsGroupConfig: PhysicsGroupConfig,
         colliderType: ColliderType) {
         this.locationX = locationX;
         this.locationY = locationY;
-        this.physics = physics;
+        this.scene = scene;
         this.colliderName = colliderName;
         this.physicsGroupConfig = physicsGroupConfig;
         this.colliderType = colliderType;
+        this.populateSpriteFactory();
     }
 
-    public addStaticGroup(): Phaser.Physics.Arcade.StaticGroup {
-        return this.physics.add.staticGroup();
+    public createSprite(): Phaser.GameObjects.GameObject | Phaser.GameObjects.Group {
+        const spriteCreate = this.spriteFactory.get(this.colliderType);
+        return spriteCreate();
     }
 
-    public addGroup(): Phaser.Physics.Arcade.Group {
-        return this.physics.add.group(this.physicsGroupConfig);
-    }
-
-    public addSprite(): Phaser.Physics.Arcade.Sprite {
-        return this.physics.add.sprite(this.locationX, this.locationY, this.colliderName);
-    }
-
-    public isColliderTypeStatic(): boolean {
-        return this.colliderType === ColliderType.STATIC;
-    }
-
-    public isColliderTypeGroup(): boolean {
-        return this.colliderType === ColliderType.GROUP;
-    }
-
-    public isColliderTypeSprite(): boolean {
-        return this.colliderType === ColliderType.SPRITE;
+    private populateSpriteFactory(): void {
+        this.spriteFactory.set(ColliderType.STATIC, (): Phaser.GameObjects.Group => {
+            return this.scene.physics.add.staticGroup();
+        });
+        this.spriteFactory.set(ColliderType.GROUP, (): Phaser.GameObjects.Group => {
+            return this.scene.physics.add.group(this.physicsGroupConfig);
+        });
+        this.spriteFactory.set(ColliderType.SPRITE, (): Phaser.GameObjects.GameObject => {
+            return this.scene.physics.add.sprite(this.locationX, this.locationY, this.colliderName);
+        });
+        this.spriteFactory.set(ColliderType.STATIC_SPRITE, (): Phaser.GameObjects.GameObject => {
+            return this.scene.physics.add.staticSprite(this.locationX, this.locationY, this.colliderName);
+        });
     }
 
 }

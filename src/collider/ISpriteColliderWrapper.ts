@@ -1,19 +1,14 @@
 export interface ISpriteColliderWrapper {
 
     /**
-     * @returns the Phaser.Sprite game object of the current scene
+     * @returns the Phaser.GameObjects.GameObje game object of the current scene
      */
-    getSprite(): Phaser.Physics.Arcade.Sprite;
+    getGameObject(): Phaser.GameObjects.GameObject;
 
     /**
-     * @returns the Phaser.Group game object of the current scene
+     * @returns the Phaser.GameObjects.Group game object of the current scene
      */
-    getSpriteGroup(): Phaser.Physics.Arcade.Group;
-
-    /**
-     * @returns the Phaser.StaticGroup game object of the current scene
-     */
-    getStaticGroup(): Phaser.Physics.Arcade.StaticGroup;
+    getGameObjectGroup(): Phaser.GameObjects.Group;
 
     /**
      * destroy the game object in the scene, freeing resources

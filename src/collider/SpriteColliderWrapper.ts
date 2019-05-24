@@ -3,52 +3,40 @@ import { SpriteColliderDataWrapper } from "./SpriteColliderDataWrapper";
 
 export class SpriteColliderWrapper implements ISpriteColliderWrapper {
 
-    private sprite: Phaser.Physics.Arcade.Sprite;
-    private spriteGroup: Phaser.Physics.Arcade.Group;
-    private staticGroup: Phaser.Physics.Arcade.StaticGroup;
+    private gameObjectSprite: Phaser.GameObjects.GameObject;
+    private gameObjectGroup: Phaser.GameObjects.Group;
 
     constructor(spriteColliderDataWrapper: SpriteColliderDataWrapper) {
-        if (spriteColliderDataWrapper.isColliderTypeStatic()) {
-            this.staticGroup = spriteColliderDataWrapper.addStaticGroup();
+        const spriteCreated = spriteColliderDataWrapper.createSprite();
+        if (spriteCreated instanceof Phaser.GameObjects.GameObject) {
+            this.gameObjectSprite = spriteCreated;
             return;
         }
-        if (spriteColliderDataWrapper.isColliderTypeGroup()) {
-            this.spriteGroup = spriteColliderDataWrapper.addGroup();
-            return;
-        }
-        this.sprite = spriteColliderDataWrapper.addSprite();
+        this.gameObjectGroup = spriteCreated;
     }
 
-    public getSprite(): Phaser.Physics.Arcade.Sprite {
-        return this.sprite;
+    public getGameObject(): Phaser.GameObjects.GameObject {
+        return this.gameObjectSprite;
     }
 
-    public getSpriteGroup(): Phaser.Physics.Arcade.Group {
-        return this.spriteGroup;
-    }
-
-    public getStaticGroup(): Phaser.Physics.Arcade.StaticGroup {
-        return this.staticGroup;
+    public getGameObjectGroup(): Phaser.GameObjects.Group {
+        return this.gameObjectGroup;
     }
 
     public setCollideWorldBounds(collideWorldBounderies: boolean): void {
-        if (this.sprite) {
-            this.sprite.setCollideWorldBounds(collideWorldBounderies);
+        const sprite = <Phaser.Physics.Arcade.Sprite> this.gameObjectSprite;
+        if (sprite) {
+            sprite.setCollideWorldBounds(collideWorldBounderies);
         }
     }
 
     public destroy(): void {
-        if (this.staticGroup) {
-            this.staticGroup.destroy();
+        if (this.gameObjectGroup) {
+            this.gameObjectGroup.destroy();
             return;
         }
 
-        if (this.spriteGroup) {
-            this.spriteGroup.destroy();
-            return;
-        }
-
-        this.sprite.destroy();
+        this.gameObjectSprite.destroy();
     }
 
 }

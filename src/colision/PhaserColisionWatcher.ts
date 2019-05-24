@@ -21,7 +21,7 @@ export class PhaserColisionWatcher implements IColisionWatcher {
                 firstSpriteCollider,
                 secondSpriteCollider,
                 (firstObject: Phaser.GameObjects.GameObject, secondObject: Phaser.GameObjects.GameObject) => {
-                    colision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
+                    this.onColision(colision);
                 },
                 isColisionOn,
                 this);
@@ -37,10 +37,17 @@ export class PhaserColisionWatcher implements IColisionWatcher {
                 firstSpriteCollider,
                 secondSpriteCollider,
                 (firstObject: Phaser.GameObjects.GameObject, secondObject: Phaser.GameObjects.GameObject) => {
-                    colision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
+                    this.onColision(colision);
                 },
                 isColisionOn,
                 this);
+    }
+
+    private onColision<FirstStats, SecondStats>(colision: IColision<FirstStats, SecondStats>): void {
+        if (!colision.onColisionHappen) {
+            return;
+        }
+        colision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
     }
 
     private getColliderByColliderType<Stats>(collider: ICollider<Stats>):

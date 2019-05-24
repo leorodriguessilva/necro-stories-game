@@ -122,7 +122,7 @@ export class TestbedScene extends Phaser.Scene {
         const colisionSkeletonAndNecromancerMeleeSkill = new PhaserColision(
             this.skeleton,
             this.necromancerBasicAttackSkill,
-            () => {
+            (firstCollider, secondCollider) => {
             this.skeleton.harm();
         });
 

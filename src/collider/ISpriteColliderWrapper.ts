@@ -1,9 +1,9 @@
 export interface ISpriteColliderWrapper {
 
     /**
-     * @returns the Phaser.GameObjects.GameObje game object of the current scene
+     * @returns the Phaser.GameObjects.Sprite game object of the current scene
      */
-    getGameObject(): Phaser.GameObjects.GameObject;
+    getGameObject(): Phaser.GameObjects.Sprite;
 
     /**
      * @returns the Phaser.GameObjects.Group game object of the current scene

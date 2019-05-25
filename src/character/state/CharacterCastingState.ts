@@ -3,7 +3,7 @@ import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
 export class CharacterCastingState extends CharacterState {
 
-    private sprite: Phaser.Physics.Arcade.Sprite;
+    private sprite: Phaser.GameObjects.Sprite;
 
     public update(): void { }
 
@@ -19,7 +19,7 @@ export class CharacterCastingState extends CharacterState {
 
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
-        this.sprite = spriteColliderWrapper.getSprite();
+        this.sprite = spriteColliderWrapper.getGameObject();
     }
 
 }

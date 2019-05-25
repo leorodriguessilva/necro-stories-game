@@ -13,7 +13,7 @@ export class BasicAttackInputHandler extends InputHandler {
 
     public handle(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
-        const sprite = spriteColliderWrapper.getSprite();
+        const sprite = spriteColliderWrapper.getGameObject();
         sprite.anims.play(this.animAlias, true);
     }
 }

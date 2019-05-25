@@ -31,7 +31,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
             0,
             0,
-            scene.physics,
+            scene,
             this.getName(),
             null,
             this.getColliderType());
@@ -42,7 +42,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     }
 
     public update(): void {
-        const sprite = this.getSpriteColliderWrapper().getSprite();
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
         sprite.anims.play(this.SLASH_ANIM_ALIAS, true);
         const animationProgress = sprite.anims.getProgress();
 
@@ -93,22 +93,26 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     }
 
     private calculateCharacterFrontDistance() {
-        const sprite = this.getSpriteColliderWrapper().getSprite();
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
         return (sprite.width * 2);
     }
 
     private activateSprite(locationX: number, locationY: number): void {
-        const sprite = this.getSpriteColliderWrapper().getSprite();
+        const sprite = this.getPhysicsSprite();
         sprite.enableBody(true, locationX, locationY, true, true);
     }
 
     private inactivateSprite(): void {
-        const sprite = this.getSpriteColliderWrapper().getSprite();
+        const sprite = this.getPhysicsSprite();
         sprite.disableBody(true, true);
     }
 
+    private getPhysicsSprite(): Phaser.Physics.Arcade.Sprite {
+        return this.getSpriteColliderWrapper().getGameObject() as Phaser.Physics.Arcade.Sprite;
+    }
+
     private preparePositionXToDraw(locationX: number, movingDirection: CharacterMovingDirection): number {
-        const sprite = this.getSpriteColliderWrapper().getSprite();
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
         sprite.resetFlip();
         const characterFrontDistance = this.calculateCharacterFrontDistance();
         let calculatedX = locationX + characterFrontDistance;

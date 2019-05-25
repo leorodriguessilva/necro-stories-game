@@ -3,19 +3,19 @@ import { SpriteColliderDataWrapper } from "./SpriteColliderDataWrapper";
 
 export class SpriteColliderWrapper implements ISpriteColliderWrapper {
 
-    private gameObjectSprite: Phaser.GameObjects.GameObject;
+    private gameObjectSprite: Phaser.GameObjects.Sprite;
     private gameObjectGroup: Phaser.GameObjects.Group;
 
     constructor(spriteColliderDataWrapper: SpriteColliderDataWrapper) {
         const spriteCreated = spriteColliderDataWrapper.createSprite();
-        if (spriteCreated instanceof Phaser.GameObjects.GameObject) {
+        if (spriteCreated instanceof Phaser.GameObjects.Sprite) {
             this.gameObjectSprite = spriteCreated;
             return;
         }
         this.gameObjectGroup = spriteCreated;
     }
 
-    public getGameObject(): Phaser.GameObjects.GameObject {
+    public getGameObject(): Phaser.GameObjects.Sprite {
         return this.gameObjectSprite;
     }
 
@@ -24,7 +24,7 @@ export class SpriteColliderWrapper implements ISpriteColliderWrapper {
     }
 
     public setCollideWorldBounds(collideWorldBounderies: boolean): void {
-        const sprite = <Phaser.Physics.Arcade.Sprite> this.gameObjectSprite;
+        const sprite = this.gameObjectSprite as Phaser.Physics.Arcade.Sprite;
         if (sprite) {
             sprite.setCollideWorldBounds(collideWorldBounderies);
         }

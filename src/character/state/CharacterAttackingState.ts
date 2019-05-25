@@ -27,7 +27,7 @@ export class CharacterAttackingState extends CharacterState {
 
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
-        this.sprite = spriteColliderWrapper.getSprite();
+        this.sprite = spriteColliderWrapper.getGameObject() as Phaser.Physics.Arcade.Sprite;
     }
 
 }

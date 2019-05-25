@@ -33,7 +33,7 @@ export class BasicObstacle implements ICollider<ObstacleStats> {
     }
 
     public create(
-        physics: Phaser.Physics.Arcade.ArcadePhysics,
+        scene: Phaser.Scene,
         obstacleCreationData: PhysicsGroupConfig,
         spriteBehaviourInitialization: (collider: Phaser.Physics.Arcade.Sprite) => void): void {
         obstacleCreationData.defaultKey = this.getName();
@@ -41,13 +41,13 @@ export class BasicObstacle implements ICollider<ObstacleStats> {
         const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
             null,
             null,
-            physics,
+            scene,
             this.getName(),
             obstacleCreationData,
             this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
 
-        const spriteGroup = this.spriteColliderWrapper.getSpriteGroup();
+        const spriteGroup = this.spriteColliderWrapper.getGameObjectGroup();
 
         spriteGroup.children.iterate(spriteBehaviourInitialization);
     }

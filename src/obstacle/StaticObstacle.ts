@@ -30,17 +30,17 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
     }
 
     public create(
-        physics: Phaser.Physics.Arcade.ArcadePhysics,
-        staticGroupSpriteInitialization: (staticGroup: Phaser.Physics.Arcade.StaticGroup) => void) {
+        scene: Phaser.Scene,
+        staticGroupSpriteInitialization: (staticGroup: Phaser.GameObjects.Group) => void) {
         const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
             null,
             null,
-            physics,
+            scene,
             null,
             null,
             this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
-        const staticGroupSprite = this.spriteColliderWrapper.getStaticGroup();
+        const staticGroupSprite = this.spriteColliderWrapper.getGameObjectGroup();
         staticGroupSpriteInitialization(staticGroupSprite);
     }
 

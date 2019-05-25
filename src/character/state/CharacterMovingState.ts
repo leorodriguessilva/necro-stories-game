@@ -38,7 +38,7 @@ export class CharacterMovingState extends CharacterState {
     }
 
     private animate() {
-        const sprite = this.spriteColliderWrapper.getSprite();
+        const sprite = this.spriteColliderWrapper.getGameObject() as Phaser.Physics.Arcade.Sprite;
         let turnFactor = 1;
         sprite.resetFlip();
         if (this.movingDirection === CharacterMovingDirection.LEFT) {

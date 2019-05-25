@@ -35,7 +35,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
             this.locationX,
             this.locationY,
-            scene.physics,
+            scene,
             this.getName(),
             null,
             this.getColliderType());
@@ -59,8 +59,8 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
 
     public attack(): void {
         this.stateContext.attack(
-            this.spriteColliderWrapper.getSprite().x,
-            this.spriteColliderWrapper.getSprite().y);
+            this.spriteColliderWrapper.getGameObject().x,
+            this.spriteColliderWrapper.getGameObject().y);
     }
 
     public update(): void {

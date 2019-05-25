@@ -8,7 +8,7 @@ export class SpriteColliderDataWrapper {
     private colliderName: string;
     private physicsGroupConfig: PhysicsGroupConfig;
     private colliderType: ColliderType;
-    private spriteFactory: Map<ColliderType, () => Phaser.GameObjects.GameObject | Phaser.GameObjects.Group>;
+    private spriteFactory: Map<ColliderType, () => Phaser.GameObjects.Sprite | Phaser.GameObjects.Group>;
 
     constructor(
         locationX: number,
@@ -23,10 +23,11 @@ export class SpriteColliderDataWrapper {
         this.colliderName = colliderName;
         this.physicsGroupConfig = physicsGroupConfig;
         this.colliderType = colliderType;
+        this.spriteFactory = new Map<ColliderType, () => Phaser.GameObjects.Sprite | Phaser.GameObjects.Group>();
         this.populateSpriteFactory();
     }
 
-    public createSprite(): Phaser.GameObjects.GameObject | Phaser.GameObjects.Group {
+    public createSprite(): Phaser.GameObjects.Sprite | Phaser.GameObjects.Group {
         const spriteCreate = this.spriteFactory.get(this.colliderType);
         return spriteCreate();
     }
@@ -38,10 +39,10 @@ export class SpriteColliderDataWrapper {
         this.spriteFactory.set(ColliderType.GROUP, (): Phaser.GameObjects.Group => {
             return this.scene.physics.add.group(this.physicsGroupConfig);
         });
-        this.spriteFactory.set(ColliderType.SPRITE, (): Phaser.GameObjects.GameObject => {
+        this.spriteFactory.set(ColliderType.SPRITE, (): Phaser.GameObjects.Sprite => {
             return this.scene.physics.add.sprite(this.locationX, this.locationY, this.colliderName);
         });
-        this.spriteFactory.set(ColliderType.STATIC_SPRITE, (): Phaser.GameObjects.GameObject => {
+        this.spriteFactory.set(ColliderType.STATIC_SPRITE, (): Phaser.GameObjects.Sprite => {
             return this.scene.physics.add.staticSprite(this.locationX, this.locationY, this.colliderName);
         });
     }

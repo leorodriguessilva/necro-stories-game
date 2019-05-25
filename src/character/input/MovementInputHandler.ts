@@ -13,7 +13,7 @@ export abstract class MovementInputHandler extends InputHandler {
 
     public handle(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
-        const sprite = spriteColliderWrapper.getSprite();
+        const sprite = spriteColliderWrapper.getGameObject() as Phaser.Physics.Arcade.Sprite;
         const stats = this.character.getStats();
         this.flipSprite(sprite);
         sprite.setVelocityX(stats.getMoveSpeed() * this.getTurnMoveFactor());

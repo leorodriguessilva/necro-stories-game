@@ -108,7 +108,7 @@ export class TestbedScene extends Phaser.Scene {
         this.add.image(400, 300, "sky");
         this.necromancer.create(this);
         this.skeleton.create(this);
-        this.platforms.create(this.physics, (platform) => {
+        this.platforms.create(this, (platform) => {
             platform.create(400, 568, this.PLATFORM_SPRITE_NAME).setScale(2).refreshBody();
             platform.create(600, 400, this.PLATFORM_SPRITE_NAME);
             platform.create(50, 250, this.PLATFORM_SPRITE_NAME);
@@ -145,14 +145,14 @@ export class TestbedScene extends Phaser.Scene {
         this.inputManager.update();
 
         const debug = [
-            `Necromancer Width: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.width}`,
-            `Necromancer Height: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.height}`,
-            `Necromancer X: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.x}`,
-            `Necromancer Y: ${this.necromancer.getSpriteColliderWrapper().getSprite().body.y}`,
-            `Skeleton Width: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.width}`,
-            `Skeleton Height: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.height}`,
-            `Skeleton X: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.x}`,
-            `Skeleton Y: ${this.skeleton.getSpriteColliderWrapper().getSprite().body.y}`,
+            `Necromancer Width: ${this.necromancer.getSpriteColliderWrapper().getGameObject().width}`,
+            `Necromancer Height: ${this.necromancer.getSpriteColliderWrapper().getGameObject().height}`,
+            `Necromancer X: ${this.necromancer.getSpriteColliderWrapper().getGameObject().x}`,
+            `Necromancer Y: ${this.necromancer.getSpriteColliderWrapper().getGameObject().y}`,
+            `Skeleton Width: ${this.skeleton.getSpriteColliderWrapper().getGameObject().width}`,
+            `Skeleton Height: ${this.skeleton.getSpriteColliderWrapper().getGameObject().height}`,
+            `Skeleton X: ${this.skeleton.getSpriteColliderWrapper().getGameObject().x}`,
+            `Skeleton Y: ${this.skeleton.getSpriteColliderWrapper().getGameObject().y}`,
         ];
         this.debugText.setText(debug);
     }

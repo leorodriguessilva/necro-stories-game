@@ -53,10 +53,13 @@ export class PhaserColisionWatcher implements IColisionWatcher {
     private getColliderByColliderType<Stats>(collider: ICollider<Stats>):
     Phaser.GameObjects.Sprite |
     Phaser.GameObjects.Group {
-        if (collider.getColliderType() === ColliderType.GROUP) {
+        if (collider.getColliderType() === ColliderType.GROUP
+        || collider.getColliderType() === ColliderType.STATIC_GROUP) {
+            console.log(collider.getSpriteColliderWrapper().getGameObjectGroup());
             return collider.getSpriteColliderWrapper().getGameObjectGroup();
         }
 
+        console.log(collider.getSpriteColliderWrapper().getGameObject());
         return collider.getSpriteColliderWrapper().getGameObject();
     }
 

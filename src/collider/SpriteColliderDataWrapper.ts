@@ -33,7 +33,7 @@ export class SpriteColliderDataWrapper {
     }
 
     private populateSpriteFactory(): void {
-        this.spriteFactory.set(ColliderType.STATIC, (): Phaser.GameObjects.Group => {
+        this.spriteFactory.set(ColliderType.STATIC_GROUP, (): Phaser.GameObjects.Group => {
             return this.scene.physics.add.staticGroup();
         });
         this.spriteFactory.set(ColliderType.GROUP, (): Phaser.GameObjects.Group => {

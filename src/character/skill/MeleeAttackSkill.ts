@@ -77,7 +77,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     }
 
     public getColliderType(): ColliderType {
-        return ColliderType.SPRITE;
+        return ColliderType.STATIC_SPRITE;
     }
 
     public destroy(): void {

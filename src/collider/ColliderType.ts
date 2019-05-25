@@ -1,5 +1,5 @@
 export enum ColliderType {
-    STATIC,
+    STATIC_GROUP,
     GROUP,
     SPRITE,
     STATIC_SPRITE,

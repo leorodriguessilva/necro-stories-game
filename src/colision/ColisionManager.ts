@@ -1,10 +1,7 @@
 import { IColisionManager } from "./IColisionManager";
 import { ColisionType } from "./ColisionType";
-import { ICollider } from "../collider/ICollider";
-import { ISkill } from "../character/skill/ISkill";
 import { IColisionWatcher } from "./IColisionWatcher";
 import { IColision } from "./IColision";
-import { PhaserColision } from "./PhaserColision";
 
 export class ColisionManager implements IColisionManager {
 

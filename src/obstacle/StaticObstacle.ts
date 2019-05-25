@@ -73,7 +73,7 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
     }
 
     public getColliderType(): ColliderType {
-        return ColliderType.STATIC;
+        return ColliderType.STATIC_GROUP;
     }
 
 }

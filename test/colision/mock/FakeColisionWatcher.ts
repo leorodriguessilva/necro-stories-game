@@ -1,10 +1,16 @@
 import { IColisionWatcher } from "../../../src/colision/IColisionWatcher";
 import { IColision } from "../../../src/colision/IColision";
+import { FakeColision } from "./FakeColision";
 
-class FakeColisionWatcher implements IColisionWatcher {
+export class FakeColisionWatcher implements IColisionWatcher {
 
     private colisionToHandle: IColision<any, any>[];
     private overlapToHandle: IColision<any, any>[];
+
+    constructor() {
+        this.colisionToHandle = new Array();
+        this.overlapToHandle = new Array();
+    }
 
     public addColisionWatcherOver<FistStats, SecondStats>(colision: IColision<FistStats, SecondStats>, isColisionOn: () => boolean): void {
         this.colisionToHandle.push(colision);
@@ -14,15 +20,21 @@ class FakeColisionWatcher implements IColisionWatcher {
         this.overlapToHandle.push(colision);
     }
 
-    simulateColisions(): void {
+    simulateColisions<FirstStats, SecondStats>(): void {
         this.colisionToHandle.forEach(colision => {
-            colision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
+            const fakeColision = colision as FakeColision<FirstStats, SecondStats>;
+            if (fakeColision.hasCollided()) {
+                fakeColision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
+            }
         });
     }
 
-    simulateOverlaping(): void {
+    simulateOverlaping<FirstStats, SecondStats>(): void {
         this.overlapToHandle.forEach(colision => {
-            colision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
+            const fakeColision = colision as FakeColision<FirstStats, SecondStats>;
+            if (fakeColision.hasCollided()) {
+                fakeColision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
+            }
         });
     }
 

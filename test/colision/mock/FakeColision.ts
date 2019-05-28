@@ -1,7 +1,7 @@
 import { IColision } from "../../../src/colision/IColision";
 import { ICollider } from "../../../src/collider/ICollider";
 
-class FakeColision<FirstStats, SecondStats> implements IColision<FirstStats, SecondStats> {
+export class FakeColision<FirstStats, SecondStats> implements IColision<FirstStats, SecondStats> {
     
     public onColisionHappen: (firstCollider: ICollider<FirstStats>, secondCollider: ICollider<SecondStats>) => void;   
     

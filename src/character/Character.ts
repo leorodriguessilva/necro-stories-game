@@ -53,14 +53,14 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.stateContext.move(movingDirection);
     }
 
-    public harm(): void {
-        this.stateContext.harm();
+    public harm(amountOfDamage: number): void {
+        this.stateContext.harm(amountOfDamage);
     }
 
     public attack(): void {
         this.stateContext.attack(
-            this.spriteColliderWrapper.getGameObject().x,
-            this.spriteColliderWrapper.getGameObject().y);
+            this.spriteColliderWrapper.getX(),
+            this.spriteColliderWrapper.getY());
     }
 
     public update(): void {
@@ -93,6 +93,10 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
 
     public setBasicAttackSkill(basicAttackSkill: ISkill): void {
         this.basicAttackSkill = basicAttackSkill;
+    }
+
+    public getDeadAnimAlias(): string {
+        return `${this.getName()}-dead`;
     }
 
     public getHarmAnimAlias(): string {

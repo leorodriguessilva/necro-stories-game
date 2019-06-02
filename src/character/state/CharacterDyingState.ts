@@ -1,25 +1,19 @@
 import { CharacterState } from "./CharacterState";
 import { CharacterMovingDirection } from "./CharacterMovingDirection";
 
-export class CharacterAttackingState extends CharacterState {
+export class CharacterDyingState extends CharacterState {
 
     private sprite: Phaser.Physics.Arcade.Sprite;
 
     public update(): void {
-        this.sprite.setVelocityX(0);
-        this.sprite.anims.play(this.character.getAttackAnimAlias(), true);
-        this.character.getBasicAttackSkill().update();
+        this.playDyingAnimation();
     }
 
     public idle(): void { }
 
     public move(movingDirection: CharacterMovingDirection): void { }
 
-    public harm(amountOfDamage: number): void {
-        this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
-        this.character.getBasicAttackSkill().interrupt();
-        this.stateContext.harm(amountOfDamage);
-    }
+    public harm(amountOfDamage: number): void { }
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }
 
@@ -28,6 +22,19 @@ export class CharacterAttackingState extends CharacterState {
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();
         this.sprite = spriteColliderWrapper.getGameObject() as Phaser.Physics.Arcade.Sprite;
+    }
+
+    private playDyingAnimation(): void {
+        this.sprite.anims.play(this.character.getDeadAnimAlias(), true);
+        const animationProgress = this.sprite.anims.getProgress();
+
+        if (animationProgress === 1) {
+            this.inactivateSprite();
+        }
+    }
+
+    private inactivateSprite(): void {
+        this.sprite.disableBody(true, true);
     }
 
 }

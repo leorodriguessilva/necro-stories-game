@@ -6,9 +6,11 @@ import { CollidedObjectData } from "../../collider/CollidedObjectData";
 import { ISpriteColliderWrapper } from "../../collider/ISpriteColliderWrapper";
 import { SpriteColliderDataWrapper } from "../../collider/SpriteColliderDataWrapper";
 import { SpriteColliderWrapper } from "../../collider/SpriteColliderWrapper";
+import { IDestructibleObjectStats } from "../../stats/IDestructibleObjectStats";
+import { ICollider } from "../../collider/ICollider";
 
 export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
-
+    
     private readonly ASSET_NAME: string;
     private readonly SLASH_ANIM_ALIAS: string;
 
@@ -90,6 +92,10 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
 
     public getStats(): ObstacleStats {
         return null;
+    }
+
+    public onHit(firstCollider: ICollider<IDestructibleObjectStats>, secondCollider: ICollider<IDestructibleObjectStats>): void {
+        throw new Error("Method not implemented.");
     }
 
     private calculateCharacterFrontDistance() {

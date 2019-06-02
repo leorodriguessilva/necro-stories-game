@@ -8,7 +8,7 @@ export interface ICharacterState {
 
     move(movingDirection: CharacterMovingDirection): void;
 
-    harm(): void;
+    harm(amountOfDamage: number): void;
 
     attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void;
 

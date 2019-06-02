@@ -39,4 +39,16 @@ export class SpriteColliderWrapper implements ISpriteColliderWrapper {
         this.gameObjectSprite.destroy();
     }
 
+    public getX(): number {
+        if (this.gameObjectSprite) {
+            return this.gameObjectSprite.x;
+        }
+    }
+
+    public getY(): number {
+        if (this.gameObjectSprite) {
+            return this.gameObjectSprite.y;
+        }
+    }
+
 }

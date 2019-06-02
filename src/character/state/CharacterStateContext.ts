@@ -5,6 +5,7 @@ import { CharacterHarmedState } from "./CharacterHarmedState";
 import { ICharacterState } from "./ICharacterState";
 import { CharacterAttackingState } from "./CharacterAttackingState";
 import { CharacterMovingDirection } from "./CharacterMovingDirection";
+import { CharacterDyingState } from "./CharacterDyingState";
 
 export class CharacterStateContext {
 
@@ -13,6 +14,7 @@ export class CharacterStateContext {
     public readonly HARMED_STATE: ICharacterState;
     public readonly ATTACKING_STATE: ICharacterState;
     public readonly USING_SKILL_STATE_STATE: ICharacterState;
+    public readonly DYING_STATE: ICharacterState;
 
     private currentState: ICharacterState;
     private lastMovingDirection: CharacterMovingDirection;
@@ -22,6 +24,7 @@ export class CharacterStateContext {
         this.MOVING_STATE = new CharacterMovingState(this, character);
         this.HARMED_STATE = new CharacterHarmedState(this, character);
         this.ATTACKING_STATE = new CharacterAttackingState(this, character);
+        this.DYING_STATE = new CharacterDyingState(this, character);
 
         this.currentState = this.IDLE_STATE;
         this.lastMovingDirection = CharacterMovingDirection.RIGHT;
@@ -40,8 +43,8 @@ export class CharacterStateContext {
         this.currentState.move(movingDirection);
     }
 
-    public harm(): void {
-        this.currentState.harm();
+    public harm(amountOfDamage: number): void {
+        this.currentState.harm(amountOfDamage);
     }
 
     public attack(locationX: number, locationY: number): void {

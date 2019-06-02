@@ -11,7 +11,7 @@ export class CharacterCastingState extends CharacterState {
 
     public move(movingDirection: CharacterMovingDirection): void { }
 
-    public harm(): void { }
+    public harm(amountOfDamage: number): void { }
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }
 

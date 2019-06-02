@@ -12,6 +12,7 @@ test('passing the character type should return the character stats populated by 
         strength: 9,
         inteligence: 20,
         agility: 8,
+        currentHealth: 7 * 9,
     };
 
     const stats = statsFactory.create(StatsType.CHARACTER, {

@@ -17,9 +17,9 @@ export class CharacterIdleState extends CharacterState {
         this.stateContext.move(movingDirection);
     }
 
-    public harm(): void {
+    public harm(amountOfDamage: number): void {
         this.stateContext.setCurrentState(this.stateContext.HARMED_STATE);
-        this.stateContext.harm();
+        this.stateContext.harm(amountOfDamage);
     }
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void {

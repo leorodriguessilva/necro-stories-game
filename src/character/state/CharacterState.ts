@@ -20,7 +20,7 @@ export abstract class CharacterState implements ICharacterState {
 
     public abstract move(movingDirection: CharacterMovingDirection): void;
 
-    public abstract harm(): void;
+    public abstract harm(amountOfDamage: number): void;
 
     public abstract attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void;
 

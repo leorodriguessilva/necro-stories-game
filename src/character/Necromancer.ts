@@ -49,6 +49,13 @@ export class Necromancer extends Character {
             frameRate: 1,
             repeat: 0,
         });
+
+        anims.create({
+            key: this.getDeadAnimAlias(),
+            frames: anims.generateFrameNumbers(this.getName(), { start: 0, end: 2 }),
+            frameRate: 3,
+            repeat: 0,
+        });
     }
 
 }

@@ -1,4 +1,6 @@
-export class CharacterStats {
+import { IDestructibleObjectStats } from "./IDestructibleObjectStats";
+
+export class CharacterStats implements IDestructibleObjectStats {
 
     private healthFactor: number;
     private manaFactor: number;
@@ -6,6 +8,7 @@ export class CharacterStats {
     private strength: number;
     private inteligence: number;
     private agility: number;
+    private currentHealth: number;
 
     constructor(statsDTO: any) {
         this.healthFactor = statsDTO.healthFactor;
@@ -14,10 +17,19 @@ export class CharacterStats {
         this.strength = statsDTO.strength;
         this.inteligence = statsDTO.inteligence;
         this.agility = statsDTO.agility;
+        this.currentHealth = this.getHealth();
     }
 
     public getHealth(): number {
         return this.healthFactor * this.strength;
+    }
+
+    public getCurrentHealth(): number {
+        return this.currentHealth;
+    }
+
+    public diminishCurrentHealth(damage: number): void {
+        this.currentHealth -= damage;
     }
 
     public setHealthFactor(healthFactor: number) {

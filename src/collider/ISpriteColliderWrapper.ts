@@ -22,4 +22,16 @@ export interface ISpriteColliderWrapper {
      */
     setCollideWorldBounds(collideWorldBounderies: boolean): void;
 
+    /**
+     * Get the X position of this sprite in a cartesian plan
+     * @returns a number indicanting the X position
+     */
+    getX(): number;
+
+    /**
+     * Get the Y position of this sprite in a cartesian plan
+     * @returns a number indicanting the Y position
+     */
+    getY(): number;
+
 }

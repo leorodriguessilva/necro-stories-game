@@ -8,6 +8,8 @@ import { SpriteColliderDataWrapper } from "../../collider/SpriteColliderDataWrap
 import { SpriteColliderWrapper } from "../../collider/SpriteColliderWrapper";
 import { IDestructibleObjectStats } from "../../stats/IDestructibleObjectStats";
 import { ICollider } from "../../collider/ICollider";
+import { IDamage } from "./damage/IDamage";
+import { PhysicalDamage } from "./damage/PhysicalDamage";
 
 export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
     
@@ -18,10 +20,13 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     private anims: Phaser.Animations.AnimationManager;
     private callbackWhenDoneCasting: () => void;
 
-    constructor(id: number) {
+    private damageOnHit: IDamage;
+
+    constructor(id: number, damageOnHit: IDamage = null) {
         super(id);
         this.ASSET_NAME = "assets/slash.png";
         this.SLASH_ANIM_ALIAS = `${this.getName()}-slash`;
+        this.initializeDamageOnHit(damageOnHit);
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -98,6 +103,10 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         throw new Error("Method not implemented.");
     }
 
+    public beingHitted(): void {
+        throw new Error("Method not implemented.");
+    }
+
     private calculateCharacterFrontDistance() {
         const sprite = this.getSpriteColliderWrapper().getGameObject();
         return (sprite.width * 2);
@@ -136,5 +145,13 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
             frameRate: 30,
             repeat: 0,
         });
+    }
+
+    private initializeDamageOnHit(damageOnHit: IDamage): void {
+        if(damageOnHit) {
+            this.damageOnHit = damageOnHit;
+            return;
+        }
+        this.damageOnHit = new PhysicalDamage();
     }
 }

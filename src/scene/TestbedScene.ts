@@ -18,6 +18,8 @@ import { PhaserColisionWatcher } from "../colision/PhaserColisionWatcher";
 import { ObstacleStats } from "../stats/ObstacleStats";
 import { CharacterStats } from "../stats/CharacterStats";
 import { PhaserColision } from "../colision/PhaserColision";
+import { PhaserSkillColision } from "../colision/PhaserSkillColision";
+import { IDestructibleObjectStats } from "../stats/IDestructibleObjectStats";
 
 export class TestbedScene extends Phaser.Scene {
 
@@ -120,12 +122,9 @@ export class TestbedScene extends Phaser.Scene {
         const colisionNecromancerAndPlatforms = new PhaserColision(this.necromancer, this.platforms,
             () => console.log("necromancer coliding with ground"));
         const colisionSkeletonAndPlatforms = new PhaserColision(this.skeleton, this.platforms, null);
-        const colisionSkeletonAndNecromancerMeleeSkill = new PhaserColision(
-            this.skeleton,
+        const colisionSkeletonAndNecromancerMeleeSkill = new PhaserSkillColision(
             this.necromancerBasicAttackSkill,
-            (firstCollider, secondCollider) => {
-            this.skeleton.harm();
-        });
+            this.skeleton);
 
         this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
             colisionNecromancerAndPlatforms,
@@ -133,7 +132,7 @@ export class TestbedScene extends Phaser.Scene {
         this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
             colisionSkeletonAndPlatforms,
             ColisionType.COLLIDE);
-        this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
+        this.colisionManager.addColisionToHandle<IDestructibleObjectStats, IDestructibleObjectStats>(
             colisionSkeletonAndNecromancerMeleeSkill,
             ColisionType.OVERLAP);
 

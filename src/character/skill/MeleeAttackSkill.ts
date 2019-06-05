@@ -8,8 +8,8 @@ import { SpriteColliderDataWrapper } from "../../collider/SpriteColliderDataWrap
 import { SpriteColliderWrapper } from "../../collider/SpriteColliderWrapper";
 import { IDestructibleObjectStats } from "../../stats/IDestructibleObjectStats";
 import { ICollider } from "../../collider/ICollider";
-import { IDamage } from "./damage/IDamage";
-import { PhysicalDamage } from "./damage/PhysicalDamage";
+import { IEffect } from "./effect/IEffect";
+import { PhysicalDamageEffect } from "./effect/PhysicalDamageEffect";
 
 export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
     
@@ -20,9 +20,9 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     private anims: Phaser.Animations.AnimationManager;
     private callbackWhenDoneCasting: () => void;
 
-    private damageOnHit: IDamage;
+    private damageOnHit: IEffect;
 
-    constructor(id: number, damageOnHit: IDamage = null) {
+    constructor(id: number, damageOnHit: IEffect = null) {
         super(id);
         this.ASSET_NAME = "assets/slash.png";
         this.SLASH_ANIM_ALIAS = `${this.getName()}-slash`;
@@ -147,11 +147,11 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         });
     }
 
-    private initializeDamageOnHit(damageOnHit: IDamage): void {
+    private initializeDamageOnHit(damageOnHit: IEffect): void {
         if(damageOnHit) {
             this.damageOnHit = damageOnHit;
             return;
         }
-        this.damageOnHit = new PhysicalDamage();
+        this.damageOnHit = new PhysicalDamageEffect();
     }
 }

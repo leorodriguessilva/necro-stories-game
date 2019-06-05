@@ -1,6 +1,6 @@
-import { IDamage } from "./IDamage";
+import { IEffect } from "./IEffect";
 
-export class PhysicalDamage implements IDamage {
+export class PhysicalDamageEffect implements IEffect {
 
     private amount: number;
 

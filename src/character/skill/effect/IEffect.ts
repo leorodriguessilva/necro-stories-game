@@ -10,5 +10,5 @@ export interface IEffect {
 
     timesToApply(): number;
 
-    framesBetweenAppl
+    framesBetweenApplication(): number;
 }

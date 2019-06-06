@@ -10,7 +10,7 @@ export class PhysicalDamageEffect implements IEffect {
     }
 
     public apply(destructibleObjectStats: IDestructibleObjectStats): void {
-        throw new Error("Method not implemented.");
+        destructibleObjectStats.diminishCurrentHealth(this.damageAmount);
     }
 
 }

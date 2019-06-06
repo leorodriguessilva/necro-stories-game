@@ -2,6 +2,7 @@ import { CharacterMovingDirection } from "../state/CharacterMovingDirection";
 import { ICollider } from "../../collider/ICollider";
 import { ObstacleStats } from "../../stats/ObstacleStats";
 import { IDestructibleObjectStats } from "../../stats/IDestructibleObjectStats";
+import { Character } from "../Character";
 
 export interface ISkill extends ICollider<ObstacleStats> {
 
@@ -20,5 +21,7 @@ export interface ISkill extends ICollider<ObstacleStats> {
     interrupt(): void;
 
     onHit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void;
-    
+
+    setOwner(owner: Character): void;
+
 }

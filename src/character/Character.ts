@@ -93,6 +93,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
 
     public setBasicAttackSkill(basicAttackSkill: ISkill): void {
         this.basicAttackSkill = basicAttackSkill;
+        this.basicAttackSkill.setOwner(this);
     }
 
     public getDeadAnimAlias(): string {

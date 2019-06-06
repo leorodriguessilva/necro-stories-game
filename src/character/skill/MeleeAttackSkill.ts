@@ -10,6 +10,7 @@ import { IDestructibleObjectStats } from "../../stats/IDestructibleObjectStats";
 import { ICollider } from "../../collider/ICollider";
 import { IEffect } from "./effect/IEffect";
 import { PhysicalDamageEffect } from "./effect/PhysicalDamageEffect";
+import { Character } from "../Character";
 
 export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
     
@@ -21,6 +22,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     private callbackWhenDoneCasting: () => void;
 
     private damageOnHit: IEffect;
+    private owner: Character;
 
     constructor(id: number, damageOnHit: IEffect = null) {
         super(id);
@@ -103,9 +105,11 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         throw new Error("Method not implemented.");
     }
 
-    public beingHitted(): void {
-        throw new Error("Method not implemented.");
+    public setOwner(owner: Character): void {
+        this.owner = owner;
     }
+
+    public beingHitted(): void { }
 
     private calculateCharacterFrontDistance() {
         const sprite = this.getSpriteColliderWrapper().getGameObject();

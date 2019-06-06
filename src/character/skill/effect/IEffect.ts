@@ -1,14 +1,7 @@
-import { EffectType } from "./EffectType";
+import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
 
 export interface IEffect {
 
-    getType(): EffectType;
+    apply(destructibleObjectStats: IDestructibleObjectStats): void;
 
-    apply(): number;
-
-    isOverTime(): boolean;
-
-    timesToApply(): number;
-
-    framesBetweenApplication(): number;
 }

@@ -20,4 +20,5 @@ export interface ISkill extends ICollider<ObstacleStats> {
     interrupt(): void;
 
     onHit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void;
+    
 }

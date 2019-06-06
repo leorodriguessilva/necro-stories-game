@@ -1,15 +1,16 @@
 import { IEffect } from "./IEffect";
+import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
 
 export class PhysicalDamageEffect implements IEffect {
 
-    private amount: number;
+    private damageAmount: number;
 
-    public getAmount(): number {
-        return this.amount;
+    constructor(damageAmount: number) {
+        this.damageAmount = damageAmount;
     }
 
-    public setAmount(amount: number): void {
-        this.amount = amount;
+    public apply(destructibleObjectStats: IDestructibleObjectStats): void {
+        throw new Error("Method not implemented.");
     }
-    
+
 }

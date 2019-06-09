@@ -41,4 +41,8 @@ export class FakeCharacterCollider implements ICollider<CharacterStats> {
         throw new Error("Method not implemented.");
     }
 
+    public beingHitted(amountOfDamage: number): void {
+        throw new Error("Method not implemented.");
+    }
+
 }

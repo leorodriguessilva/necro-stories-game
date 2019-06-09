@@ -24,6 +24,6 @@ export interface ICollider<Stats> extends ILoadable {
 
     getColliderType(): ColliderType;
 
-    beingHitted(): void;
-    
+    beingHitted(amountOfDamage: number): void;
+
 }

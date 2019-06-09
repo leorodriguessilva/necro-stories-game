@@ -41,4 +41,8 @@ export class FakeObstacleCollider implements ICollider<ObstacleStats> {
         throw new Error("Method not implemented.");
     }
 
+    public beingHitted(amountOfDamage: number): void {
+        throw new Error("Method not implemented.");
+    }
+
 }

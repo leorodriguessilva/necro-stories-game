@@ -4,7 +4,7 @@ import { ISkill } from "../character/skill/ISkill";
 import { ICollider } from "../collider/ICollider";
 
 export class PhaserSkillColision extends PhaserColision<IDestructibleObjectStats, IDestructibleObjectStats> {
-    
+
     constructor(
         firstCollider: ISkill,
         secondCollider: ICollider<IDestructibleObjectStats>) {

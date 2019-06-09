@@ -11,6 +11,7 @@ test("passing an existing character name key, should return his stats", () => {
         moveSpeedFactor: 1,
         durability: 1,
         density: 1,
+        currentHealth: 5 * 1,
     };
 
     const obstaclesData: Map<string, any> = new Map<string, any>();

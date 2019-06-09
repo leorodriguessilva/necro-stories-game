@@ -1,7 +1,8 @@
 import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
+import { ICollider } from "../../../collider/ICollider";
 
 export interface IEffect {
 
-    apply(destructibleObjectStats: IDestructibleObjectStats): void;
+    apply(collider: ICollider<IDestructibleObjectStats>): void;
 
 }

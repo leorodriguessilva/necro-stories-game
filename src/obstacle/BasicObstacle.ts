@@ -84,4 +84,6 @@ export class BasicObstacle implements ICollider<ObstacleStats> {
         return ColliderType.GROUP;
     }
 
+    public beingHitted(amountOfDamage: number): void { }
+
 }

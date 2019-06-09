@@ -76,4 +76,6 @@ export class StaticObstacle implements ICollider<ObstacleStats> {
         return ColliderType.STATIC_GROUP;
     }
 
+    public beingHitted(amountOfDamage: number): void { }
+
 }

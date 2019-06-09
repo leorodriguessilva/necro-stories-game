@@ -51,6 +51,6 @@ export abstract class CollidedObjectData<Stats> implements ICollider<Stats> {
 
     public abstract getColliderType(): ColliderType;
 
-    public abstract beingHitted(): void;
+    public abstract beingHitted(amountOfDamage: number): void;
 
 }

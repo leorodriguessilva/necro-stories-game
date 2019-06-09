@@ -35,6 +35,7 @@ test('passing the obstacle type should return the obstacle stats populated by th
         moveSpeedFactor: 1,
         durability: 1,
         density: 1,
+        currentHealth: 5 * 1,
     };
 
     const stats = statsFactory.create(StatsType.OBSTACLE, {

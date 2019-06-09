@@ -53,14 +53,14 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.stateContext.move(movingDirection);
     }
 
-    public harm(amountOfDamage: number): void {
-        this.stateContext.harm(amountOfDamage);
-    }
-
     public attack(): void {
         this.stateContext.attack(
             this.spriteColliderWrapper.getX(),
             this.spriteColliderWrapper.getY());
+    }
+
+    public beingHitted(amountOfDamage: number): void {
+        this.stateContext.harm(amountOfDamage);
     }
 
     public update(): void {

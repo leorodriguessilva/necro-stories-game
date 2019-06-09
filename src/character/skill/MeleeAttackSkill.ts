@@ -13,7 +13,7 @@ import { PhysicalDamageEffect } from "./effect/PhysicalDamageEffect";
 import { Character } from "../Character";
 
 export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
-    
+
     private readonly ASSET_NAME: string;
     private readonly SLASH_ANIM_ALIAS: string;
 
@@ -24,11 +24,10 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     private damageOnHit: IEffect;
     private owner: Character;
 
-    constructor(id: number, damageOnHit: IEffect = null) {
+    constructor(id: number) {
         super(id);
         this.ASSET_NAME = "assets/slash.png";
         this.SLASH_ANIM_ALIAS = `${this.getName()}-slash`;
-        this.initializeDamageOnHit(damageOnHit);
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -47,6 +46,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
 
         this.inactivateSprite();
+        this.initializeDamageOnHit();
         this.configureAnimation();
     }
 
@@ -101,8 +101,16 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         return null;
     }
 
-    public onHit(firstCollider: ICollider<IDestructibleObjectStats>, secondCollider: ICollider<IDestructibleObjectStats>): void {
-        throw new Error("Method not implemented.");
+    public onHit(
+        firstCollider: ICollider<IDestructibleObjectStats>,
+        secondCollider: ICollider<IDestructibleObjectStats>): void {
+        if (!this.damageOnHit) {
+            const ownerStats = this.owner.getStats();
+            this.damageOnHit = new PhysicalDamageEffect(ownerStats.getStrength());
+        }
+        this.damageOnHit.apply(secondCollider);
+        const sprite = this.getPhysicsSprite();
+        sprite.disableBody(true, false);
     }
 
     public setOwner(owner: Character): void {
@@ -142,7 +150,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         return calculatedX;
     }
 
-    private configureAnimation() {
+    private configureAnimation(): void {
         this.anims.create({
             key: this.SLASH_ANIM_ALIAS,
             frames: this.anims.generateFrameNumbers(this.getName(), { start: 0, end: 11 }),
@@ -151,11 +159,8 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         });
     }
 
-    private initializeDamageOnHit(damageOnHit: IEffect): void {
-        if(damageOnHit) {
-            this.damageOnHit = damageOnHit;
-            return;
-        }
-        this.damageOnHit = new PhysicalDamageEffect();
+    private initializeDamageOnHit(): void {
+        const ownerStats = this.owner.getStats();
+        this.damageOnHit = new PhysicalDamageEffect(ownerStats.getStrength());
     }
 }

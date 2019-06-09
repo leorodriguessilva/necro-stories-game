@@ -1,5 +1,6 @@
 import { IEffect } from "./IEffect";
 import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
+import { ICollider } from "../../../collider/ICollider";
 
 export class PhysicalDamageEffect implements IEffect {
 
@@ -9,8 +10,8 @@ export class PhysicalDamageEffect implements IEffect {
         this.damageAmount = damageAmount;
     }
 
-    public apply(destructibleObjectStats: IDestructibleObjectStats): void {
-        destructibleObjectStats.diminishCurrentHealth(this.damageAmount);
+    public apply(collider: ICollider<IDestructibleObjectStats>): void {
+        collider.beingHitted(this.damageAmount);
     }
 
 }

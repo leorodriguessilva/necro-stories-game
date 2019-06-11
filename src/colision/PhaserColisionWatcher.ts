@@ -17,6 +17,18 @@ export class PhaserColisionWatcher implements IColisionWatcher {
             const firstSpriteCollider = this.getColliderByColliderType<FirstStats>(colision.getFirstCollider());
             const secondSpriteCollider = this.getColliderByColliderType<SecondStats>(colision.getSecondCollider());
 
+            if (colision.getCallbackOwner()) {
+                this.physics.add.collider(
+                    firstSpriteCollider,
+                    secondSpriteCollider,
+                    (firstObject: Phaser.GameObjects.GameObject, secondObject: Phaser.GameObjects.GameObject) => {
+                        this.onColision(colision);
+                    },
+                    isColisionOn,
+                    colision.getCallbackOwner());
+                return;
+            }
+
             this.physics.add.collider(
                 firstSpriteCollider,
                 secondSpriteCollider,
@@ -33,6 +45,18 @@ export class PhaserColisionWatcher implements IColisionWatcher {
             const firstSpriteCollider = this.getColliderByColliderType<FirstStats>(colision.getFirstCollider());
             const secondSpriteCollider = this.getColliderByColliderType<SecondStats>(colision.getSecondCollider());
 
+            if (colision.getCallbackOwner()) {
+                this.physics.add.overlap(
+                    firstSpriteCollider,
+                    secondSpriteCollider,
+                    (firstObject: Phaser.GameObjects.GameObject, secondObject: Phaser.GameObjects.GameObject) => {
+                        this.onColision(colision);
+                    },
+                    isColisionOn,
+                    colision.getCallbackOwner());
+                return;
+            }
+
             this.physics.add.overlap(
                 firstSpriteCollider,
                 secondSpriteCollider,
@@ -47,7 +71,9 @@ export class PhaserColisionWatcher implements IColisionWatcher {
         if (!colision.onColisionHappen) {
             return;
         }
-        colision.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
+        const callbackOwner: any = colision.getCallbackOwner();
+        callbackOwner.onColisionHappen = colision.onColisionHappen;
+        callbackOwner.onColisionHappen(colision.getFirstCollider(), colision.getSecondCollider());
     }
 
     private getColliderByColliderType<Stats>(collider: ICollider<Stats>):
@@ -55,11 +81,9 @@ export class PhaserColisionWatcher implements IColisionWatcher {
     Phaser.GameObjects.Group {
         if (collider.getColliderType() === ColliderType.GROUP
         || collider.getColliderType() === ColliderType.STATIC_GROUP) {
-            console.log(collider.getSpriteColliderWrapper().getGameObjectGroup());
             return collider.getSpriteColliderWrapper().getGameObjectGroup();
         }
 
-        console.log(collider.getSpriteColliderWrapper().getGameObject());
         return collider.getSpriteColliderWrapper().getGameObject();
     }
 

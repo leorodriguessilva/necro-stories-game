@@ -104,10 +104,6 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     public onHit(
         firstCollider: ICollider<IDestructibleObjectStats>,
         secondCollider: ICollider<IDestructibleObjectStats>): void {
-        if (!this.damageOnHit) {
-            const ownerStats = this.owner.getStats();
-            this.damageOnHit = new PhysicalDamageEffect(ownerStats.getStrength());
-        }
         this.damageOnHit.apply(secondCollider);
         const sprite = this.getPhysicsSprite();
         sprite.disableBody(true, false);

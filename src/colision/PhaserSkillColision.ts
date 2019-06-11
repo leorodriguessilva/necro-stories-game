@@ -7,8 +7,9 @@ export class PhaserSkillColision extends PhaserColision<IDestructibleObjectStats
 
     constructor(
         firstCollider: ISkill,
-        secondCollider: ICollider<IDestructibleObjectStats>) {
-            super(firstCollider, secondCollider, firstCollider.onHit);
+        secondCollider: ICollider<IDestructibleObjectStats>,
+        colisionOwner: ICollider<IDestructibleObjectStats>) {
+            super(firstCollider, secondCollider, colisionOwner, firstCollider.onHit);
     }
 
 }

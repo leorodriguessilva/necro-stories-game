@@ -1,4 +1,5 @@
 import { ICollider } from "../collider/ICollider";
+import { IDestructibleObjectStats } from "../stats/IDestructibleObjectStats";
 
 export interface IColision<FirstStats, SecondStats> {
 
@@ -7,5 +8,7 @@ export interface IColision<FirstStats, SecondStats> {
     getFirstCollider(): ICollider<FirstStats>;
 
     getSecondCollider(): ICollider<SecondStats>;
+
+    getCallbackOwner(): ICollider<IDestructibleObjectStats>;
 
 }

@@ -119,11 +119,16 @@ export class TestbedScene extends Phaser.Scene {
         const phaserColisionWatcher = new PhaserColisionWatcher(this.physics);
         this.colisionManager = new ColisionManager(phaserColisionWatcher);
 
-        const colisionNecromancerAndPlatforms = new PhaserColision(this.necromancer, this.platforms, null);
-        const colisionSkeletonAndPlatforms = new PhaserColision(this.skeleton, this.platforms, null);
+        const colisionNecromancerAndPlatforms = new PhaserColision(
+            this.necromancer,
+            this.platforms,
+            this.necromancer,
+            null);
+        const colisionSkeletonAndPlatforms = new PhaserColision(this.skeleton, this.platforms, this.skeleton, null);
         const colisionSkeletonAndNecromancerMeleeSkill = new PhaserSkillColision(
             this.necromancerBasicAttackSkill,
-            this.skeleton);
+            this.skeleton,
+            this.necromancerBasicAttackSkill);
 
         this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
             colisionNecromancerAndPlatforms,

@@ -23,11 +23,13 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
 
     private damageOnHit: IEffect;
     private owner: Character;
+    private isColisionEnabled: boolean;
 
     constructor(id: number) {
         super(id);
         this.ASSET_NAME = "assets/slash.png";
         this.SLASH_ANIM_ALIAS = `${this.getName()}-slash`;
+        this.enableColision();
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -57,6 +59,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
 
         if (animationProgress === 1) {
             this.inactivateSprite();
+            this.enableColision();
             this.callbackWhenDoneCasting();
         }
     }
@@ -104,9 +107,10 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     public onHit(
         firstCollider: ICollider<IDestructibleObjectStats>,
         secondCollider: ICollider<IDestructibleObjectStats>): void {
-        this.damageOnHit.apply(secondCollider);
-        const sprite = this.getPhysicsSprite();
-        sprite.disableBody(true, false);
+        if (this.isColisionEnabled) {
+            this.damageOnHit.apply(secondCollider);
+            this.disableColision();
+        }
     }
 
     public setOwner(owner: Character): void {
@@ -114,6 +118,14 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     }
 
     public beingHitted(): void { }
+
+    private enableColision() {
+        this.isColisionEnabled = true;
+    }
+
+    private disableColision() {
+        this.isColisionEnabled = false;
+    }
 
     private calculateCharacterFrontDistance() {
         const sprite = this.getSpriteColliderWrapper().getGameObject();

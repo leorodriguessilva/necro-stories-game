@@ -78,7 +78,7 @@ export class TestbedScene extends Phaser.Scene {
         });
         this.inputManager.addInputToHandle(keySpaceWrapper, () => {
             this.necromancer.attack();
-            this.skeleton.attack();
+            // this.skeleton.attack();
             return true;
         });
 

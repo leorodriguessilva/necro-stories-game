@@ -1,10 +1,11 @@
 import { IColision } from "../../../src/colision/IColision";
 import { ICollider } from "../../../src/collider/ICollider";
+import { IDestructibleObjectStats } from "../../../src/stats/IDestructibleObjectStats";
 
 export class FakeColision<FirstStats, SecondStats> implements IColision<FirstStats, SecondStats> {
-    
+
     public onColisionHappen: (firstCollider: ICollider<FirstStats>, secondCollider: ICollider<SecondStats>) => void;   
-    
+
     private isCollided: boolean;
     private firstCollider: ICollider<FirstStats>;
     private secondCollider: ICollider<SecondStats>;
@@ -21,6 +22,10 @@ export class FakeColision<FirstStats, SecondStats> implements IColision<FirstSta
 
     public getSecondCollider(): ICollider<SecondStats> {
         return this.secondCollider;
+    }
+
+    public getCallbackOwner(): ICollider<IDestructibleObjectStats> {
+        return null;
     }
 
     hasCollided(): boolean {

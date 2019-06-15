@@ -153,10 +153,12 @@ export class TestbedScene extends Phaser.Scene {
             `Necromancer Height: ${this.necromancer.getSpriteColliderWrapper().getGameObject().height}`,
             `Necromancer X: ${this.necromancer.getSpriteColliderWrapper().getGameObject().x}`,
             `Necromancer Y: ${this.necromancer.getSpriteColliderWrapper().getGameObject().y}`,
+            `Necromancer Health: ${this.necromancer.getStats().getCurrentHealth()}`,
             `Skeleton Width: ${this.skeleton.getSpriteColliderWrapper().getGameObject().width}`,
             `Skeleton Height: ${this.skeleton.getSpriteColliderWrapper().getGameObject().height}`,
             `Skeleton X: ${this.skeleton.getSpriteColliderWrapper().getGameObject().x}`,
             `Skeleton Y: ${this.skeleton.getSpriteColliderWrapper().getGameObject().y}`,
+            `Skeleton Health: ${this.skeleton.getStats().getCurrentHealth()}`,
         ];
         this.debugText.setText(debug);
     }

@@ -47,6 +47,7 @@ export class CharacterHarmedState extends CharacterState {
     private checkAmountDamageAndChooseNextState(): void {
         if (this.isCharacterDead()) {
             this.goToDyingState();
+            return;
         }
         this.goToMovingState();
     }

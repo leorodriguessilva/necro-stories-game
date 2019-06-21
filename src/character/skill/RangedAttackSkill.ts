@@ -9,6 +9,8 @@ import { ISpriteColliderWrapper } from "../../collider/ISpriteColliderWrapper";
 import { Character } from "../Character";
 import { IEffect } from "./effect/IEffect";
 import { PhysicalDamageEffect } from "./effect/PhysicalDamageEffect";
+import { SpriteColliderDataWrapper } from "../../collider/SpriteColliderDataWrapper";
+import { SpriteColliderWrapper } from "../../collider/SpriteColliderWrapper";
 
 export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
     
@@ -35,51 +37,76 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
     }
 
     public create(scene: Phaser.Scene): void {
-        throw new Error("Method not implemented.");
+        this.anims = scene.anims;
+        const spriteColliderDataWrapper = new SpriteColliderDataWrapper(
+            0,
+            0,
+            scene,
+            this.getName(),
+            null,
+            this.getColliderType());
+        this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
+
+        this.spriteColliderWrapper.setCollideWorldBounds(true);
+
+        this.inactivateSprite();
+        this.initializeDamageOnHit();
+        this.configureAnimation();
     }
 
     public update(): void {
-        throw new Error("Method not implemented.");
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
+        sprite.anims.play(this.CAST_ANIM_ALIAS, true);
     }
 
     public getAssetName(): string {
-        throw new Error("Method not implemented.");
+        return this.ASSET_NAME;
     }
 
     public destroy(): void {
-        throw new Error("Method not implemented.");
+        this.getSpriteColliderWrapper().destroy();
     }
 
     public getSpriteColliderWrapper(): ISpriteColliderWrapper {
-        throw new Error("Method not implemented.");
+        return this.spriteColliderWrapper;
     }
 
     public getName(): string {
-        throw new Error("Method not implemented.");
+        return "ranged-attack-attack";
     }
 
     public getStats(): ObstacleStats {
-        throw new Error("Method not implemented.");
+        return null;
     }
 
     public getColliderType(): ColliderType {
-        throw new Error("Method not implemented.");
+        return ColliderType.STATIC_SPRITE;
     }
 
-    public beingHitted(amountOfDamage: number): void {
-        throw new Error("Method not implemented.");
-    }
+    public beingHitted(amountOfDamage: number): void { }
 
-    public cast(locationX: number, locationY: number, movingDirection: CharacterMovingDirection, callbackWhenDoneCasting: () => void): void {
-        throw new Error("Method not implemented.");
+    public cast(
+        locationX: number,
+        locationY: number,
+        movingDirection: CharacterMovingDirection, callbackWhenDoneCasting: () => void): void {
+        this.enableColision();
+        this.callbackWhenDoneCasting = callbackWhenDoneCasting;
+
+        const calculatedX = this.preparePositionXToDraw(locationX, movingDirection);
+
+        this.activateSprite(calculatedX, locationY);
     }    
 
     public interrupt(): void {
-        throw new Error("Method not implemented.");
+        this.inactivateSprite();
     }
 
     public onHit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void {
-        throw new Error("Method not implemented.");
+        if (this.isColisionEnabled) {
+            this.damageOnHit.apply(secondCollider);
+            this.disableColision();
+            this.inactivateSprite();
+        }
     }
 
     public setOwner(owner: Character): void {

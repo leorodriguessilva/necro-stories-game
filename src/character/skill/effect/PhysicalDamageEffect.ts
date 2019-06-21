@@ -11,6 +11,9 @@ export class PhysicalDamageEffect implements IEffect {
     }
 
     public apply(collider: ICollider<IDestructibleObjectStats>): void {
+        if (collider == null) {
+            return;
+        }
         collider.beingHitted(this.damageAmount);
     }
 

@@ -12,8 +12,8 @@ import { PhysicalDamageEffect } from "./effect/PhysicalDamageEffect";
 import { SpriteColliderDataWrapper } from "../../collider/SpriteColliderDataWrapper";
 import { SpriteColliderWrapper } from "../../collider/SpriteColliderWrapper";
 
-export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
-    
+export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
+
     private readonly ASSET_NAME: string;
     private readonly CAST_ANIM_ALIAS: string;
 
@@ -24,6 +24,7 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
     private damageOnHit: IEffect;
     private owner: Character;
     private isColisionEnabled: boolean;
+    private xVelocity: number;
 
     constructor(id: number) {
         super(id);
@@ -31,9 +32,9 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
         this.CAST_ANIM_ALIAS = `${this.getName()}-cast`;
         this.enableColision();
     }
-    
+
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
-        loader.spritesheet(this.getName(), this.ASSET_NAME, { frameWidth: 13, frameHeight: 48 });
+        loader.spritesheet(this.getName(), this.ASSET_NAME, { frameWidth: 20, frameHeight: 17 });
     }
 
     public create(scene: Phaser.Scene): void {
@@ -57,6 +58,11 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
     public update(): void {
         const sprite = this.getSpriteColliderWrapper().getGameObject();
         sprite.anims.play(this.CAST_ANIM_ALIAS, true);
+        const physicsSprite = this.getPhysicsSprite();
+        //WORKAROUND until discover a way to disable gravity from dinamic body sprites
+        physicsSprite.setVelocityY(-5);
+        //WORKAROUND until discover a way to disable gravity from dinamic body sprites
+        physicsSprite.setVelocityX(this.xVelocity);
     }
 
     public getAssetName(): string {
@@ -72,7 +78,7 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
     }
 
     public getName(): string {
-        return "ranged-attack-attack";
+        return "energy-ball";
     }
 
     public getStats(): ObstacleStats {
@@ -80,7 +86,7 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
     }
 
     public getColliderType(): ColliderType {
-        return ColliderType.STATIC_SPRITE;
+        return ColliderType.SPRITE;
     }
 
     public beingHitted(amountOfDamage: number): void { }
@@ -93,9 +99,10 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
         this.callbackWhenDoneCasting = callbackWhenDoneCasting;
 
         const calculatedX = this.preparePositionXToDraw(locationX, movingDirection);
+        this.xVelocity = this.calculateXVelocity(movingDirection);
 
         this.activateSprite(calculatedX, locationY);
-    }    
+    }
 
     public interrupt(): void {
         this.inactivateSprite();
@@ -112,7 +119,18 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
     public setOwner(owner: Character): void {
         this.owner = owner;
     }
-    
+
+    private calculateXVelocity(movingDirection: CharacterMovingDirection): number {
+        const ownerStats = this.owner.getStats();
+        const inteligence = ownerStats.getInteligence();
+        const inteligenceFactorCalculated = (ownerStats.getInteligence() * 1);
+        let directionFactor = 1;
+        if (movingDirection === CharacterMovingDirection.LEFT) {
+            directionFactor = -1;
+        }
+        return (inteligence + inteligenceFactorCalculated) * directionFactor;
+    }
+
     private enableColision(): void {
         this.isColisionEnabled = true;
     }
@@ -156,7 +174,7 @@ export class RangedAttackSkill extends CollidedObjectData<ObstacleStats> impleme
         this.anims.create({
             key: this.CAST_ANIM_ALIAS,
             frames: this.anims.generateFrameNumbers(this.getName(), { start: 0, end: 4 }),
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1,
         });
     }

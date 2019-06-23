@@ -17,7 +17,7 @@ export class CharacterDyingState extends CharacterState {
 
     public attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void { }
 
-    public cast(): void { }
+    public useSkill(id: number, movingDirection: CharacterMovingDirection): void { }
 
     protected configureState(): void {
         const spriteColliderWrapper = this.character.getSpriteColliderWrapper();

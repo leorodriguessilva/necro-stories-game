@@ -30,7 +30,10 @@ export class CharacterMovingState extends CharacterState {
         this.stateContext.setCurrentState(this.stateContext.ATTACKING_STATE);
     }
 
-    public cast(): void { }
+    public useSkill(id: number, movingDirection: CharacterMovingDirection): void {
+        this.stateContext.setCurrentState(this.stateContext.USING_SKILL_STATE);
+        this.stateContext.useSkill(id);
+    }
 
     protected configureState() {
         this.spriteColliderWrapper = this.character.getSpriteColliderWrapper();

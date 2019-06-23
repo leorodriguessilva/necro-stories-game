@@ -12,6 +12,6 @@ export interface ICharacterState {
 
     attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void;
 
-    cast(): void;
+    useSkill(id: number, movingDirection: CharacterMovingDirection): void;
 
 }

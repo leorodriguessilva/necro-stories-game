@@ -20,6 +20,7 @@ import { CharacterStats } from "../stats/CharacterStats";
 import { PhaserColision } from "../colision/PhaserColision";
 import { PhaserSkillColision } from "../colision/PhaserSkillColision";
 import { IDestructibleObjectStats } from "../stats/IDestructibleObjectStats";
+import { EnergyBallSkill } from "../character/skill/EnergyBallSkill";
 
 export class TestbedScene extends Phaser.Scene {
 
@@ -32,6 +33,7 @@ export class TestbedScene extends Phaser.Scene {
     private colisionManager: ColisionManager;
     private inputManager: IInputManager;
     private necromancerBasicAttackSkill: ISkill;
+    private necromancerEnergyBallSkill: ISkill;
     private skeletonBasicAttackSkill: ISkill;
     private debugText: Phaser.GameObjects.Text;
 
@@ -62,9 +64,11 @@ export class TestbedScene extends Phaser.Scene {
         const phaserRightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT, true, true);
         const phaserLeftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT, true, true);
         const phaserSpaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE, true, false);
+        const phaserZKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z, true, false);
         const keyRightWrapper = new PhaserKey(phaserRightKey);
         const keyLeftWrapper = new PhaserKey(phaserLeftKey);
         const keySpaceWrapper = new PhaserKey(phaserSpaceKey);
+        const keyZWrapper = new PhaserKey(phaserZKey);
 
         this.inputManager.addInputToHandle(keyRightWrapper, () => {
             this.necromancer.move(CharacterMovingDirection.RIGHT);
@@ -81,6 +85,10 @@ export class TestbedScene extends Phaser.Scene {
             // this.skeleton.attack();
             return true;
         });
+        this.inputManager.addInputToHandle(keyZWrapper, () => {
+            this.necromancer.useSkill(2);
+            return true;
+        });
 
         this.inputManager.addWhenNoInputDetected(() => {
             this.necromancer.idle();
@@ -88,16 +96,19 @@ export class TestbedScene extends Phaser.Scene {
         });
 
         this.necromancerBasicAttackSkill = new MeleeAttackSkill(1);
+        this.necromancerEnergyBallSkill = new EnergyBallSkill(2);
         this.skeletonBasicAttackSkill = new MeleeAttackSkill(1);
         this.assetLoadManager = new AssetLoadManager();
 
         this.necromancer.setBasicAttackSkill(this.necromancerBasicAttackSkill);
+        this.necromancer.addSkill(this.necromancerEnergyBallSkill);
         this.skeleton.setBasicAttackSkill(this.skeletonBasicAttackSkill);
 
         this.assetLoadManager.addAsset(this.necromancer);
         this.assetLoadManager.addAsset(this.skeleton);
         this.assetLoadManager.addAsset(this.platforms);
         this.assetLoadManager.addAsset(this.necromancerBasicAttackSkill);
+        this.assetLoadManager.addAsset(this.necromancerEnergyBallSkill);
         this.assetLoadManager.addAsset(this.skeletonBasicAttackSkill);
     }
 
@@ -116,6 +127,7 @@ export class TestbedScene extends Phaser.Scene {
             platform.create(50, 250, this.PLATFORM_SPRITE_NAME);
             platform.create(750, 220, this.PLATFORM_SPRITE_NAME);
         });
+
         const phaserColisionWatcher = new PhaserColisionWatcher(this.physics);
         this.colisionManager = new ColisionManager(phaserColisionWatcher);
 
@@ -130,12 +142,20 @@ export class TestbedScene extends Phaser.Scene {
             this.skeleton,
             this.necromancerBasicAttackSkill);
 
+        const colisionSkeletonAndNecromancerEnergyBallSkill = new PhaserSkillColision(
+            this.necromancerEnergyBallSkill,
+            this.skeleton,
+            this.necromancerEnergyBallSkill);
+
         this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
             colisionNecromancerAndPlatforms,
             ColisionType.COLLIDE);
         this.colisionManager.addColisionToHandle<CharacterStats, ObstacleStats>(
             colisionSkeletonAndPlatforms,
             ColisionType.COLLIDE);
+        this.colisionManager.addColisionToHandle<IDestructibleObjectStats, IDestructibleObjectStats>(
+            colisionSkeletonAndNecromancerEnergyBallSkill,
+            ColisionType.OVERLAP);
         this.colisionManager.addColisionToHandle<IDestructibleObjectStats, IDestructibleObjectStats>(
             colisionSkeletonAndNecromancerMeleeSkill,
             ColisionType.OVERLAP);

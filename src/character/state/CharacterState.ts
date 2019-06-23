@@ -24,7 +24,7 @@ export abstract class CharacterState implements ICharacterState {
 
     public abstract attack(locationX: number, locationY: number, movingDirection: CharacterMovingDirection): void;
 
-    public abstract cast(): void;
+    public abstract useSkill(id: number, movingDirection: CharacterMovingDirection): void;
 
     protected abstract configureState(): void;
 

@@ -18,6 +18,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
     private stateContext: CharacterStateContext;
     private spriteColliderWrapper: ISpriteColliderWrapper;
     private basicAttackSkill: ISkill;
+    private skills: ISkill[];
 
     constructor(characterCreationData: CharacterCreationData) {
         super(characterCreationData.ObjectId);
@@ -26,6 +27,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         this.name = characterCreationData.Name;
         const characterStatsReader = characterCreationData.CharacterStatsReader;
         this.stats = characterStatsReader.generateStats(this.getName());
+        this.skills = new Array();
     }
 
     public abstract preload(loader: Phaser.Loader.LoaderPlugin): void;
@@ -41,6 +43,7 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
             this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
         this.stateContext = new CharacterStateContext(this);
+        this.createSkills(scene);
         this.getSpriteColliderWrapper().setCollideWorldBounds(true);
         this.configureAnimation(scene.anims);
     }
@@ -120,6 +123,22 @@ export abstract class Character extends CollidedObjectData<CharacterStats> {
         return `${this.getName()}-cast`;
     }
 
+    public addSkill(skill: ISkill): void {
+        this.skills.push(skill);
+        skill.setOwner(this);
+    }
+
+    public useSkill(id: number): void {
+        this.stateContext.useSkill(id);
+    }
+
     protected abstract configureAnimation(anims: Phaser.Animations.AnimationManager): void;
+
+    private createSkills(scene: Phaser.Scene) {
+        this.skills.forEach((s) => {
+             s.create(scene);
+             this.stateContext.addSkill(s);
+        });
+    }
 
 }

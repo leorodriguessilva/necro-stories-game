@@ -139,7 +139,7 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
 
     private calculateCharacterFrontDistance(): number {
         const sprite = this.getSpriteColliderWrapper().getGameObject();
-        return (sprite.width * 2);
+        return (sprite.width);
     }
 
     private activateSprite(locationX: number, locationY: number): void {

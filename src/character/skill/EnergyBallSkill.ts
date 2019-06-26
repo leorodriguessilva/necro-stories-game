@@ -28,13 +28,13 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
 
     constructor(id: number) {
         super(id);
-        this.ASSET_NAME = "assets/energy-ball.png";
+        this.ASSET_NAME = "assets/energy-ball2.png";
         this.CAST_ANIM_ALIAS = `${this.getName()}-cast`;
         this.enableColision();
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
-        loader.spritesheet(this.getName(), this.ASSET_NAME, { frameWidth: 20, frameHeight: 17 });
+        loader.spritesheet(this.getName(), this.ASSET_NAME, { frameWidth: 30, frameHeight: 20 });
     }
 
     public create(scene: Phaser.Scene): void {
@@ -59,9 +59,7 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
         const sprite = this.getSpriteColliderWrapper().getGameObject();
         sprite.anims.play(this.CAST_ANIM_ALIAS, true);
         const physicsSprite = this.getPhysicsSprite();
-        //WORKAROUND until discover a way to disable gravity from dinamic body sprites
         physicsSprite.setVelocityY(-5);
-        //WORKAROUND until discover a way to disable gravity from dinamic body sprites
         physicsSprite.setVelocityX(this.xVelocity);
     }
 
@@ -173,7 +171,7 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
     private configureAnimation(): void {
         this.anims.create({
             key: this.CAST_ANIM_ALIAS,
-            frames: this.anims.generateFrameNumbers(this.getName(), { start: 0, end: 4 }),
+            frames: this.anims.generateFrameNumbers(this.getName(), { start: 0, end: 19 }),
             frameRate: 6,
             repeat: -1,
         });

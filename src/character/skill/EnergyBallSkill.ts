@@ -100,6 +100,7 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
         this.xVelocity = this.calculateXVelocity(movingDirection);
 
         this.activateSprite(calculatedX, locationY);
+        this.callbackWhenDoneCasting();
     }
 
     public interrupt(): void {

@@ -41,6 +41,7 @@ export class CharacterStateContext implements ISkillCaster {
 
     public update(): void {
         this.currentState.update();
+        this.skills.update();
     }
 
     public idle(): void {

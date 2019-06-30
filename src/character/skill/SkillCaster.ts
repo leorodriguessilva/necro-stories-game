@@ -35,6 +35,12 @@ export class SkillCaster implements ISkillCaster {
         return skill;
     }
 
+    public update(): void {
+        this.skills.forEach((skill) => {
+            skill.update();
+        });
+    }
+
     private hasSkill(id: number) {
         const skill = this.getSkill(id);
         return skill != null;

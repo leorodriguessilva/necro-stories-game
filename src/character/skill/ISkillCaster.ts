@@ -9,4 +9,6 @@ export interface ISkillCaster {
 
     getSkill(id: number): ISkill;
 
+    update(): void;
+
 }

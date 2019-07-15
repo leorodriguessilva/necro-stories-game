@@ -2,7 +2,7 @@ import { IVisualEffect } from "./IVisualEffect";
 import { ILoadable } from "../loader/ILoadable";
 import { IVisualEffectConfig } from "./IVisualEffectConfig";
 
-export class VisualEffect implements IVisualEffect, ILoadable {
+export class SpriteVisualEffect implements IVisualEffect, ILoadable {
 
     private readonly ANIM_ALIAS_SUFFIX = "-alias";
 

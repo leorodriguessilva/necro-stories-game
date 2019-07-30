@@ -3,8 +3,9 @@ import { CharacterMovingDirection } from "../../state/CharacterMovingDirection";
 import { ISkill } from "../ISkill";
 import { ICollider } from "../../../collider/ICollider";
 import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
+import { AbstractSkillState } from "./AbstractSkillState";
 
-export class HitSkillState implements ISkillState {
+export class HitSkillState extends AbstractSkillState {
 
     public cast(
         locationX: number,

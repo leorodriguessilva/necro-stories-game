@@ -2,9 +2,9 @@ import { ISkill } from "../ISkill";
 import { ICollider } from "../../../collider/ICollider";
 import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
 import { CharacterMovingDirection } from "../../state/CharacterMovingDirection";
-import { ISkillState } from "./ISkillState";
+import { AbstractSkillState } from "./AbstractSkillState";
 
-export class NotCastSkillState implements ISkillState {
+export class NotCastSkillState extends AbstractSkillState {
 
     public cast(
         locationX: number,

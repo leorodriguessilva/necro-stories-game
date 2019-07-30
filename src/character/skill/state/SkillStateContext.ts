@@ -15,18 +15,27 @@ export class SkillStateContext {
     public readonly INTERRUPTED_SKILL_STATE: ISkillState;
     public readonly HIT_SKILL_STATE: ISkillState;
 
+    private characterMovingDirection: CharacterMovingDirection;
+
     private currentState: ISkillState;
 
-    constructor() {
+    private skill: ISkill;
+
+    constructor(skill: ISkill) {
         this.NOT_CAST_SKILL_STATE = new NotCastSkillState(this);
         this.CAST_SKILL_STATE = new CastSkillState(this);
         this.INTERRUPTED_SKILL_STATE = new InterruptedSkillState(this);
         this.HIT_SKILL_STATE = new HitSkillState(this);
         this.currentState = this.NOT_CAST_SKILL_STATE;
+        this.skill = skill;
     }
 
     public setCurrentState(currentState: ISkillState) {
         this.currentState = currentState;
+    }
+
+    public getSkill(): ISkill {
+        return this.skill;
     }
 
     public cast(
@@ -34,6 +43,7 @@ export class SkillStateContext {
         locationY: number,
         movingDirection: CharacterMovingDirection,
         callbackWhenDoneCasting: () => void): void {
+            this.characterMovingDirection = movingDirection;
             this.currentState.cast(
                 locationX,
                 locationY,

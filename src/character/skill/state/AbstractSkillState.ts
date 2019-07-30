@@ -7,7 +7,7 @@ import { ISkill } from "../ISkill";
 
 export abstract class AbstractSkillState implements ISkillState {
 
-    protected skillStateContext: SkillStateContext;
+    private skillStateContext: SkillStateContext;
 
     constructor(skillStateContext: SkillStateContext) {
         this.skillStateContext = skillStateContext;
@@ -22,4 +22,16 @@ export abstract class AbstractSkillState implements ISkillState {
     public abstract interrupt(): void;
 
     public abstract hit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void;
+
+    protected getSkillStateContext(): SkillStateContext {
+        return this.skillStateContext;
+    }
+
+    protected setCurrentState(skillState: ISkillState): void {
+        this.skillStateContext.setCurrentState(skillState);
+    }
+
+    protected getSkill(): ISkill {
+        return this.skillStateContext.getSkill();
+    }
 }

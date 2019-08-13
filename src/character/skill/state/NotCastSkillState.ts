@@ -3,9 +3,10 @@ import { ICollider } from "../../../collider/ICollider";
 import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
 import { CharacterMovingDirection } from "../../state/CharacterMovingDirection";
 import { AbstractSkillState } from "./AbstractSkillState";
-import { SkillStateContext } from "./SkillStateContext";
 
 export class NotCastSkillState extends AbstractSkillState {
+
+    public update() { }
 
     public cast(
         locationX: number,

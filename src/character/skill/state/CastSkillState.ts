@@ -6,6 +6,8 @@ import { ISkill } from "../ISkill";
 
 export class CastSkillState extends AbstractSkillState {
 
+    public update() { }
+
     public cast(
         locationX: number,
         locationY: number,
@@ -18,12 +20,8 @@ export class CastSkillState extends AbstractSkillState {
                 callbackWhenDoneCasting);
     }
 
-    public interrupt(): void {
-        throw new Error("Method not implemented.");
-    }
+    public interrupt(): void { }
 
-    public hit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void {
-        throw new Error("Method not implemented.");
-    }
+    public hit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void { }
 
 }

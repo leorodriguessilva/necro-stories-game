@@ -13,6 +13,8 @@ export abstract class AbstractSkillState implements ISkillState {
         this.skillStateContext = skillStateContext;
     }
 
+    public abstract update(): void;
+
     public abstract cast(
         locationX: number,
         locationY: number,

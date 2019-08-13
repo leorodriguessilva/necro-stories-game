@@ -1,4 +1,3 @@
-import { ISkillState } from "./ISkillState";
 import { CharacterMovingDirection } from "../../state/CharacterMovingDirection";
 import { ISkill } from "../ISkill";
 import { ICollider } from "../../../collider/ICollider";
@@ -7,15 +6,19 @@ import { AbstractSkillState } from "./AbstractSkillState";
 
 export class InterruptedSkillState extends AbstractSkillState {
 
+    public update() { }
+
     public cast(
         locationX: number,
         locationY: number,
         movingDirection: CharacterMovingDirection,
         callbackWhenDoneCasting: () => void): void {
-
     }
 
-    public interrupt(): void { }
+    public interrupt(): void {
+        this.getSkill().interrupt();
+        this.setCurrentState(this.getSkillStateContext().NOT_CAST_SKILL_STATE);
+    }
 
     public hit(
         firstCollider: ISkill,

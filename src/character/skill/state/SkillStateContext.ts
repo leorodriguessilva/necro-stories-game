@@ -38,6 +38,10 @@ export class SkillStateContext {
         return this.skill;
     }
 
+    public update(): void {
+        this.currentState.update();
+    }
+
     public cast(
         locationX: number,
         locationY: number,

@@ -5,6 +5,8 @@ import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStat
 
 export interface ISkillState {
 
+    update(): void;
+
     cast(
         locationX: number,
         locationY: number,

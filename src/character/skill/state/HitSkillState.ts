@@ -20,6 +20,7 @@ export class HitSkillState extends AbstractSkillState {
         firstCollider: ISkill,
         secondCollider: ICollider<IDestructibleObjectStats>): void {
         this.getSkill().onHit(firstCollider, secondCollider);
+        this.setCurrentState(this.getSkillStateContext().NOT_CAST_SKILL_STATE);
     }
 
 }

@@ -4,9 +4,10 @@ import { CastSkillState } from "./CastSkillState";
 import { InterruptedSkillState } from "./InterruptSkillState";
 import { HitSkillState } from "./HitSkillState";
 import { CharacterMovingDirection } from "../../state/CharacterMovingDirection";
-import { ISkill } from "../ISkill";
 import { ICollider } from "../../../collider/ICollider";
 import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
+import { ISkillInternal } from "../ISkillInternal";
+import { ISkill } from "../ISkill";
 
 export class SkillStateContext {
 
@@ -15,13 +16,11 @@ export class SkillStateContext {
     public readonly INTERRUPTED_SKILL_STATE: ISkillState;
     public readonly HIT_SKILL_STATE: ISkillState;
 
-    private characterMovingDirection: CharacterMovingDirection;
-
     private currentState: ISkillState;
 
-    private skill: ISkill;
+    private skill: ISkillInternal;
 
-    constructor(skill: ISkill) {
+    constructor(skill: ISkillInternal) {
         this.NOT_CAST_SKILL_STATE = new NotCastSkillState(this);
         this.CAST_SKILL_STATE = new CastSkillState(this);
         this.INTERRUPTED_SKILL_STATE = new InterruptedSkillState(this);
@@ -34,7 +33,7 @@ export class SkillStateContext {
         this.currentState = currentState;
     }
 
-    public getSkill(): ISkill {
+    public getSkill(): ISkillInternal {
         return this.skill;
     }
 
@@ -47,7 +46,6 @@ export class SkillStateContext {
         locationY: number,
         movingDirection: CharacterMovingDirection,
         callbackWhenDoneCasting: () => void): void {
-            this.characterMovingDirection = movingDirection;
             this.currentState.cast(
                 locationX,
                 locationY,

@@ -4,6 +4,7 @@ import { CharacterMovingDirection } from "../../state/CharacterMovingDirection";
 import { ICollider } from "../../../collider/ICollider";
 import { IDestructibleObjectStats } from "../../../stats/IDestructibleObjectStats";
 import { ISkill } from "../ISkill";
+import { ISkillInternal } from "../ISkillInternal";
 
 export abstract class AbstractSkillState implements ISkillState {
 
@@ -33,7 +34,7 @@ export abstract class AbstractSkillState implements ISkillState {
         this.skillStateContext.setCurrentState(skillState);
     }
 
-    protected getSkill(): ISkill {
+    protected getSkill(): ISkillInternal {
         return this.skillStateContext.getSkill();
     }
 }

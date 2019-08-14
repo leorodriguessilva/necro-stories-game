@@ -11,8 +11,10 @@ import { IEffect } from "./effect/IEffect";
 import { PhysicalDamageEffect } from "./effect/PhysicalDamageEffect";
 import { SpriteColliderDataWrapper } from "../../collider/SpriteColliderDataWrapper";
 import { SpriteColliderWrapper } from "../../collider/SpriteColliderWrapper";
+import { SkillStateContext } from "./state/SkillStateContext";
+import { ISkillInternal } from "./ISkillInternal";
 
-export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
+export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implements ISkillInternal {
 
     private readonly ASSET_NAME: string;
     private readonly CAST_ANIM_ALIAS: string;
@@ -26,11 +28,14 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
     private isColisionEnabled: boolean;
     private xVelocity: number;
 
+    private skillStateContext: SkillStateContext;
+
     constructor(id: number) {
         super(id);
         this.ASSET_NAME = "assets/energy-ball2.png";
         this.CAST_ANIM_ALIAS = `${this.getName()}-cast`;
         this.enableColision();
+        this.skillStateContext = new SkillStateContext(this);
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -56,11 +61,7 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
     }
 
     public update(): void {
-        const sprite = this.getSpriteColliderWrapper().getGameObject();
-        sprite.anims.play(this.CAST_ANIM_ALIAS, true);
-        const physicsSprite = this.getPhysicsSprite();
-        physicsSprite.setVelocityY(-5);
-        physicsSprite.setVelocityX(this.xVelocity);
+        this.skillStateContext.update();
     }
 
     public getAssetName(): string {
@@ -101,13 +102,16 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
 
         this.activateSprite(calculatedX, locationY);
         this.callbackWhenDoneCasting();
+        this.skillStateContext.cast(locationX, locationY, movingDirection, callbackWhenDoneCasting);
     }
 
     public interrupt(): void {
+        this.skillStateContext.interrupt();
         this.inactivateSprite();
     }
 
     public onHit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void {
+        this.skillStateContext.hit(firstCollider, secondCollider);
         if (this.isColisionEnabled) {
             this.damageOnHit.apply(secondCollider);
             this.disableColision();
@@ -119,54 +123,35 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
         this.owner = owner;
     }
 
-    private calculateXVelocity(movingDirection: CharacterMovingDirection): number {
-        const ownerStats = this.owner.getStats();
-        const inteligence = ownerStats.getInteligence();
-        const inteligenceFactorCalculated = (ownerStats.getInteligence() * 1);
-        let directionFactor = 1;
-        if (movingDirection === CharacterMovingDirection.LEFT) {
-            directionFactor = -1;
-        }
-        return (inteligence + inteligenceFactorCalculated) * directionFactor;
-    }
-
-    private enableColision(): void {
-        this.isColisionEnabled = true;
-    }
-
-    private disableColision(): void {
-        this.isColisionEnabled = false;
-    }
-
-    private calculateCharacterFrontDistance(): number {
-        const sprite = this.getSpriteColliderWrapper().getGameObject();
-        return (sprite.width);
-    }
-
-    private activateSprite(locationX: number, locationY: number): void {
+    public activateSprite(locationX: number, locationY: number): void {
         const sprite = this.getPhysicsSprite();
         sprite.enableBody(true, locationX, locationY, true, true);
     }
 
-    private inactivateSprite(): void {
+    public inactivateSprite(): void {
         const sprite = this.getPhysicsSprite();
         sprite.disableBody(true, true);
     }
 
-    private getPhysicsSprite(): Phaser.Physics.Arcade.Sprite {
-        return this.getSpriteColliderWrapper().getGameObject() as Phaser.Physics.Arcade.Sprite;
+    public enableColision(): void {
+        this.isColisionEnabled = true;
     }
 
-    private preparePositionXToDraw(locationX: number, movingDirection: CharacterMovingDirection): number {
+    public disableColision(): void {
+        this.isColisionEnabled = false;
+    }
+
+    public getOwner(): Character {
+        return this.owner;
+    }
+
+    public playAnimation(): void {
         const sprite = this.getSpriteColliderWrapper().getGameObject();
-        sprite.resetFlip();
-        const characterFrontDistance = this.calculateCharacterFrontDistance();
-        let calculatedX = locationX + characterFrontDistance;
-        if (movingDirection === CharacterMovingDirection.LEFT) {
-            sprite.setFlipX(true);
-            calculatedX = locationX - characterFrontDistance;
-        }
-        return calculatedX;
+        sprite.anims.play(this.CAST_ANIM_ALIAS, true);
+    }
+
+    public getPhysicsSprite(): Phaser.Physics.Arcade.Sprite {
+        return this.getSpriteColliderWrapper().getGameObject() as Phaser.Physics.Arcade.Sprite;
     }
 
     private configureAnimation(): void {

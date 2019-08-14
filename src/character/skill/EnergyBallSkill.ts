@@ -26,7 +26,6 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
     private damageOnHit: IEffect;
     private owner: Character;
     private isColisionEnabled: boolean;
-    private xVelocity: number;
 
     private skillStateContext: SkillStateContext;
 

@@ -8,7 +8,7 @@ export class CastSkillState extends AbstractSkillState {
 
     private xVelocity: number;
 
-    public update() { 
+    public update() {
         this.getSkill().playAnimation();
         const physicsSprite = this.getSkill().getPhysicsSprite();
         physicsSprite.setVelocityY(-5);

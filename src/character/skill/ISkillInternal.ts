@@ -2,7 +2,7 @@ import { ISkill } from "./ISkill";
 import { Character } from "../Character";
 
 export interface ISkillInternal extends ISkill {
-    
+
     enableColision(): void;
 
     disableColision(): void;

@@ -52,11 +52,10 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
             this.getColliderType());
         this.spriteColliderWrapper = new SpriteColliderWrapper(spriteColliderDataWrapper);
 
-        this.spriteColliderWrapper.setCollideWorldBounds(true);
-
         this.inactivateSprite();
         this.initializeDamageOnHit();
         this.configureAnimation();
+        this.turnOnWorldBoundsColision();
     }
 
     public update(): void {
@@ -94,13 +93,6 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
         locationY: number,
         movingDirection: CharacterMovingDirection, callbackWhenDoneCasting: () => void): void {
         this.enableColision();
-        this.callbackWhenDoneCasting = callbackWhenDoneCasting;
-
-        const calculatedX = this.preparePositionXToDraw(locationX, movingDirection);
-        this.xVelocity = this.calculateXVelocity(movingDirection);
-
-        this.activateSprite(calculatedX, locationY);
-        this.callbackWhenDoneCasting();
         this.skillStateContext.cast(locationX, locationY, movingDirection, callbackWhenDoneCasting);
     }
 
@@ -167,4 +159,7 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
         this.damageOnHit = new PhysicalDamageEffect(ownerStats.getAgility());
     }
 
+    private turnOnWorldBoundsColision(): void {
+        this.spriteColliderWrapper.setCollideWorldBounds(true);
+    }
 }

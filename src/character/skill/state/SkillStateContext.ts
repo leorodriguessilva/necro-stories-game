@@ -63,4 +63,8 @@ export class SkillStateContext {
             this.currentState.hit(firstCollider, secondCollider);
     }
 
+    public setOnCastCallback(onCastCallback: () => void) {
+        this.CAST_SKILL_STATE.setUpdateCallback(onCastCallback);
+    }
+
 }

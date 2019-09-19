@@ -6,8 +6,6 @@ import { AbstractSkillState } from "./AbstractSkillState";
 
 export class InterruptedSkillState extends AbstractSkillState {
 
-    public update() { }
-
     public cast(
         locationX: number,
         locationY: number,

@@ -10,11 +10,17 @@ export abstract class AbstractSkillState implements ISkillState {
 
     private skillStateContext: SkillStateContext;
 
+    private updateCallback: () => void;
+
     constructor(skillStateContext: SkillStateContext) {
         this.skillStateContext = skillStateContext;
     }
 
-    public abstract update(): void;
+    public update(): void {
+        if (this.updateCallback) {
+            this.updateCallback();
+        }
+    }
 
     public abstract cast(
         locationX: number,
@@ -25,6 +31,14 @@ export abstract class AbstractSkillState implements ISkillState {
     public abstract interrupt(): void;
 
     public abstract hit(firstCollider: ISkill, secondCollider: ICollider<IDestructibleObjectStats>): void;
+
+    public setStateContext(skillStateContext: SkillStateContext) {
+        this.skillStateContext = skillStateContext;
+    }
+
+    public setUpdateCallback(updateCallback: () => void) {
+        this.updateCallback = updateCallback;
+    }
 
     protected getSkillStateContext(): SkillStateContext {
         return this.skillStateContext;

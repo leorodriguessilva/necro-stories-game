@@ -29,12 +29,21 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
 
     private skillStateContext: SkillStateContext;
 
+    private xVelocity: number;
+
     constructor(id: number) {
         super(id);
         this.ASSET_NAME = "assets/energy-ball2.png";
         this.CAST_ANIM_ALIAS = `${this.getName()}-cast`;
         this.enableColision();
+
         this.skillStateContext = new SkillStateContext(this);
+        this.skillStateContext.setOnCastCallback(() => {
+            this.playAnimation();
+            const physicsSprite = this.getPhysicsSprite();
+            physicsSprite.setVelocityY(-5);
+            physicsSprite.setVelocityX(this.xVelocity);
+        });
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -91,9 +100,24 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
     public cast(
         locationX: number,
         locationY: number,
-        movingDirection: CharacterMovingDirection, callbackWhenDoneCasting: () => void): void {
+        movingDirection: CharacterMovingDirection,
+        callbackWhenDoneCasting: () => void): void {
         this.enableColision();
         this.skillStateContext.cast(locationX, locationY, movingDirection, callbackWhenDoneCasting);
+    }
+
+    public internalCast(
+        locationX: number,
+        locationY: number,
+        movingDirection: CharacterMovingDirection,
+        callbackWhenDoneCasting: () => void) {
+        this.enableColision();
+
+        const calculatedX = this.preparePositionXToDraw(locationX, movingDirection);
+        this.xVelocity = this.calculateXVelocity(movingDirection);
+
+        this.activateSprite(calculatedX, locationY);
+        callbackWhenDoneCasting();
     }
 
     public interrupt(): void {
@@ -161,5 +185,33 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
 
     private turnOnWorldBoundsColision(): void {
         this.spriteColliderWrapper.setCollideWorldBounds(true);
+    }
+
+    private preparePositionXToDraw(locationX: number, movingDirection: CharacterMovingDirection): number {
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
+        sprite.resetFlip();
+        const characterFrontDistance = this.calculateCharacterFrontDistance();
+        let calculatedX = locationX + characterFrontDistance;
+        if (movingDirection === CharacterMovingDirection.LEFT) {
+            sprite.setFlipX(true);
+            calculatedX = locationX - characterFrontDistance;
+        }
+        return calculatedX;
+    }
+
+    private calculateXVelocity(movingDirection: CharacterMovingDirection): number {
+        const ownerStats = this.getOwner().getStats();
+        const inteligence = ownerStats.getInteligence();
+        const inteligenceFactorCalculated = (ownerStats.getInteligence() * 1);
+        let directionFactor = 1;
+        if (movingDirection === CharacterMovingDirection.LEFT) {
+            directionFactor = -1;
+        }
+        return (inteligence + inteligenceFactorCalculated) * directionFactor;
+    }
+
+    private calculateCharacterFrontDistance(): number {
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
+        return (sprite.width);
     }
 }

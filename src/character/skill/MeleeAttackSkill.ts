@@ -11,8 +11,10 @@ import { ICollider } from "../../collider/ICollider";
 import { IEffect } from "./effect/IEffect";
 import { PhysicalDamageEffect } from "./effect/PhysicalDamageEffect";
 import { Character } from "../Character";
+import { SkillStateContext } from "./state/SkillStateContext";
+import { ISkillInternal } from "./ISkillInternal";
 
-export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkill {
+export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implements ISkillInternal {
 
     private readonly ASSET_NAME: string;
     private readonly SLASH_ANIM_ALIAS: string;
@@ -25,11 +27,24 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     private owner: Character;
     private isColisionEnabled: boolean;
 
+    private skillStateContext: SkillStateContext;
+
     constructor(id: number) {
         super(id);
         this.ASSET_NAME = "assets/slash.png";
         this.SLASH_ANIM_ALIAS = `${this.getName()}-slash`;
         this.enableColision();
+
+        this.skillStateContext = new SkillStateContext(this);
+        this.skillStateContext.setOnCastCallback(() => {
+            const animationProgress = this.playAnimation();
+
+            if (animationProgress === 1) {
+                this.inactivateSprite();
+                this.enableColision();
+                this.callbackWhenDoneCasting();
+            }
+        });
     }
 
     public preload(loader: Phaser.Loader.LoaderPlugin): void {
@@ -53,15 +68,7 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
     }
 
     public update(): void {
-        const sprite = this.getSpriteColliderWrapper().getGameObject();
-        sprite.anims.play(this.SLASH_ANIM_ALIAS, true);
-        const animationProgress = sprite.anims.getProgress();
-
-        if (animationProgress === 1) {
-            this.inactivateSprite();
-            this.enableColision();
-            this.callbackWhenDoneCasting();
-        }
+        this.skillStateContext.update();
     }
 
     public getAssetName(): string {
@@ -72,16 +79,26 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         return "melee-attack";
     }
 
+    public internalCast(
+        locationX: number,
+        locationY: number,
+        movingDirection: CharacterMovingDirection,
+        callbackWhenDoneCasting: () => void) {
+        this.callbackWhenDoneCasting = callbackWhenDoneCasting;
+        const calculatedX = this.preparePositionXToDraw(locationX, movingDirection);
+        this.activateSprite(calculatedX, locationY);
+    }
+
     public cast(
         locationX: number,
         locationY: number,
         movingDirection: CharacterMovingDirection,
         callbackWhenDoneCasting: () => void): void {
-        this.callbackWhenDoneCasting = callbackWhenDoneCasting;
-
-        const calculatedX = this.preparePositionXToDraw(locationX, movingDirection);
-
-        this.activateSprite(calculatedX, locationY);
+        this.skillStateContext.cast(
+            locationX,
+            locationY,
+            movingDirection,
+            callbackWhenDoneCasting);
     }
 
     public interrupt(): void {
@@ -127,11 +144,6 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
         this.isColisionEnabled = false;
     }
 
-    private calculateCharacterFrontDistance() {
-        const sprite = this.getSpriteColliderWrapper().getGameObject();
-        return (sprite.width * 2);
-    }
-
     private activateSprite(locationX: number, locationY: number): void {
         const sprite = this.getPhysicsSprite();
         sprite.enableBody(true, locationX, locationY, true, true);
@@ -144,6 +156,17 @@ export class MeleeAttackSkill extends CollidedObjectData<ObstacleStats> implemen
 
     private getPhysicsSprite(): Phaser.Physics.Arcade.Sprite {
         return this.getSpriteColliderWrapper().getGameObject() as Phaser.Physics.Arcade.Sprite;
+    }
+
+    private playAnimation(): number {
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
+        sprite.anims.play(this.SLASH_ANIM_ALIAS, true);
+        return sprite.anims.getProgress();
+    }
+
+    private calculateCharacterFrontDistance() {
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
+        return (sprite.width * 2);
     }
 
     private preparePositionXToDraw(locationX: number, movingDirection: CharacterMovingDirection): number {

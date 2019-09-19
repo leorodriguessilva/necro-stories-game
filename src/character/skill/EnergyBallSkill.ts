@@ -138,35 +138,35 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
         this.owner = owner;
     }
 
-    public activateSprite(locationX: number, locationY: number): void {
+    private activateSprite(locationX: number, locationY: number): void {
         const sprite = this.getPhysicsSprite();
         sprite.enableBody(true, locationX, locationY, true, true);
     }
 
-    public inactivateSprite(): void {
+    private inactivateSprite(): void {
         const sprite = this.getPhysicsSprite();
         sprite.disableBody(true, true);
     }
 
-    public enableColision(): void {
+    private enableColision(): void {
         this.isColisionEnabled = true;
     }
 
-    public disableColision(): void {
+    private disableColision(): void {
         this.isColisionEnabled = false;
     }
 
-    public getOwner(): Character {
+    private getOwner(): Character {
         return this.owner;
     }
 
-    public playAnimation(): void {
-        const sprite = this.getSpriteColliderWrapper().getGameObject();
-        sprite.anims.play(this.CAST_ANIM_ALIAS, true);
+    private getPhysicsSprite(): Phaser.Physics.Arcade.Sprite {
+        return this.getSpriteColliderWrapper().getGameObject() as Phaser.Physics.Arcade.Sprite;
     }
 
-    public getPhysicsSprite(): Phaser.Physics.Arcade.Sprite {
-        return this.getSpriteColliderWrapper().getGameObject() as Phaser.Physics.Arcade.Sprite;
+    private playAnimation(): void {
+        const sprite = this.getSpriteColliderWrapper().getGameObject();
+        sprite.anims.play(this.CAST_ANIM_ALIAS, true);
     }
 
     private configureAnimation(): void {

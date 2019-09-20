@@ -102,7 +102,6 @@ export class EnergyBallSkill extends CollidedObjectData<ObstacleStats> implement
         locationY: number,
         movingDirection: CharacterMovingDirection,
         callbackWhenDoneCasting: () => void): void {
-        this.enableColision();
         this.skillStateContext.cast(locationX, locationY, movingDirection, callbackWhenDoneCasting);
     }
 
